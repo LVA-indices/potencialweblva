@@ -1,0 +1,29 @@
+# Media files (large)
+*.mkv
+*.mp3
+*.mp4
+*.wav
+*.avi
+
+# Internal documentation
+info/
+
+# OS files
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# IDE
+.vscode/
+*.swp
+*.swo
+
+# Transcriptions
+transcripcion.txt
+transcripcion_lva.txt
+
+# Claude Code
+.claude/
+
+# Misc
+nul
