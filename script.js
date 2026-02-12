@@ -142,6 +142,8 @@
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
             if (href === '#') return;
+            // Skip data-tab links (handled separately)
+            if (this.hasAttribute('data-tab')) return;
 
             const target = document.querySelector(href);
             if (target) {
@@ -151,6 +153,96 @@
 
                 window.scrollTo({
                     top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // --- Client Type Tab Switching ---
+    const clientTabs = document.querySelectorAll('.client-tab');
+    const clientPanels = document.querySelectorAll('.client-panel');
+
+    function switchClientTab(targetClient) {
+        // Update tabs
+        clientTabs.forEach(tab => {
+            const isTarget = tab.dataset.client === targetClient;
+            tab.classList.toggle('active', isTarget);
+            tab.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+        });
+
+        // Update panels
+        clientPanels.forEach(panel => {
+            const isTarget = panel.id === 'panel-' + targetClient;
+            if (isTarget) {
+                panel.hidden = false;
+                panel.classList.add('active');
+            } else {
+                panel.hidden = true;
+                panel.classList.remove('active');
+            }
+        });
+
+        // Update URL hash without scroll jump
+        history.replaceState(null, '', '#soluciones-' + targetClient);
+    }
+
+    clientTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            switchClientTab(tab.dataset.client);
+        });
+    });
+
+    // Keyboard navigation for tabs (arrow keys)
+    const tabList = document.querySelector('.client-tabs');
+    if (tabList) {
+        tabList.addEventListener('keydown', (e) => {
+            const tabs = Array.from(clientTabs);
+            const currentIndex = tabs.findIndex(t => t.classList.contains('active'));
+            let newIndex = currentIndex;
+
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                e.preventDefault();
+                newIndex = (currentIndex + 1) % tabs.length;
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                newIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+            }
+
+            if (newIndex !== currentIndex) {
+                tabs[newIndex].focus();
+                switchClientTab(tabs[newIndex].dataset.client);
+            }
+        });
+    }
+
+    // Handle initial hash (deep linking)
+    function handleInitialHash() {
+        const hash = window.location.hash;
+        const hashMap = {
+            '#soluciones-agf': 'agf',
+            '#soluciones-distribuidora': 'distribuidora',
+            '#soluciones-afp': 'afp',
+            '#soluciones-intl': 'intl'
+        };
+        if (hashMap[hash]) {
+            switchClientTab(hashMap[hash]);
+        }
+    }
+
+    handleInitialHash();
+
+    // Footer links that target specific tabs
+    document.querySelectorAll('[data-tab]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetTab = link.dataset.tab;
+            switchClientTab(targetTab);
+            const soluciones = document.getElementById('soluciones');
+            if (soluciones) {
+                const navHeight = navbar.offsetHeight;
+                window.scrollTo({
+                    top: soluciones.offsetTop - navHeight,
                     behavior: 'smooth'
                 });
             }

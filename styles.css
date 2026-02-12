@@ -524,45 +524,237 @@ p { margin-bottom: 1rem; }
     color: var(--color-gray-700);
 }
 
-.solution-block {
+/* Client Type Tabs */
+.client-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.client-tab {
+    background: white;
+    border: 1.5px solid var(--color-gray-300);
+    border-radius: var(--border-radius-md);
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    min-width: 200px;
+    font-family: var(--font-primary);
+}
+
+.client-tab:hover {
+    border-color: var(--color-cyan);
+    background: rgba(0, 202, 233, 0.04);
+}
+
+.client-tab.active {
+    background: var(--color-cyan);
+    border-color: var(--color-cyan);
+}
+
+.client-tab-name {
+    display: block;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--color-navy);
+    margin-bottom: 0.2rem;
+}
+
+.client-tab.active .client-tab-name {
+    color: var(--color-navy);
+}
+
+.client-tab-desc {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-gray-700);
+    opacity: 0.7;
+}
+
+.client-tab.active .client-tab-desc {
+    color: var(--color-navy);
+    opacity: 0.8;
+}
+
+/* Client Panels */
+.client-panels {
+    position: relative;
+}
+
+.client-panel {
+    display: none;
+    animation: panelFadeIn 0.35s ease;
+}
+
+.client-panel.active {
+    display: block;
+}
+
+@keyframes panelFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.panel-header {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto 3rem;
+}
+
+.panel-header h3 {
+    color: var(--color-navy);
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.panel-header p {
+    color: var(--color-gray-700);
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+/* Product Groups */
+.product-group {
+    margin-bottom: 2.5rem;
+}
+
+.group-label {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-cyan);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(0, 202, 233, 0.2);
+}
+
+/* Business line color indicators */
+.product-card[data-line="distribucion"] {
+    border-top-color: var(--color-cyan);
+}
+
+.product-card[data-line="inversion"] {
+    border-top-color: var(--color-lime);
+}
+
+.product-card[data-line="inversion"]:hover {
+    box-shadow: 0 8px 25px rgba(221, 255, 13, 0.12);
+}
+
+.product-card[data-line="compliance"] {
+    border-top-color: #4DD0E1;
+}
+
+.product-card[data-line="compliance"]:hover {
+    box-shadow: 0 8px 25px rgba(77, 208, 225, 0.12);
+}
+
+/* Awards Callout */
+.panel-awards-callout {
+    background: rgba(0, 202, 233, 0.04);
+    border: 1px solid rgba(0, 202, 233, 0.15);
+    border-radius: var(--border-radius-md);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.panel-awards-callout p {
+    color: var(--color-gray-700);
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.panel-awards-callout strong {
+    color: var(--color-navy);
+}
+
+/* Panel CTA */
+.panel-cta {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+/* Ecosistema Section */
+.ecosistema {
+    padding: 100px 0;
+    background: var(--color-dark-blue);
+    color: var(--color-white);
+}
+
+.ecosistema .section-header h2 {
+    color: var(--color-white);
+}
+
+.ecosistema .section-header p {
+    color: var(--color-gray-300);
+}
+
+.ecosistema-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    margin-bottom: 4rem;
-    align-items: start;
+    gap: 2rem;
+    margin-top: 3rem;
 }
 
-.solution-block.reverse {
-    direction: rtl;
+.ecosistema-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    transition: var(--transition);
 }
 
-.solution-block.reverse > * {
-    direction: ltr;
+.ecosistema-card:hover {
+    border-color: rgba(0, 202, 233, 0.25);
+    transform: translateY(-4px);
 }
 
-.solution-label {
-    display: inline-block;
-    background: var(--color-cyan);
-    color: var(--color-navy);
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
-    font-weight: 700;
-    font-size: 0.8rem;
-    margin-bottom: 1rem;
-    letter-spacing: 0.02em;
+.ecosistema-card-accent {
+    height: 4px;
+    background: var(--gradient-accent);
 }
 
-.solution-content h3 {
-    color: var(--color-navy);
-    margin-bottom: 1rem;
+.ecosistema-card-content {
+    padding: 2rem;
+}
+
+.ecosistema-card h3 {
     font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-white);
 }
 
-.solution-content p {
-    color: var(--color-gray-700);
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
+.ecosistema-tagline {
+    color: var(--color-cyan);
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.ecosistema-card-content > p {
+    color: var(--color-gray-300);
+    font-size: 0.9rem;
     line-height: 1.6;
+}
+
+.ecosistema-badge {
+    display: inline-block;
+    background: rgba(0, 202, 233, 0.1);
+    color: var(--color-cyan);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 1rem;
 }
 
 /* Product Cards Grid */
@@ -950,10 +1142,6 @@ p { margin-bottom: 1rem; }
         gap: 2rem;
     }
 
-    .solution-block {
-        gap: 2rem;
-    }
-
     .about-grid {
         gap: 2rem;
     }
@@ -1005,18 +1193,35 @@ p { margin-bottom: 1rem; }
         grid-template-columns: 1fr;
     }
 
-    .solution-block,
-    .solution-block.reverse {
-        grid-template-columns: 1fr;
-        direction: ltr;
+    .client-tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
     }
 
-    .solution-block.reverse > * {
-        direction: ltr;
+    .client-tab {
+        min-width: unset;
+        padding: 0.75rem 1rem;
+    }
+
+    .client-tab-name {
+        font-size: 0.8rem;
+    }
+
+    .client-tab-desc {
+        font-size: 0.7rem;
+    }
+
+    .panel-header h3 {
+        font-size: 1.35rem;
     }
 
     .product-grid {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .ecosistema-grid {
+        grid-template-columns: 1fr;
     }
 
     .steps {
@@ -1066,6 +1271,14 @@ p { margin-bottom: 1rem; }
     .btn-primary, .btn-secondary {
         width: 100%;
         text-align: center;
+    }
+
+    .client-tabs {
+        grid-template-columns: 1fr;
+    }
+
+    .client-tab-desc {
+        display: none;
     }
 
     .product-grid {
