@@ -249,4 +249,110 @@
         });
     });
 
+    // --- Contact Modal ---
+    const modal = document.getElementById('contactModal');
+    const btnContacto = document.getElementById('btn-contacto');
+    const openModalBtns = document.querySelectorAll('.open-contact-modal');
+    const closeBtn = document.querySelector('.modal-close');
+    const contactForm = document.getElementById('contactForm');
+    const formSuccess = document.getElementById('formSuccess');
+    const formError = document.getElementById('formError');
+
+    // Open modal
+    function openModal(e) {
+        e.preventDefault();
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Close modal
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Event listeners for opening modal
+    if (btnContacto) {
+        btnContacto.addEventListener('click', openModal);
+    }
+
+    openModalBtns.forEach(btn => {
+        btn.addEventListener('click', openModal);
+    });
+
+    // Event listener for closing modal
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
+
+    // Close modal when clicking outside
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    // Handle form submission
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const submitBtn = contactForm.querySelector('.btn-form-submit');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.textContent = 'Enviando...';
+            submitBtn.disabled = true;
+
+            // Hide previous messages
+            formSuccess.style.display = 'none';
+            formError.style.display = 'none';
+
+            try {
+                const formData = new FormData(contactForm);
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // Success
+                    contactForm.style.display = 'none';
+                    formSuccess.style.display = 'block';
+
+                    // Reset form after delay and close modal
+                    setTimeout(() => {
+                        contactForm.reset();
+                        contactForm.style.display = 'block';
+                        closeModal();
+
+                        // Reset success message for next time
+                        setTimeout(() => {
+                            formSuccess.style.display = 'none';
+                        }, 500);
+                    }, 3000);
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                // Error
+                formError.style.display = 'block';
+                console.error('Form submission error:', error);
+            } finally {
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+            }
+        });
+    }
+
 })();

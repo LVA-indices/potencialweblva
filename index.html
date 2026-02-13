@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="LVA Índices: Plataforma SaaS de distribución, inversión y compliance para gestoras de activos en Latinoamérica. 16 años impulsando el crecimiento de 120+ clientes.">
+    <meta name="description" content="LVA Índices: Plataforma SaaS de distribución, inversión y compliance para gestoras de activos en Latinoamérica. 17+ años impulsando el crecimiento de 120+ clientes.">
     <title>LVA Índices - Tecnología Financiera para Gestoras de Activos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +21,8 @@
                 <li><a href="#soluciones">Soluciones</a></li>
                 <li><a href="#clientes">Clientes</a></li>
                 <li><a href="#nosotros">Nosotros</a></li>
-                <li><a href="#contacto" class="btn-primary-nav">Contacto</a></li>
+                <li><a href="https://www.lvaindices.com/login3/loginwebLVA.asp?KeepThis=true&TB_iframe=true&height=300&width=320" class="nav-link-acceso" target="_blank">Acceso Clientes</a></li>
+                <li><a href="#" class="btn-primary-nav" id="btn-contacto">Contacto</a></li>
             </ul>
             <div class="hamburger" aria-label="Menú" role="button" tabindex="0">
                 <span></span>
@@ -38,14 +39,14 @@
         <div class="container">
             <div class="hero-content">
                 <h1 class="hero-headline">
-                    Enfócate en gestionar activos.<br>
-                    <span class="text-cyan">Nosotros impulsamos tu crecimiento.</span>
+                    Una plataforma. Tres soluciones: Distribuye, invierte, cumple.<br>
+                    <span class="text-cyan">Nosotros simplificamos. Tú creces.</span>
                 </h1>
                 <p class="hero-subheadline">
-                    Tecnología integral de distribución, inversión y compliance para gestoras de activos en Chile, Colombia, México y Perú. 16 años anticipándonos al mercado.
+                    Tecnología integral de distribución, inversión y compliance para gestoras de activos en Chile, Colombia, México y Perú. 17+ años anticipándonos al mercado.
                 </p>
                 <div class="hero-cta">
-                    <a href="#contacto" class="btn-primary">Agenda una Demo</a>
+                    <a href="#" class="btn-primary open-contact-modal">Agenda una Demo</a>
                     <a href="#soluciones" class="btn-secondary">Conoce Nuestras Soluciones</a>
                 </div>
             </div>
@@ -53,7 +54,7 @@
                 <div class="stats-card">
                     <div class="stats-card-line"></div>
                     <div class="stat">
-                        <span class="stat-number" data-target="16">0</span>
+                        <span class="stat-number" data-target="17" data-suffix="+">0</span>
                         <span class="stat-label">Años de Experiencia</span>
                     </div>
                     <div class="stat">
@@ -121,252 +122,283 @@
     <section id="soluciones" class="solutions">
         <div class="container">
             <div class="section-header">
-                <h2>Soluciones para tu negocio</h2>
-                <p>Selecciona tu tipo de organización y descubre cómo LVA se integra en tu operación.</p>
+                <h2>Soluciones que impulsan tu negocio</h2>
+                <p>Tecnología especializada para cada desafío de tu operación: distribuir fondos, tomar decisiones de inversión y cumplir normativa.</p>
             </div>
 
-            <!-- Client Type Tabs -->
-            <div class="client-tabs" role="tablist" aria-label="Tipo de cliente">
-                <button class="client-tab active" role="tab" aria-selected="true" aria-controls="panel-agf" id="tab-agf" data-client="agf">
-                    <span class="client-tab-name">Gestora de Activos (AGF)</span>
-                    <span class="client-tab-desc">Administradoras de fondos</span>
-                </button>
-                <button class="client-tab" role="tab" aria-selected="false" aria-controls="panel-distribuidora" id="tab-distribuidora" data-client="distribuidora">
-                    <span class="client-tab-name">Distribuidora / Agencia</span>
-                    <span class="client-tab-desc">Asesores y fuerzas de venta</span>
-                </button>
-                <button class="client-tab" role="tab" aria-selected="false" aria-controls="panel-afp" id="tab-afp" data-client="afp">
-                    <span class="client-tab-name">AFP / Pensiones</span>
-                    <span class="client-tab-desc">Administradoras de pensiones</span>
-                </button>
-                <button class="client-tab" role="tab" aria-selected="false" aria-controls="panel-intl" id="tab-intl" data-client="intl">
-                    <span class="client-tab-name">Asset Manager Internacional</span>
-                    <span class="client-tab-desc">Managers extranjeros en Latam</span>
-                </button>
-            </div>
+            <!-- Solution Areas -->
+            <div class="solution-areas">
 
-            <!-- Client Panels -->
-            <div class="client-panels">
-
-                <!-- Panel: AGF -->
-                <div class="client-panel active" role="tabpanel" id="panel-agf" aria-labelledby="tab-agf">
-                    <div class="panel-header">
-                        <h3>Todo lo que necesitas para gestionar activos, en una sola plataforma</h3>
-                        <p>Distribución, datos de mercado, compliance y riesgo: productos SaaS que se integran en tu operación diaria.</p>
-                    </div>
-
-                    <div class="product-group">
-                        <span class="group-label">Distribución y Comercial</span>
-                        <div class="product-grid">
-                            <div class="product-card" data-line="distribucion">
-                                <h4>Elevest</h4>
-                                <p>Plataforma integral para asesores financieros con información de mercado y tecnología</p>
-                            </div>
-                            <div class="product-card" data-line="distribucion">
-                                <h4>SPAI</h4>
-                                <p>+1,000 propuestas de inversión generadas diariamente para fuerzas de venta</p>
-                            </div>
-                            <div class="product-card" data-line="distribucion">
-                                <h4>FundMate</h4>
-                                <p>Analytics de preferencias de inversionistas institucionales globales</p>
-                            </div>
-                            <div class="product-card" data-line="distribucion">
-                                <h4>Fichas Comerciales</h4>
-                                <p>Información de calidad alineada a tu estrategia de marketing</p>
-                            </div>
+                <!-- Área 1: Distribución & Comercialización -->
+                <div class="solution-area fade-in-up">
+                    <div class="area-header">
+                        <div class="area-icon" style="background: linear-gradient(135deg, #00CAE9 0%, #0099BA 100%);">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>Distribución & Comercialización</h3>
+                            <p class="area-tagline">Automatiza propuestas, potencia a tus asesores y conecta con inversionistas</p>
                         </div>
                     </div>
 
-                    <div class="product-group">
-                        <span class="group-label">Datos de Mercado e Inversión</span>
-                        <div class="product-grid">
-                            <div class="product-card" data-line="inversion">
-                                <h4>Infobonos</h4>
-                                <p>Tu ventana al mercado de deuda chilena con analytics avanzados</p>
+                    <div class="product-grid">
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
+                                <h4>Elevest</h4>
+                                <span class="product-badge">Plataforma Integral</span>
                             </div>
-                            <div class="product-card" data-line="inversion">
+                            <p class="product-description">
+                                Tu equipo de asesores pierde tiempo buscando información dispersa. Elevest centraliza datos de mercado, herramientas de análisis y contenido actualizado en una sola plataforma web. Resultado: más tiempo con clientes, menos operación.
+                            </p>
+                            <div class="product-highlights">
+                                <span>✓ Información unificada</span>
+                                <span>✓ Más eficiencia comercial</span>
+                            </div>
+                        </div>
+
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
+                                <h4>SPAI</h4>
+                                <span class="product-badge">Propuestas Automatizadas</span>
+                            </div>
+                            <p class="product-description">
+                                Generar propuestas personalizadas consume horas de tu equipo. SPAI automatiza este proceso con motor de recomendaciones que genera +1,000 propuestas diarias basadas en perfiles de riesgo. Tu fuerza de venta se enfoca en vender, no en armar propuestas.
+                            </p>
+                            <div class="product-highlights">
+                                <span>✓ +1,000 propuestas diarias</span>
+                                <span>✓ Ahorra 80% del tiempo</span>
+                            </div>
+                        </div>
+
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
+                                <h4>FundMate</h4>
+                                <span class="product-badge">Intelligence Institucional</span>
+                            </div>
+                            <p class="product-description">
+                                No sabes qué buscan los inversionistas institucionales globales. FundMate analiza preferencias y comportamientos de compradores institucionales para que ajustes tu estrategia comercial. Convierte datos en oportunidades de venta.
+                            </p>
+                            <div class="product-highlights">
+                                <span>✓ Analytics de preferencias</span>
+                                <span>✓ Insights accionables</span>
+                            </div>
+                        </div>
+
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
+                                <h4>Fichas Comerciales</h4>
+                                <span class="product-badge">Marketing de Fondos</span>
+                            </div>
+                            <p class="product-description">
+                                Tus materiales comerciales no reflejan tu estrategia de marketing. Fichas Comerciales genera información profesional de fondos alineada a tu posicionamiento de marca. Comunicación consistente que impulsa ventas.
+                            </p>
+                            <div class="product-highlights">
+                                <span>✓ Alineado a tu branding</span>
+                                <span>✓ Información de calidad</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Área 2: Inversión & Mercado -->
+                <div class="solution-area fade-in-up">
+                    <div class="area-header">
+                        <div class="area-icon" style="background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="1" x2="12" y2="23"></line>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>Inversión & Mercado</h3>
+                            <p class="area-tagline">Precios, analytics y riesgo para decisiones de inversión informadas</p>
+                        </div>
+                    </div>
+
+                    <div class="product-grid">
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
+                                <h4>Infobonos</h4>
+                                <span class="product-badge">Analytics de Deuda</span>
+                            </div>
+                            <p class="product-description">
+                                El mercado de deuda chilena es opaco y fragmentado. Infobonos te entrega analytics avanzados, spreads, curvas y comparables en tiempo real. Toma decisiones de inversión con la mejor información disponible del mercado local.
+                            </p>
+                            <div class="product-highlights">
+                                <span>✓ Mercado completo</span>
+                                <span>✓ Analytics en tiempo real</span>
+                            </div>
+                        </div>
+
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
                                 <h4>Vector de Precios</h4>
-                                <p>+11,000 precios diarios de instrumentos de deuda local</p>
+                                <span class="product-badge">Pricing Oficial</span>
                             </div>
-                            <div class="product-card" data-line="inversion">
+                            <p class="product-description">
+                                Necesitas precios confiables para valorizar carteras. Vector de Precios te entrega +11,000 precios diarios de instrumentos de deuda local con metodología transparente. Elimina errores de valorización y reduce riesgo operacional.
+                            </p>
+                            <div class="product-highlights">
+                                <span>✓ +11,000 instrumentos</span>
+                                <span>✓ Metodología certificada</span>
+                            </div>
+                        </div>
+
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
                                 <h4>Índices</h4>
-                                <p>+1,400 índices de desempeño para evaluación de inversiones</p>
+                                <span class="product-badge">Benchmarking</span>
                             </div>
-                            <div class="product-card" data-line="inversion">
+                            <p class="product-description">
+                                Evaluar desempeño sin índices de referencia adecuados es imposible. Accede a +1,400 índices de desempeño para benchmark de fondos, análisis de atribución y reporting a clientes. Mide y comunica resultados con estándares del mercado.
+                            </p>
+                            <div class="product-highlights">
+                                <span>✓ +1,400 índices</span>
+                                <span>✓ Estándares de mercado</span>
+                            </div>
+                        </div>
+
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
                                 <h4>Valorización</h4>
-                                <p>Cobertura completa desde instrumentos simples hasta derivados complejos</p>
+                                <span class="product-badge">Valuation Completo</span>
                             </div>
-                            <div class="product-card" data-line="inversion">
+                            <p class="product-description">
+                                Valorizar instrumentos complejos internamente es costoso. Nuestra solución cubre desde bonos simples hasta derivados estructurados con modelos financieros robustos. Reduce costos operativos y mantén compliance con reguladores.
+                            </p>
+                            <div class="product-highlights">
+                                <span>✓ Simples a complejos</span>
+                                <span>✓ Modelos certificados</span>
+                            </div>
+                        </div>
+
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
                                 <h4>Herramientas Front Office</h4>
-                                <p>Información de mercado diaria para 60+ asset managers</p>
+                                <span class="product-badge">Información Diaria</span>
                             </div>
-                            <div class="product-card" data-line="inversion">
+                            <p class="product-description">
+                                Tu equipo de inversiones necesita información consolidada al inicio del día. Entregamos data de mercado procesada y lista para usar a 60+ asset managers. Empieza tu jornada con toda la información que necesitas.
+                            </p>
+                            <div class="product-highlights">
+                                <span>✓ Información consolidada</span>
+                                <span>✓ Lista desde las 8 AM</span>
+                            </div>
+                        </div>
+
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
                                 <h4>Riesgo</h4>
-                                <p>Cálculo y gestión de riesgo financiero para tu administradora</p>
+                                <span class="product-badge">Risk Management</span>
+                            </div>
+                            <p class="product-description">
+                                Gestionar riesgo financiero sin herramientas especializadas expone tu operación. Calcula VaR, sensibilidades, límites y reporta a reguladores desde una plataforma integrada. Controla el riesgo antes de que se materialice.
+                            </p>
+                            <div class="product-highlights">
+                                <span>✓ Cálculo automatizado</span>
+                                <span>✓ Reporting regulatorio</span>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="product-group">
-                        <span class="group-label">Compliance y Regulatorio</span>
-                        <div class="product-grid">
-                            <div class="product-card" data-line="compliance">
+                <!-- Área 3: Compliance & Regulatorio -->
+                <div class="solution-area fade-in-up">
+                    <div class="area-header">
+                        <div class="area-icon" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                <polyline points="9 12 11 14 15 10"></polyline>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>Compliance & Regulatorio</h3>
+                            <p class="area-tagline">Cumple normativa local sin esfuerzo manual ni riesgo de sanciones</p>
+                        </div>
+                    </div>
+
+                    <div class="product-grid">
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
                                 <h4>SIFIC</h4>
-                                <p>Proveedor oficial de información de la industria FIC colombiana</p>
+                                <span class="product-badge">Proveedor Oficial Colombia</span>
                             </div>
-                            <div class="product-card" data-line="compliance">
+                            <p class="product-description">
+                                Operar en Colombia requiere información certificada de la industria FIC. Como proveedor oficial, SIFIC te entrega data regulatoria completa y actualizada de fondos colombianos. Cumple con la Superfinanciera sin procesos manuales.
+                            </p>
+                            <div class="product-highlights">
+                                <span>✓ Proveedor oficial</span>
+                                <span>✓ Data certificada</span>
+                            </div>
+                        </div>
+
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
                                 <h4>Fichas Normativas</h4>
-                                <p>90% de adopción de mercado. +400 fichas mensuales en Chile y Colombia</p>
+                                <span class="product-badge">90% Adopción</span>
                             </div>
-                            <div class="product-card" data-line="compliance">
+                            <p class="product-description">
+                                Producir fichas regulatorias mensualmente consume tiempo y genera riesgo de errores. Entregamos +400 fichas mensuales con el formato exacto que exige cada regulador (CMF, Superfinanciera). 90% del mercado confía en nuestras fichas.
+                            </p>
+                            <div class="product-highlights">
+                                <span>✓ +400 fichas mensuales</span>
+                                <span>✓ Formato regulatorio exacto</span>
+                            </div>
+                        </div>
+
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
                                 <h4>Reportes de Distribución</h4>
-                                <p>Compliance de distribución para managers internacionales</p>
+                                <span class="product-badge">Managers Internacionales</span>
+                            </div>
+                            <p class="product-description">
+                                Asset managers internacionales necesitan reportar distribución local a reguladores de cada país. Generamos reportes de compliance específicos para Chile, Colombia, México y Perú. Distribuye en Latam sin fricción regulatoria.
+                            </p>
+                            <div class="product-highlights">
+                                <span>✓ 4 países</span>
+                                <span>✓ Formato local</span>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="panel-awards-callout">
-                        <p>Tus fondos pueden ser reconocidos en el <strong>Premio Salmón</strong> (Chile) y <strong>Premio Prixtar</strong> (Colombia), los principales premios de la industria. <a href="#ecosistema" class="btn-link">Conoce más →</a></p>
-                    </div>
-
-                    <div class="panel-cta">
-                        <a href="#contacto" class="btn-primary">Agenda una demo para tu AGF</a>
-                    </div>
-                </div>
-
-                <!-- Panel: Distribuidora -->
-                <div class="client-panel" role="tabpanel" id="panel-distribuidora" aria-labelledby="tab-distribuidora" hidden>
-                    <div class="panel-header">
-                        <h3>Potencia tu fuerza de distribución con tecnología y datos</h3>
-                        <p>Herramientas para asesores financieros, propuestas automatizadas y compliance de distribución.</p>
-                    </div>
-
-                    <div class="product-group">
-                        <span class="group-label">Herramientas de Venta</span>
-                        <div class="product-grid">
-                            <div class="product-card" data-line="distribucion">
-                                <h4>Elevest</h4>
-                                <p>Plataforma integral para tus asesores financieros</p>
-                            </div>
-                            <div class="product-card" data-line="distribucion">
-                                <h4>SPAI</h4>
-                                <p>+1,000 propuestas de inversión diarias listas para tu fuerza de venta</p>
-                            </div>
-                            <div class="product-card" data-line="distribucion">
-                                <h4>FundMate</h4>
-                                <p>Entiende las preferencias de inversionistas institucionales</p>
-                            </div>
-                            <div class="product-card" data-line="distribucion">
-                                <h4>Fichas Comerciales</h4>
-                                <p>Información de fondos alineada a tu estrategia comercial</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-group">
-                        <span class="group-label">Compliance</span>
-                        <div class="product-grid">
-                            <div class="product-card" data-line="compliance">
-                                <h4>SIFIC</h4>
-                                <p>Información oficial de la industria FIC colombiana</p>
-                            </div>
-                            <div class="product-card" data-line="compliance">
-                                <h4>Fichas Normativas</h4>
-                                <p>Fichas regulatorias con 90% de adopción de mercado</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="panel-awards-callout">
-                        <p>Los fondos que distribuyes pueden destacarse en el <strong>Premio Salmón</strong> y <strong>Premio Prixtar</strong>, generando confianza y visibilidad. <a href="#ecosistema" class="btn-link">Conoce más →</a></p>
-                    </div>
-
-                    <div class="panel-cta">
-                        <a href="#contacto" class="btn-primary">Agenda una demo para tu agencia</a>
-                    </div>
-                </div>
-
-                <!-- Panel: AFP -->
-                <div class="client-panel" role="tabpanel" id="panel-afp" aria-labelledby="tab-afp" hidden>
-                    <div class="panel-header">
-                        <h3>Transparencia y compliance para tus inversiones en fondos extranjeros</h3>
-                        <p>Reportes regulatorios, apertura de carteras subyacentes e índices de benchmark.</p>
-                    </div>
-
-                    <div class="product-group">
-                        <span class="group-label">Compliance y Reportería</span>
-                        <div class="product-grid">
-                            <div class="product-card" data-line="compliance">
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
                                 <h4>Activos Subyacentes</h4>
-                                <p>Apertura completa de carteras de fondos extranjeros hasta el último papel</p>
+                                <span class="product-badge">Transparencia Total</span>
                             </div>
-                            <div class="product-card" data-line="compliance">
-                                <h4>Fichas Normativas</h4>
-                                <p>+400 fichas mensuales con 90% de adopción de mercado</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-group">
-                        <span class="group-label">Datos de Mercado</span>
-                        <div class="product-grid">
-                            <div class="product-card" data-line="inversion">
-                                <h4>Índices</h4>
-                                <p>+1,400 índices de desempeño para benchmark de inversiones</p>
-                            </div>
-                            <div class="product-card" data-line="inversion">
-                                <h4>Infobonos</h4>
-                                <p>Analytics del mercado de deuda chilena</p>
+                            <p class="product-description">
+                                AFP y pensiones deben reportar carteras subyacentes de fondos extranjeros a reguladores. Abrimos las carteras hasta el último papel para que cumplas requisitos de transparencia y límites de inversión sin esfuerzo manual.
+                            </p>
+                            <div class="product-highlights">
+                                <span>✓ Apertura completa</span>
+                                <span>✓ Compliance automático</span>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="panel-cta">
-                        <a href="#contacto" class="btn-primary">Agenda una demo para tu administradora</a>
-                    </div>
-                </div>
-
-                <!-- Panel: Asset Manager Internacional -->
-                <div class="client-panel" role="tabpanel" id="panel-intl" aria-labelledby="tab-intl" hidden>
-                    <div class="panel-header">
-                        <h3>Distribuye y cumple normativa en Latinoamérica sin fricción</h3>
-                        <p>Compliance local, fichas normativas y visibilidad para tus fondos en Chile, Colombia, México y Perú.</p>
-                    </div>
-
-                    <div class="product-group">
-                        <span class="group-label">Compliance Local</span>
-                        <div class="product-grid">
-                            <div class="product-card" data-line="compliance">
-                                <h4>Reportes de Distribución</h4>
-                                <p>Cumple con la normativa de distribución en cada país</p>
-                            </div>
-                            <div class="product-card" data-line="compliance">
-                                <h4>Fichas Normativas</h4>
-                                <p>Fichas regulatorias con el formato que exige cada regulador</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-group">
-                        <span class="group-label">Visibilidad Comercial</span>
-                        <div class="product-grid">
-                            <div class="product-card" data-line="distribucion">
-                                <h4>Fichas Comerciales</h4>
-                                <p>Presenta tus fondos con información de calidad para el mercado local</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="panel-awards-callout">
-                        <p>Tus fondos pueden participar en el <strong>Premio Salmón</strong> (Chile) y <strong>Premio Prixtar</strong> (Colombia), ganando visibilidad ante asesores e inversionistas locales. <a href="#ecosistema" class="btn-link">Conoce más →</a></p>
-                    </div>
-
-                    <div class="panel-cta">
-                        <a href="#contacto" class="btn-primary">Agenda una demo para tu operación en Latam</a>
                     </div>
                 </div>
 
             </div>
+
+            <!-- Awards Callout -->
+            <div class="solutions-footer-callout">
+                <div class="callout-content">
+                    <h3>Reconocimiento que impulsa ventas</h3>
+                    <p>Tus fondos pueden destacarse en el <strong>Premio Salmón</strong> (Chile) y <strong>Premio Prixtar</strong> (Colombia), los principales reconocimientos de la industria que generan confianza ante asesores e inversionistas.</p>
+                    <a href="#ecosistema" class="btn-link">Conoce los premios →</a>
+                </div>
+            </div>
+
+            <!-- Universal CTA -->
+            <div class="solutions-cta">
+                <h3>¿Quieres ver cómo funcionan nuestras soluciones?</h3>
+                <p>Agenda una demo de 30 minutos y descubre cómo LVA se integra en tu operación.</p>
+                <a href="#" class="btn-primary open-contact-modal">Agenda una Demo</a>
+            </div>
+
         </div>
     </section>
 
@@ -432,7 +464,7 @@
     <!-- Stats / Testimonials -->
     <section id="clientes" class="testimonials">
         <div class="container">
-            <h2>16 años construyendo confianza</h2>
+            <h2>17+ años construyendo confianza</h2>
             <div class="testimonial-stats">
                 <div class="testimonial-stat fade-in-up">
                     <h3><span class="stat-number" data-target="90" data-suffix="%">0</span></h3>
@@ -456,12 +488,12 @@
             <div class="about-grid">
                 <div class="about-content">
                     <h2>Tu socio tecnológico en la industria de fondos</h2>
-                    <p class="about-tagline">16 años de expertise. Una visión que se adelanta al mercado.</p>
+                    <p class="about-tagline">17+ años de expertise. Una visión que se adelanta al mercado.</p>
                     <p class="about-description">
                         Desde 2008, LVA ha sido el socio tecnológico de gestoras de activos en Latinoamérica. No vendemos software genérico — nuestra plataforma SaaS se integra en tu flujo de trabajo para que compitas sin los costos de construir tecnología internamente.
                     </p>
                     <p class="about-description">
-                        Nuestro equipo combina expertise en riesgo, productos financieros, fondos y tecnología. Entendemos tu industria porque hemos estado inmersos en ella durante 16 años — anticipando tendencias como la separación de asesores, la arquitectura abierta y la integración natural de inteligencia artificial.
+                        Nuestro equipo combina expertise en riesgo, productos financieros, fondos y tecnología. Entendemos tu industria porque hemos estado inmersos en ella durante 17+ años — anticipando tendencias como la separación de asesores, la arquitectura abierta y la integración natural de inteligencia artificial.
                     </p>
                     <p class="about-description about-ai">
                         La inteligencia artificial es parte integral de cómo desarrollamos y operamos. No es un slogan — es la evolución natural de un equipo que siempre ha buscado adelantarse.
@@ -472,7 +504,7 @@
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00CAE9" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
                         <div>
                             <h4>Expertise en Fondos</h4>
-                            <p>16 años de conocimiento profundo en la industria</p>
+                            <p>17+ años de conocimiento profundo en la industria</p>
                         </div>
                     </div>
                     <div class="capability-badge fade-in-up">
@@ -507,7 +539,7 @@
             <h2>Comencemos hoy</h2>
             <p>Agenda una demo de 30 minutos y descubre cómo LVA puede acelerar tu crecimiento.</p>
             <div class="cta-buttons">
-                <a href="mailto:contacto@lvaindices.com" class="btn-primary-large">Agenda tu Demo</a>
+                <a href="#" class="btn-primary-large open-contact-modal">Agenda tu Demo</a>
                 <p class="cta-subtext">O escríbenos a <a href="mailto:contacto@lvaindices.com">contacto@lvaindices.com</a></p>
             </div>
         </div>
@@ -561,6 +593,88 @@
             </div>
         </div>
     </footer>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Contáctanos</h2>
+                <button class="modal-close" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-intro">Completa el formulario y nos pondremos en contacto contigo a la brevedad.</p>
+                <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+                    <!-- Reemplaza con tu Access Key de Web3Forms o tu sistema de tickets -->
+                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                    <input type="hidden" name="subject" value="Nueva solicitud de contacto - LVA Índices">
+                    <input type="hidden" name="from_name" value="LVA Índices Website">
+
+                    <div class="form-group">
+                        <label for="name">Nombre completo *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email corporativo *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">Empresa *</label>
+                        <input type="text" id="company" name="company" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="country">País *</label>
+                        <select id="country" name="country" required>
+                            <option value="">Selecciona tu país</option>
+                            <option value="Chile">Chile</option>
+                            <option value="Colombia">Colombia</option>
+                            <option value="México">México</option>
+                            <option value="Perú">Perú</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="clientType">Tipo de organización *</label>
+                        <select id="clientType" name="clientType" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="AGF">Gestora de Activos (AGF)</option>
+                            <option value="Distribuidora">Distribuidora / Agencia</option>
+                            <option value="AFP">AFP / Pensiones</option>
+                            <option value="Asset Manager Intl">Asset Manager Internacional</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Mensaje *</label>
+                        <textarea id="message" name="message" rows="4" required placeholder="Cuéntanos cómo podemos ayudarte..."></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary btn-form-submit">Enviar Solicitud</button>
+                    </div>
+                </form>
+                <div id="formSuccess" class="form-message success" style="display: none;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <p><strong>¡Gracias por contactarnos!</strong><br>Hemos recibido tu solicitud y nos pondremos en contacto pronto.</p>
+                </div>
+                <div id="formError" class="form-message error" style="display: none;">
+                    <p><strong>Hubo un error al enviar el formulario.</strong><br>Por favor intenta nuevamente o escríbenos a <a href="mailto:contacto@lvaindices.com">contacto@lvaindices.com</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
