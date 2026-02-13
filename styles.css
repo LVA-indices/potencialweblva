@@ -1908,3 +1908,28 @@ p { margin-bottom: 1rem; }
         margin-bottom: 1.25rem;
     }
 }
+
+/* Product Card Links */
+.product-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card-link:hover {
+    text-decoration: none;
+}
+
+/* Ecosistema Card Link */
+.ecosistema-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.ecosistema-card-link:hover {
+    text-decoration: none;
+    transform: translateY(-4px);
+}
