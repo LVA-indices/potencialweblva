@@ -1316,11 +1316,112 @@ p { margin-bottom: 1rem; }
    SOLUTIONS V2 - Product-Focused Layout
    ============================================ */
 
-.solution-areas {
+/* Solution Tabs */
+.solution-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.solution-tab {
+    background: white;
+    border: 2px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.solution-tab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: transparent;
+    transition: background 0.3s ease;
+}
+
+.solution-tab:hover {
+    border-color: #00CAE9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 202, 233, 0.15);
+}
+
+.solution-tab.active {
+    border-color: #00CAE9;
+    background: linear-gradient(135deg, #F0F9FF 0%, #FFFFFF 100%);
+}
+
+.solution-tab.active::before {
+    background: linear-gradient(90deg, #00CAE9 0%, #0099BA 100%);
+}
+
+.tab-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: #F3F4F6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.solution-tab.active .tab-icon {
+    background: linear-gradient(135deg, #00CAE9 0%, #0099BA 100%);
+}
+
+.solution-tab.active .tab-icon svg {
+    stroke: white;
+}
+
+.tab-icon svg {
+    stroke: #6B7280;
+    transition: stroke 0.3s ease;
+}
+
+.solution-tab:hover .tab-icon {
+    transform: scale(1.05);
+}
+
+.tab-text {
     display: flex;
     flex-direction: column;
-    gap: 4rem;
-    margin-top: 3rem;
+    gap: 0.25rem;
+    text-align: left;
+}
+
+.tab-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111827;
+    line-height: 1.3;
+}
+
+.tab-desc {
+    font-size: 0.875rem;
+    color: #6B7280;
+    line-height: 1.4;
+}
+
+.solution-tab.active .tab-desc {
+    color: #00CAE9;
+}
+
+/* Solution Areas Container */
+.solution-areas {
+    position: relative;
+    min-height: 400px;
 }
 
 .solution-area {
@@ -1330,11 +1431,23 @@ p { margin-bottom: 1rem; }
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
     border: 1px solid #E5E7EB;
     transition: all 0.3s ease;
+    display: none;
 }
 
-.solution-area:hover {
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
+.solution-area.active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .area-header {
@@ -1490,6 +1603,29 @@ p { margin-bottom: 1rem; }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    .solution-tabs {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+    }
+
+    .solution-tab {
+        padding: 1.25rem;
+    }
+
+    .tab-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .tab-name {
+        font-size: 0.95rem;
+    }
+
+    .tab-desc {
+        font-size: 0.8rem;
+    }
+
     .solution-area {
         padding: 2rem 1.5rem;
     }

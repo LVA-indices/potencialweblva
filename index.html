@@ -126,11 +126,53 @@
                 <p>Tecnología especializada para cada desafío de tu operación: distribuir fondos, tomar decisiones de inversión y cumplir normativa.</p>
             </div>
 
+            <!-- Solution Area Tabs -->
+            <div class="solution-tabs" role="tablist" aria-label="Áreas de solución">
+                <button class="solution-tab active" role="tab" aria-selected="true" aria-controls="panel-distribucion" id="tab-distribucion" data-area="distribucion">
+                    <div class="tab-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <div class="tab-text">
+                        <span class="tab-name">Distribución & Comercialización</span>
+                        <span class="tab-desc">Potencia tu equipo de ventas</span>
+                    </div>
+                </button>
+                <button class="solution-tab" role="tab" aria-selected="false" aria-controls="panel-inversion" id="tab-inversion" data-area="inversion">
+                    <div class="tab-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <div class="tab-text">
+                        <span class="tab-name">Inversión & Mercado</span>
+                        <span class="tab-desc">Decisiones informadas</span>
+                    </div>
+                </button>
+                <button class="solution-tab" role="tab" aria-selected="false" aria-controls="panel-compliance" id="tab-compliance" data-area="compliance">
+                    <div class="tab-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <polyline points="9 12 11 14 15 10"></polyline>
+                        </svg>
+                    </div>
+                    <div class="tab-text">
+                        <span class="tab-name">Compliance & Regulatorio</span>
+                        <span class="tab-desc">Cumple sin esfuerzo</span>
+                    </div>
+                </button>
+            </div>
+
             <!-- Solution Areas -->
             <div class="solution-areas">
 
                 <!-- Área 1: Distribución & Comercialización -->
-                <div class="solution-area fade-in-up">
+                <div class="solution-area active" role="tabpanel" id="panel-distribucion" aria-labelledby="tab-distribucion">
                     <div class="area-header">
                         <div class="area-icon" style="background: linear-gradient(135deg, #00CAE9 0%, #0099BA 100%);">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -206,7 +248,7 @@
                 </div>
 
                 <!-- Área 2: Inversión & Mercado -->
-                <div class="solution-area fade-in-up">
+                <div class="solution-area" role="tabpanel" id="panel-inversion" aria-labelledby="tab-inversion" hidden>
                     <div class="area-header">
                         <div class="area-icon" style="background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -308,7 +350,7 @@
                 </div>
 
                 <!-- Área 3: Compliance & Regulatorio -->
-                <div class="solution-area fade-in-up">
+                <div class="solution-area" role="tabpanel" id="panel-compliance" aria-labelledby="tab-compliance" hidden>
                     <div class="area-header">
                         <div class="area-icon" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

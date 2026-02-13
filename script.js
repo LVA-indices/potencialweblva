@@ -249,6 +249,39 @@
         });
     });
 
+    // --- Solution Area Tabs ---
+    const solutionTabs = document.querySelectorAll('.solution-tab');
+    const solutionAreas = document.querySelectorAll('.solution-area');
+
+    solutionTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetArea = tab.getAttribute('data-area');
+
+            // Remove active class from all tabs
+            solutionTabs.forEach(t => {
+                t.classList.remove('active');
+                t.setAttribute('aria-selected', 'false');
+            });
+
+            // Add active class to clicked tab
+            tab.classList.add('active');
+            tab.setAttribute('aria-selected', 'true');
+
+            // Hide all areas
+            solutionAreas.forEach(area => {
+                area.classList.remove('active');
+                area.setAttribute('hidden', '');
+            });
+
+            // Show target area
+            const targetPanel = document.getElementById(`panel-${targetArea}`);
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+                targetPanel.removeAttribute('hidden');
+            }
+        });
+    });
+
     // --- Contact Modal ---
     const modal = document.getElementById('contactModal');
     const btnContacto = document.getElementById('btn-contacto');
