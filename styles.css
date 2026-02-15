@@ -807,7 +807,7 @@ p { margin-bottom: 1rem; }
 
 .steps {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     position: relative;
 }
@@ -816,8 +816,8 @@ p { margin-bottom: 1rem; }
     content: '';
     position: absolute;
     top: 30px;
-    left: 12%;
-    right: 12%;
+    left: 16.67%;
+    right: 16.67%;
     height: 2px;
     background: var(--gradient-accent);
     z-index: 0;
