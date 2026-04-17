@@ -42,6 +42,12 @@
     const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
 
     function highlightNavLink() {
+        // Clear all active states when near the top of the page
+        if (window.scrollY < 100) {
+            navLinks.forEach(link => link.classList.remove('active'));
+            return;
+        }
+
         const scrollPos = window.scrollY + 120;
 
         sections.forEach(section => {

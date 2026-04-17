@@ -211,6 +211,19 @@ p { margin-bottom: 1rem; }
     display: none !important;
 }
 
+.nav-cta-demo {
+    color: var(--color-lime) !important;
+    font-weight: 700 !important;
+}
+
+.nav-cta-demo:hover {
+    color: #fff !important;
+}
+
+.nav-cta-demo::after {
+    background: var(--color-lime) !important;
+}
+
 .hamburger {
     display: none;
     flex-direction: column;
