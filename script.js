@@ -258,35 +258,66 @@
     // --- Solution Area Tabs ---
     const solutionTabs = document.querySelectorAll('.solution-tab');
     const solutionAreas = document.querySelectorAll('.solution-area');
+    const solutionAreaHashes = ['distribucion', 'riesgo', 'inversion', 'compliance'];
+
+    function activateSolutionArea(targetArea, scrollIntoView) {
+        let found = false;
+
+        // Update tabs
+        solutionTabs.forEach(t => {
+            const isTarget = t.getAttribute('data-area') === targetArea;
+            t.classList.toggle('active', isTarget);
+            t.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+            if (isTarget) found = true;
+        });
+
+        // Update areas
+        solutionAreas.forEach(area => {
+            const isTarget = area.id === `panel-${targetArea}`;
+            area.classList.toggle('active', isTarget);
+            if (isTarget) {
+                area.removeAttribute('hidden');
+            } else {
+                area.setAttribute('hidden', '');
+            }
+        });
+
+        if (!found) return false;
+
+        // Keep the URL shareable (used as CTA links in campaigns)
+        history.replaceState(null, '', '#' + targetArea);
+
+        // Center the solutions section nicely below the navbar
+        if (scrollIntoView) {
+            const soluciones = document.getElementById('soluciones');
+            if (soluciones) {
+                const navHeight = navbar.offsetHeight;
+                window.scrollTo({
+                    top: soluciones.offsetTop - navHeight - 12,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        return true;
+    }
 
     solutionTabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            const targetArea = tab.getAttribute('data-area');
-
-            // Remove active class from all tabs
-            solutionTabs.forEach(t => {
-                t.classList.remove('active');
-                t.setAttribute('aria-selected', 'false');
-            });
-
-            // Add active class to clicked tab
-            tab.classList.add('active');
-            tab.setAttribute('aria-selected', 'true');
-
-            // Hide all areas
-            solutionAreas.forEach(area => {
-                area.classList.remove('active');
-                area.setAttribute('hidden', '');
-            });
-
-            // Show target area
-            const targetPanel = document.getElementById(`panel-${targetArea}`);
-            if (targetPanel) {
-                targetPanel.classList.add('active');
-                targetPanel.removeAttribute('hidden');
-            }
+            activateSolutionArea(tab.getAttribute('data-area'), false);
         });
     });
+
+    // Deep-linking: open the right area from the URL hash (e.g. #riesgo) and center it
+    function handleSolutionHash() {
+        const hash = window.location.hash.replace('#', '');
+        if (solutionAreaHashes.includes(hash)) {
+            activateSolutionArea(hash, true);
+        }
+    }
+
+    window.addEventListener('hashchange', handleSolutionHash);
+    handleSolutionHash();
 
     // --- Contact Modal ---
     const modal = document.getElementById('contactModal');

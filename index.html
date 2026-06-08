@@ -98,6 +98,17 @@
                         <span class="tab-desc">Tu equipo comercial, potenciado</span>
                     </div>
                 </button>
+                <button class="solution-tab" role="tab" aria-selected="false" aria-controls="panel-riesgo" id="tab-riesgo" data-area="riesgo">
+                    <div class="tab-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="tab-text">
+                        <span class="tab-name">Riesgo</span>
+                        <span class="tab-desc">Control de riesgo en tiempo real</span>
+                    </div>
+                </button>
                 <button class="solution-tab" role="tab" aria-selected="false" aria-controls="panel-inversion" id="tab-inversion" data-area="inversion">
                     <div class="tab-icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -118,7 +129,7 @@
                         </svg>
                     </div>
                     <div class="tab-text">
-                        <span class="tab-name">Compliance & Riesgo</span>
+                        <span class="tab-name">Compliance</span>
                         <span class="tab-desc">Cumplimiento regulatorio resuelto</span>
                     </div>
                 </button>
@@ -187,7 +198,86 @@
                     </div>
                 </div>
 
-                <!-- Área 2: Inversión & Mercado -->
+                <!-- Área 2: Riesgo -->
+                <div class="solution-area" role="tabpanel" id="panel-riesgo" aria-labelledby="tab-riesgo" hidden>
+                    <div class="area-header">
+                        <div class="area-icon" style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>Riesgo</h3>
+                            <p class="area-tagline">Una nueva forma de entender tu riesgo. Análisis pre-trade y todas las métricas en tiempo real, integradas a tu flujo.</p>
+                        </div>
+                    </div>
+
+                    <div class="product-grid">
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
+                                <h4>Sube el estándar de tu proceso de inversión</h4>
+                                <span class="product-badge">Pre-Trade</span>
+                            </div>
+                            <p class="product-description">
+                                Haz análisis pre-trade con todas las métricas on the fly. Análisis en tiempo real, siempre conectado e integrado en tu flujo existente.
+                            </p>
+                        </div>
+
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
+                                <h4>Modelamiento de activos complejos</h4>
+                                <span class="product-badge">Carteras complejas</span>
+                            </div>
+                            <p class="product-description">
+                                Desde renta fija hasta activos alternativos. Modela carteras complejas apoyado en los 20 años de experiencia de LVA.
+                            </p>
+                        </div>
+
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
+                                <h4>Dedícate al análisis, no a los cálculos</h4>
+                                <span class="product-badge">Automatización</span>
+                            </div>
+                            <p class="product-description">
+                                Todo automatizado y sin fricción con tus procesos. Usamos la mejor información del mercado y la combinamos con tu visión.
+                            </p>
+                        </div>
+
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
+                                <h4>Cumple la norma a cabalidad</h4>
+                                <span class="product-badge">NCG 507</span>
+                            </div>
+                            <p class="product-description">
+                                Todas tus políticas y todos tus reportes, sin importar la cantidad de fondos. Cumple en tiempo y forma las exigencias de la CMF, incluyendo la NCG 507.
+                            </p>
+                        </div>
+
+                        <div class="product-card-v2">
+                            <div class="product-card-header">
+                                <h4>Plataforma tecnológica</h4>
+                                <span class="product-badge">Tecnología + MCPs</span>
+                            </div>
+                            <p class="product-description">
+                                Te proveemos tecnología, no solo datos. Alimentamos tus agentes con MCPs y te entregamos una plataforma para controlar el servicio.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bateria-reportes">
+                        <span class="bateria-label">Batería de reportes</span>
+                        <div class="bateria-chips">
+                            <span>Mercado y Stress Test</span>
+                            <span>Liquidez y Stress Test</span>
+                            <span>Límites de Crédito</span>
+                            <span>Límites Reglamento</span>
+                            <span>Proxy Valor Cuota</span>
+                            <span>Control de Precios y Transacciones</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Área 3: Inversión & Mercado -->
                 <div class="solution-area" role="tabpanel" id="panel-inversion" aria-labelledby="tab-inversion" hidden>
                     <div class="area-header">
                         <div class="area-icon" style="background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);">
@@ -256,7 +346,7 @@
                     </div>
                 </div>
 
-                <!-- Área 3: Compliance & Riesgo -->
+                <!-- Área 4: Compliance -->
                 <div class="solution-area" role="tabpanel" id="panel-compliance" aria-labelledby="tab-compliance" hidden>
                     <div class="area-header">
                         <div class="area-icon" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);">
@@ -266,22 +356,12 @@
                             </svg>
                         </div>
                         <div>
-                            <h3>Compliance & Riesgo</h3>
+                            <h3>Compliance</h3>
                             <p class="area-tagline">Más de 90% de adopción del mercado en fichas regulatorias.</p>
                         </div>
                     </div>
 
                     <div class="product-grid">
-                        <div class="product-card-v2">
-                            <div class="product-card-header">
-                                <h4>VaR, límites y reportes en un solo sistema</h4>
-                                <span class="product-badge">Risk Management</span>
-                            </div>
-                            <p class="product-description">
-                                Cálculo automatizado de VaR, sensibilidades, control de límites y reporting regulatorio integrado. Toda tu información de riesgo en un solo lugar y lista para el regulador.
-                            </p>
-                        </div>
-
                         <div class="product-card-v2">
                             <div class="product-card-header">
                                 <h4>La data oficial de fondos en Colombia y Chile</h4>
@@ -579,3 +659,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
