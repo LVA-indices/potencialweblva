@@ -8,6 +8,116 @@ no puede contener su propio hash).
 
 ---
 
+## 2026-07-31 — Sesión 3: navy dominante y malla viva
+
+Hash de la sesión 2: **`6071d0d`**.
+
+### Investigación previa: cantor8.io y guardbase.ai
+
+Se analizaron ambos sitios **leyendo su código**, no solo mirándolos. Deja
+constancia porque las decisiones de abajo salen de ahí.
+
+**cantor8.io**
+- Un solo azul `#044AB3` en 339 elementos, más negro `#151515`. **Sin grises de
+  andamiaje**: no hay estructura neutra visible. Eso es lo que evita que parezca
+  template.
+- PP Neue Montreal + Fragment Mono. El mono aparece 20 veces: quirúrgico.
+- **H1 en peso 400**, 43px, interlínea 1.0. La contención lee como seriedad.
+- Hero: canvas 2D (el archivo se llama `webgl-circle` pero no usa WebGL ni
+  shaders). Parámetros reales: 130 puntos en círculo, conexiones curvas con
+  resorte (rigidez 12, amortiguación 4.8), rotación global 0.055, viento de
+  52px a 0.16 Hz, pulsos de luz por cada arista con degradado de 5 paradas y
+  `smoothstep` (alfa 0.14→0.58), mouse con radio 155px e impulso 3900.
+- Y lo decisivo: **etiquetas con sus palabras de dominio** (Custody, Issuance,
+  Yield, Settlement…) apareciendo en tandas de 5, escalonadas, en mono 10.7px.
+  La abstracción no decora: nombra lo que hacen.
+- Pausa el bucle fuera de viewport y con la pestaña oculta.
+
+**guardbase.ai**
+- Casi negro `#0E1114`, superficie `#15191E`, un acento menta `#5EEAD4`.
+- Satoshi + DM Mono, con el mono en 80 nodos (~35% del texto).
+- H1 en peso 500, tracking −0.03em. Frases clave encajadas en cajas con borde
+  de un pelo: destacan sin usar color.
+- **Cero librerías JS.** El hero es SVG con SMIL: cada paquete es un `<rect>`
+  de 12×12 movido por `<animateMotion>` + `<mpath>` sobre rutas bezier;
+  duraciones 5/5.6/6.4s con arranques escalonados. Un `<animate>` sobre `fill`
+  **cambia el color del paquete a mitad de camino** (keyTimes 0.46→0.54), justo
+  al pasar por el nodo central: gris → menta (permitido), gris → amarillo
+  (redactado). Un tercer paquete usa `keyPoints="0;0.38;0.38;1"` y **se detiene**
+  a mitad de ruta, esperando aprobación. La animación es el producto explicado.
+- Trama diagonal 8×8 rotada 135° con líneas al 7%.
+
+**Denominador común:** un color posee la página · el mono es voz estructural ·
+display en peso bajo · la animación explica el negocio.
+
+### Decisiones tomadas
+
+**1. Un color posee la página**
+Se eliminó la alternancia claro/oscuro: el navy es el sitio de punta a punta,
+incluidos blog y artículo. Las secciones ya no se separan cambiando de fondo
+sino con filetes (`--site-border`) y superficies elevadas
+(`--site-bg-card` para tarjetas, `--lva-navy-950` para el footer). Única
+excepción: el CTA final, un lavado teal al 10%.
+
+Se añadió una capa de tokens de sitio (`--site-bg*`, `--site-fg*`,
+`--site-border*`) sobre los de marca, y los alias heredados de gris resuelven
+contra ella. Eso evitó reescribir regla por regla.
+
+**2. Pesos tipográficos abajo**
+Siguiendo a Cantor8 (400) y Guardbase (500): el bold grande es el delator de lo
+marketero. H1 y H2 pasaron de 800 a **500** y ganaron tamaño
+(`clamp(2.6rem, 5.6vw, 4.25rem)` en el hero). Los claims de tarjeta y pestaña
+bajaron de 700 a 600. Interlínea del hero a 1.02.
+
+**3. La malla del hero pasa a canvas y se nombra**
+`assets/brand/hero-mesh.js` reemplaza al SVG animado. Ahora tiene lo que le
+faltaba para dejar de ser textura:
+- **Palabras de LVA sobre los nodos** — Valorización, Índices, Renta fija,
+  Benchmarks, Normativa, Compliance, Riesgo, Carteras, Distribución, Inversión,
+  Precios, Propuestas — en tandas de 4, escalonadas 0.22s, con entrada y salida
+  de 0.9s. Vocabulario que ya existe: **no se inventó copy**.
+- **Repulsión del mouse**: radio 165px, fuerza 1300 con caída cuadrática y
+  retorno por resorte (rigidez 3.2, amortiguación 3.6).
+- **Viento**: deriva de 14px a 0.055 Hz, desfasada por nodo.
+- **Pulsos por arista** con degradado y `smoothstep`, alfa 0.16→0.62.
+- Grilla jitterada de 9×5 con desorden **determinista** (`sin` como semilla):
+  se ve orgánica pero no cambia en cada resize, que se leería como parpadeo.
+- Pausa con `IntersectionObserver` y `visibilitychange`; con
+  `prefers-reduced-motion` dibuja un solo cuadro y no arranca el bucle.
+- Dibuja el **primer cuadro de forma síncrona**: el hero nunca aparece vacío.
+
+Las etiquetas se restringen a la mitad derecha del hero para no cruzarse con el
+titular, igual que la máscara diagonal del canvas.
+
+### Archivos afectados
+- `assets/brand/hero-mesh.js` *(nuevo)*
+- `index.html` — el SVG inline pasa a `<canvas>`; carga del script
+- `styles.css` — capa de tokens de sitio, navy dominante, pesos, reglas del canvas
+- `DESIGN_LOG.md`
+
+### Verificación
+- Navy continuo confirmado por estilos computados en las siete secciones.
+- Canvas dibujando: 3,2% de píxeles con contenido, alfa máximo 248.
+- H1 en peso 500. 21 plegables siguen funcionando.
+- Contraste WCAG AA recorriendo cada nodo de texto visible en las cuatro
+  pestañas **y con el modal abierto**: 0 fallos en index, blog y artículo.
+- Sin errores de consola.
+
+**Lo que NO se pudo verificar:** el panel de preview reporta
+`document.hidden = true` y por eso `requestAnimationFrame` nunca dispara. La
+animación, las etiquetas en tandas y la repulsión del mouse están verificadas
+estructuralmente (el canvas dibuja su primer cuadro, sin errores), pero **no
+observadas en movimiento**. Hay que mirarlas en un navegador real.
+
+**Bug encontrado y corregido:** un reemplazo masivo de `color:` alcanzó también
+a `background-color:` y dejó el menú móvil blanco sobre blanco. Lo detectó la
+auditoría de contraste, no la vista.
+
+### Commit asociado
+`Navy dominante y malla del hero en canvas, con palabras de LVA y mouse`
+
+---
+
 ## 2026-07-31 — Sesión 2: navy, Manrope y textura de datos en el hero
 
 Hash de la sesión 1: **`d12ceaf`**.
@@ -281,7 +391,13 @@ corporativo puede convenir auto-hospedarlas: quita una dependencia de terceros
 y evita el envío de IP de los visitantes a Google, que en Europa ya ha dado
 problemas de RGPD. Es media hora de trabajo y no cambia nada visual.
 
-**5. La tarjeta del hero**
+**9. Pendiente de la investigación: el recorrido del dato**
+La cuarta idea del análisis quedó sin construir. "Así funciona LVA" son tres
+pasos que ya describen un flujo (dato crudo → LVA → dato utilizable), y con la
+técnica de Guardbase (`animateMotion` + cambio de `fill` a mitad de ruta) se
+puede contar en tres segundos y sin JavaScript. Es el siguiente bloque natural.
+
+**10. La tarjeta del hero**
 El hero mantiene la tarjeta de "buzz words" heredada (Morningstar, estándar de
 la industria, las cuatro áreas). La maqueta de la Opción A tenía en su lugar una
 tarjeta de datos con cifras en mono. Con el hero ya en navy y con textura, esa

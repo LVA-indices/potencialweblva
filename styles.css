@@ -5,6 +5,26 @@
    2.000 líneas de reglas. No agregar colores nuevos: usar los --lva-*.
    =================================== */
 :root {
+    /* ---------------------------------------------------------------
+       Un color posee la página.
+       El navy no alterna con bandas claras: es el sitio. Las secciones se
+       separan con filetes y superficies elevadas, no cambiando de fondo.
+       Alternar claro/oscuro es lo que delata a un template; esto sale del
+       análisis de cantor8.io — ver DESIGN_LOG.
+       --------------------------------------------------------------- */
+    --site-bg:        var(--lva-navy-900);  /* la página */
+    --site-bg-deep:   var(--lva-navy-950);  /* footer y pozos */
+    --site-bg-card:   var(--lva-navy-800);  /* tarjetas y paneles */
+    --site-bg-raised: var(--lva-navy-700);  /* estado activo, chips */
+
+    --site-fg:        #FFFFFF;   /* titulares */
+    --site-fg-body:   #A9BDCD;   /* cuerpo sobre navy */
+    --site-fg-muted:  #93A9BD;   /* secundario */
+    --site-fg-dim:    #7E94A8;   /* etiquetas, captions */
+
+    --site-border:        rgba(255, 255, 255, 0.09);
+    --site-border-strong: rgba(255, 255, 255, 0.18);
+
     /* Teal de marca reemplaza al cian antiguo (#00CAE9 → #02A9C3) */
     --color-cyan: var(--lva-teal-600);
     --color-cyan-strong: var(--lva-teal-700);
@@ -13,18 +33,18 @@
     --color-lime: var(--lva-teal-400);
     --color-accent-soft: var(--lva-teal-500);
 
-    /* Superficies oscuras: navy corporativo (hero, navbar, footer) */
+    /* Superficies oscuras: navy corporativo */
     --color-navy: var(--lva-navy-900);
     --color-dark-blue: var(--lva-navy-950);
 
-    /* Neutros → escala ink de marca */
-    --color-gray-100: var(--lva-ink-50);
-    --color-gray-200: var(--lva-ink-200);
-    --color-gray-300: var(--lva-ink-300);
-    --color-gray-500: var(--lva-ink-400);
-    --color-gray-600: var(--lva-ink-600);
-    --color-gray-700: var(--lva-ink-800);
-    --color-gray-900: var(--lva-ink-900);
+    /* Los alias heredados de gris ahora resuelven sobre navy */
+    --color-gray-100: var(--site-bg);
+    --color-gray-200: var(--site-border);
+    --color-gray-300: var(--site-fg-muted);
+    --color-gray-500: var(--site-fg-dim);
+    --color-gray-600: var(--site-fg-muted);
+    --color-gray-700: var(--site-fg-body);
+    --color-gray-900: var(--site-fg);
     --color-white: var(--lva-white);
 
     --color-cyan-glow: rgba(2, 169, 195, 0.3);
@@ -67,8 +87,8 @@ html {
 body {
     font-family: var(--font-body);
     line-height: 1.6;
-    color: var(--fg-primary);
-    background-color: var(--bg-surface);
+    color: var(--site-fg-body);
+    background-color: var(--site-bg);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -108,10 +128,12 @@ h3, h4 {
     letter-spacing: -0.015em;
 }
 
-h1 { font-size: 3.25rem; font-weight: 800; }
-h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; }
-h3 { font-size: 1.5rem; font-weight: 700; }
-h4 { font-weight: 700; }
+/* Peso bajo y tamaño alto. Cantor8 titula en 400 y Guardbase en 500: el bold
+   grande es justamente lo que lee como marketero. Ver DESIGN_LOG. */
+h1 { font-size: clamp(2.5rem, 5.2vw, 3.75rem); font-weight: 500; }
+h2 { font-size: clamp(2rem, 3.8vw, 2.75rem); font-weight: 500; margin-bottom: 1rem; }
+h3 { font-size: 1.5rem; font-weight: 600; }
+h4 { font-weight: 600; }
 p { margin-bottom: 1rem; }
 
 .text-cyan { color: var(--color-cyan); }
@@ -311,122 +333,33 @@ p { margin-bottom: 1rem; }
 }
 
 /* ---------------------------------------------------------------------------
-   Malla del hero — red neuronal lenta.
-   Tres capas: retícula de mapa fija · aristas fijas · destellos que recorren
-   la red. Los nodos se encienden y apagan desfasados. Todo muy tenue: es
-   textura de fondo, no ilustración. Nada de cifras ni gráficos financieros.
+   Malla del hero — red neuronal en canvas (assets/brand/hero-mesh.js).
+   Nodos que se conectan y respiran, pulsos de luz recorriendo las aristas,
+   palabras del dominio de LVA apareciendo en tandas, y repulsión suave al
+   mover el mouse. No recibe eventos: el JS escucha en la sección .hero.
    --------------------------------------------------------------------------- */
 .hero-mesh {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    fill: none;
+    display: block;
     pointer-events: none;
     z-index: 0;
-    -webkit-mask-image: linear-gradient(105deg, transparent 0 28%, #000 70%, #000 100%);
-    mask-image: linear-gradient(105deg, transparent 0 28%, #000 70%, #000 100%);
-}
-
-.mesh-grid path {
-    stroke: var(--lva-teal-500);
-    stroke-opacity: 0.07;
-    stroke-width: 1;
-}
-
-.mesh-edges path {
-    stroke: var(--lva-teal-500);
-    stroke-opacity: 0.26;
-    stroke-width: 1;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-/* Destellos: un tramo corto de luz que viaja por las conexiones. Cada camino
-   tiene un largo distinto, así que a igual velocidad el recorrido se
-   desincroniza solo y la red nunca late al unísono. */
-.mesh-sparks path {
-    stroke: var(--lva-teal-400);
-    stroke-width: 1.75;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-dasharray: 70 1500;
-    stroke-dashoffset: 1570;
-    animation: meshSpark 19s linear infinite;
-}
-
-.mesh-sparks path:nth-child(1) { animation-duration: 21s; animation-delay:  -2s; }
-.mesh-sparks path:nth-child(2) { animation-duration: 15s; animation-delay:  -7s; }
-.mesh-sparks path:nth-child(3) { animation-duration: 24s; animation-delay: -13s; }
-.mesh-sparks path:nth-child(4) { animation-duration: 17s; animation-delay:  -4s; }
-.mesh-sparks path:nth-child(5) { animation-duration: 26s; animation-delay: -18s; }
-.mesh-sparks path:nth-child(6) { animation-duration: 19s; animation-delay: -10s; }
-
-@keyframes meshSpark {
-    from { stroke-dashoffset: 1570; }
-    to   { stroke-dashoffset: 0; }
-}
-
-.mesh-nodes circle,
-.mesh-hubs circle {
-    fill: var(--lva-teal-400);
-    stroke: none;
-}
-
-.mesh-nodes circle {
-    fill-opacity: 0.42;
-    animation: meshNode 9s ease-in-out infinite;
-}
-
-/* Seis grupos de desfase: los nodos se encienden en oleadas irregulares */
-.mesh-nodes circle:nth-child(6n + 1) { animation-delay:  0s; }
-.mesh-nodes circle:nth-child(6n + 2) { animation-delay: -1.4s; }
-.mesh-nodes circle:nth-child(6n + 3) { animation-delay: -3.1s; }
-.mesh-nodes circle:nth-child(6n + 4) { animation-delay: -4.6s; }
-.mesh-nodes circle:nth-child(6n + 5) { animation-delay: -6.2s; }
-.mesh-nodes circle:nth-child(6n + 6) { animation-delay: -7.7s; }
-
-@keyframes meshNode {
-    0%, 100% { fill-opacity: 0.22; }
-    50%      { fill-opacity: 0.85; }
-}
-
-.mesh-hubs circle {
-    fill-opacity: 0.9;
-    animation: meshHub 11s ease-in-out infinite;
-}
-
-.mesh-hubs circle:nth-child(2) { animation-delay: -2.5s; }
-.mesh-hubs circle:nth-child(3) { animation-delay: -5s; }
-.mesh-hubs circle:nth-child(4) { animation-delay: -7.5s; }
-.mesh-hubs circle:nth-child(5) { animation-delay: -3.5s; }
-.mesh-hubs circle:nth-child(6) { animation-delay: -9s; }
-
-@keyframes meshHub {
-    0%, 100% { fill-opacity: 0.45; }
-    45%      { fill-opacity: 1; }
+    -webkit-mask-image: linear-gradient(105deg, transparent 0 26%, #000 66%, #000 100%);
+    mask-image: linear-gradient(105deg, transparent 0 26%, #000 66%, #000 100%);
 }
 
 /* En pantallas chicas la malla se escala y engorda: se atenúa para no
    competir con el titular, que ahí ocupa todo el ancho. */
 @media (max-width: 768px) {
     .hero-mesh {
-        opacity: 0.5;
-        -webkit-mask-image: linear-gradient(180deg, transparent 0 32%, #000 76%);
-        mask-image: linear-gradient(180deg, transparent 0 32%, #000 76%);
+        opacity: 0.45;
+        -webkit-mask-image: linear-gradient(180deg, transparent 0 30%, #000 74%);
+        mask-image: linear-gradient(180deg, transparent 0 30%, #000 74%);
     }
 }
 
-/* La animación es decorativa: se congela si el sistema pide menos movimiento */
-@media (prefers-reduced-motion: reduce) {
-    .mesh-sparks path,
-    .mesh-nodes circle,
-    .mesh-hubs circle {
-        animation: none;
-    }
-    .mesh-sparks path { stroke-dashoffset: 0; stroke-dasharray: none; stroke-opacity: 0.3; }
-    .mesh-nodes circle { fill-opacity: 0.45; }
-}
 
 .hero .container {
     display: grid;
@@ -463,10 +396,10 @@ p { margin-bottom: 1rem; }
 
 .hero-headline {
     font-family: var(--font-display);
-    font-size: 3.75rem;
-    font-weight: 800;
-    margin-bottom: 1.5rem;
-    line-height: 1.06;
+    font-size: clamp(2.6rem, 5.6vw, 4.25rem);
+    font-weight: 500;
+    margin-bottom: 1.75rem;
+    line-height: 1.02;
     letter-spacing: -0.035em;
     text-wrap: balance;
 }
@@ -544,7 +477,7 @@ p { margin-bottom: 1rem; }
 }
 
 .btn-link {
-    color: var(--fg-brand-strong);
+    color: var(--lva-teal-400);
     font-weight: 600;
     text-decoration: none;
     transition: var(--transition);
@@ -552,7 +485,7 @@ p { margin-bottom: 1rem; }
 }
 
 .btn-link:hover {
-    color: var(--fg-brand-strong);
+    color: var(--lva-teal-400);
 }
 
 /* Stats Card */
@@ -594,7 +527,7 @@ p { margin-bottom: 1rem; }
 
 .stat-number {
     font-size: 3rem;
-    font-weight: 800;
+    font-weight: 600;
     color: var(--lva-teal-400);
     letter-spacing: -0.03em;
     line-height: 1;
@@ -676,13 +609,13 @@ p { margin-bottom: 1rem; }
    =================================== */
 .problem {
     padding: 100px 0;
-    background: var(--color-white);
+    background: var(--site-bg);
 }
 
 .problem h2 {
     text-align: center;
     margin-bottom: 3rem;
-    color: var(--color-navy);
+    color: var(--site-fg);
 }
 
 .problem-grid {
@@ -694,8 +627,8 @@ p { margin-bottom: 1rem; }
 /* Borde superior, no lateral: el manual prohíbe acentos de borde izquierdo */
 .problem-card {
     padding: 2rem;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
+    background: var(--site-bg-card);
+    border: 1px solid var(--site-border);
     border-top: 3px solid var(--lva-teal-600);
     border-radius: var(--border-radius-md);
     box-shadow: var(--shadow-sm);
@@ -719,7 +652,7 @@ p { margin-bottom: 1rem; }
 }
 
 .problem-card h3 {
-    color: var(--color-navy);
+    color: var(--site-fg);
     margin-bottom: 0.75rem;
     font-size: 1.25rem;
 }
@@ -744,8 +677,8 @@ p { margin-bottom: 1rem; }
 .solutions,
 .about {
     background-image:
-        linear-gradient(to right, rgba(2, 169, 195, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(2, 169, 195, 0.05) 1px, transparent 1px);
+        linear-gradient(to right, rgba(2, 169, 195, 0.09) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(2, 169, 195, 0.09) 1px, transparent 1px);
     background-size: 72px 72px;
 }
 
@@ -756,7 +689,7 @@ p { margin-bottom: 1rem; }
 }
 
 .section-header h2 {
-    color: var(--color-navy);
+    color: var(--site-fg);
     font-size: clamp(2rem, 3.6vw, 2.75rem);
     letter-spacing: -0.035em;
 }
@@ -765,7 +698,7 @@ p { margin-bottom: 1rem; }
 .section-header p {
     font-size: 1.0625rem;
     line-height: 1.7;
-    color: var(--fg-secondary);
+    color: var(--site-fg-muted);
     max-width: 62ch;
     margin: 0 auto;
 }
@@ -780,7 +713,7 @@ p { margin-bottom: 1rem; }
 }
 
 .client-tab {
-    background: white;
+    background: var(--site-bg-card);
     border: 1.5px solid var(--color-gray-300);
     border-radius: var(--border-radius-md);
     padding: 1rem 1.5rem;
@@ -805,12 +738,12 @@ p { margin-bottom: 1rem; }
     display: block;
     font-weight: 700;
     font-size: 0.9rem;
-    color: var(--color-navy);
+    color: var(--site-fg);
     margin-bottom: 0.2rem;
 }
 
 .client-tab.active .client-tab-name {
-    color: var(--color-navy);
+    color: var(--site-fg);
 }
 
 .client-tab-desc {
@@ -822,7 +755,7 @@ p { margin-bottom: 1rem; }
 }
 
 .client-tab.active .client-tab-desc {
-    color: var(--color-navy);
+    color: var(--site-fg);
     opacity: 0.8;
 }
 
@@ -852,7 +785,7 @@ p { margin-bottom: 1rem; }
 }
 
 .panel-header h3 {
-    color: var(--color-navy);
+    color: var(--site-fg);
     font-size: 1.75rem;
     margin-bottom: 0.75rem;
 }
@@ -874,7 +807,7 @@ p { margin-bottom: 1rem; }
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--fg-brand-strong);
+    color: var(--lva-teal-400);
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid rgba(2, 169, 195, 0.2);
@@ -918,7 +851,7 @@ p { margin-bottom: 1rem; }
 }
 
 .panel-awards-callout strong {
-    color: var(--color-navy);
+    color: var(--site-fg);
 }
 
 /* Panel CTA */
@@ -930,16 +863,16 @@ p { margin-bottom: 1rem; }
 /* Ecosistema / Premios — pasa a superficie clara (fondo blanco de marca) */
 .ecosistema {
     padding: 100px 0;
-    background: var(--bg-surface);
-    color: var(--fg-primary);
+    background: var(--site-bg);
+    color: var(--site-fg-body);
 }
 
 .ecosistema .section-header h2 {
-    color: var(--lva-navy-900);
+    color: var(--site-fg);
 }
 
 .ecosistema .section-header p {
-    color: var(--fg-secondary);
+    color: var(--site-fg-muted);
 }
 
 .ecosistema-grid {
@@ -950,8 +883,8 @@ p { margin-bottom: 1rem; }
 }
 
 .ecosistema-card {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
+    background: var(--site-bg-card);
+    border: 1px solid var(--site-border);
     border-radius: var(--border-radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-sm);
@@ -980,7 +913,7 @@ p { margin-bottom: 1rem; }
     font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--fg-brand-strong);
+    color: var(--lva-teal-400);
     margin-bottom: 0.7rem;
     line-height: 1.2;
 }
@@ -988,24 +921,24 @@ p { margin-bottom: 1rem; }
 .ecosistema-tagline {
     font-family: var(--font-display);
     font-size: 1.5rem;
-    font-weight: 800;
+    font-weight: 500;
     letter-spacing: -0.03em;
     line-height: 1.22;
-    color: var(--lva-navy-900);
+    color: var(--site-fg);
     margin-bottom: 1rem;
     text-wrap: balance;
 }
 
 .ecosistema-card-content > p:not(.ecosistema-tagline) {
-    color: var(--fg-secondary);
+    color: var(--site-fg-muted);
     font-size: 0.9rem;
     line-height: 1.7;
 }
 
 .ecosistema-badge {
     display: inline-block;
-    background: var(--bg-brand-soft);
-    color: var(--fg-brand-strong);
+    background: rgba(2, 169, 195, 0.1);
+    color: var(--lva-teal-400);
     padding: 0.3rem 0.8rem;
     border-radius: var(--radius-pill);
     font-family: var(--font-display-semi);
@@ -1056,14 +989,14 @@ p { margin-bottom: 1rem; }
 /* Así funciona — pasa a superficie clara */
 .how-it-works {
     padding: 100px 0;
-    background: var(--bg-surface);
-    color: var(--fg-primary);
+    background: var(--site-bg);
+    color: var(--site-fg-body);
 }
 
 .how-it-works h2 {
     text-align: center;
     margin-bottom: 4rem;
-    color: var(--lva-navy-900);
+    color: var(--site-fg);
 }
 
 .steps {
@@ -1080,7 +1013,7 @@ p { margin-bottom: 1rem; }
     left: 16.67%;
     right: 16.67%;
     height: 2px;
-    background: var(--lva-teal-200);
+    background: rgba(2, 169, 195, 0.3);
     z-index: 0;
 }
 
@@ -1112,11 +1045,11 @@ p { margin-bottom: 1rem; }
     margin-bottom: 0.75rem;
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--lva-navy-900);
+    color: var(--site-fg);
 }
 
 .step p {
-    color: var(--fg-secondary);
+    color: var(--site-fg-muted);
     margin-bottom: 0;
     font-size: 0.9rem;
     line-height: 1.6;
@@ -1158,7 +1091,7 @@ p { margin-bottom: 1rem; }
 .testimonial-stat h3 {
     font-size: 3.5rem;
     margin-bottom: 0.75rem;
-    font-weight: 800;
+    font-weight: 500;
     letter-spacing: -0.03em;
 }
 
@@ -1189,7 +1122,7 @@ p { margin-bottom: 1rem; }
 }
 
 .about h2 {
-    color: var(--color-navy);
+    color: var(--site-fg);
     font-size: 2.5rem;
     margin-bottom: 0.75rem;
 }
@@ -1198,7 +1131,7 @@ p { margin-bottom: 1rem; }
    pasa WCAG AA. El 700 da 4,83:1 y es el mismo color de marca. */
 .about-tagline {
     font-size: 1.25rem;
-    color: var(--fg-brand-strong);
+    color: var(--lva-teal-400);
     font-weight: 600;
     margin-bottom: 2rem;
 }
@@ -1210,10 +1143,10 @@ p { margin-bottom: 1rem; }
 }
 
 .about-ai {
-    color: var(--color-navy);
+    color: var(--site-fg);
     font-weight: 500;
     padding: 1rem 0 0;
-    border-top: 1px solid var(--color-gray-300);
+    border-top: 1px solid var(--site-border);
     margin-top: 0.5rem;
 }
 
@@ -1228,8 +1161,8 @@ p { margin-bottom: 1rem; }
     display: flex;
     align-items: flex-start;
     gap: 1rem;
-    background: var(--color-white);
-    border: 1px solid var(--color-gray-200);
+    background: var(--site-bg-card);
+    border: 1px solid var(--site-border);
     border-radius: var(--border-radius-md);
     padding: 1.25rem 1.5rem;
     transition: var(--transition);
@@ -1246,7 +1179,7 @@ p { margin-bottom: 1rem; }
 }
 
 .capability-badge h4 {
-    color: var(--color-navy);
+    color: var(--site-fg);
     font-size: 0.95rem;
     font-weight: 700;
     margin-bottom: 0.25rem;
@@ -1266,24 +1199,24 @@ p { margin-bottom: 1rem; }
 /* CTA final — lavado teal-100 (uso de sección permitido por el manual);
    el teal saturado queda reservado al botón, que es lo que debe destacar. */
 .final-cta {
-    background: var(--bg-brand-soft);
-    border-top: 1px solid var(--lva-teal-200);
+    background: rgba(2, 169, 195, 0.1);
+    border-top: 1px solid rgba(2, 169, 195, 0.3);
     padding: 100px 0;
     text-align: center;
-    color: var(--fg-primary);
+    color: var(--site-fg-body);
 }
 
 .final-cta h2 {
     margin-bottom: 1rem;
     font-size: 3rem;
-    font-weight: 800;
-    color: var(--lva-navy-900);
+    font-weight: 500;
+    color: var(--site-fg);
 }
 
 .final-cta p {
     font-size: 1.2rem;
     margin-bottom: 2rem;
-    color: var(--fg-secondary);
+    color: var(--site-fg-muted);
 }
 
 .cta-buttons {
@@ -1294,12 +1227,12 @@ p { margin-bottom: 1rem; }
 }
 
 .cta-subtext {
-    color: var(--fg-secondary);
+    color: var(--site-fg-muted);
     font-size: 0.95rem;
 }
 
 .cta-subtext a {
-    color: var(--fg-brand-strong);
+    color: var(--lva-teal-400);
     font-weight: 600;
     text-decoration: underline;
 }
@@ -1405,8 +1338,11 @@ p { margin-bottom: 1rem; }
    Blog
    =================================== */
 
+/* Con un solo color de fondo, las secciones se separan con filete, no
+   cambiando de color. */
 .blog-hero {
-    background: var(--gradient-navy);
+    background: var(--site-bg);
+    border-bottom: 1px solid var(--site-border);
     padding: 140px 2rem 60px;
     text-align: center;
     color: var(--color-white);
@@ -1414,7 +1350,7 @@ p { margin-bottom: 1rem; }
 
 .blog-hero h1 {
     font-size: 2.5rem;
-    font-weight: 800;
+    font-weight: 500;
     margin-bottom: 0.5rem;
 }
 
@@ -1440,7 +1376,7 @@ p { margin-bottom: 1rem; }
 }
 
 .blog-card {
-    background: var(--color-white);
+    background: var(--site-bg-card);
     border-radius: var(--border-radius-lg);
     overflow: hidden;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
@@ -1512,8 +1448,8 @@ p { margin-bottom: 1rem; }
 }
 
 .blog-card-tag {
-    background: var(--bg-brand-soft);
-    color: var(--fg-brand-strong);
+    background: rgba(2, 169, 195, 0.1);
+    color: var(--lva-teal-400);
     padding: 0.15rem 0.6rem;
     border-radius: var(--radius-sm);
     font-weight: 600;
@@ -1523,7 +1459,7 @@ p { margin-bottom: 1rem; }
 .blog-card-content h3 {
     font-size: 1.2rem;
     font-weight: 700;
-    color: var(--color-navy);
+    color: var(--site-fg);
     margin-bottom: 0.5rem;
     line-height: 1.4;
 }
@@ -1539,7 +1475,7 @@ p { margin-bottom: 1rem; }
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    color: var(--fg-brand-strong);
+    color: var(--lva-teal-400);
     font-weight: 600;
     font-size: 0.9rem;
     margin-top: 1rem;
@@ -1554,7 +1490,8 @@ p { margin-bottom: 1rem; }
 /* Article Page */
 
 .article-hero {
-    background: var(--gradient-navy);
+    background: var(--site-bg);
+    border-bottom: 1px solid var(--site-border);
     padding: 140px 2rem 50px;
     color: var(--color-white);
 }
@@ -1582,7 +1519,7 @@ p { margin-bottom: 1rem; }
 
 .article-hero h1 {
     font-size: 2.25rem;
-    font-weight: 800;
+    font-weight: 500;
     line-height: 1.3;
     margin-bottom: 1rem;
 }
@@ -1610,7 +1547,7 @@ p { margin-bottom: 1rem; }
 }
 
 .article-body {
-    background: var(--color-white);
+    background: var(--site-bg);
     padding: 3rem 2rem 4rem;
 }
 
@@ -1619,17 +1556,19 @@ p { margin-bottom: 1rem; }
     margin: 0 auto;
 }
 
+/* Interlínea más suelta que en un sitio claro: el texto largo sobre oscuro
+   cansa más la vista. */
 .article-content p {
     font-size: 1.08rem;
-    line-height: 1.85;
-    color: var(--color-gray-700);
+    line-height: 1.9;
+    color: var(--site-fg-body);
     margin-bottom: 1.5rem;
 }
 
 .article-content h2 {
     font-size: 1.6rem;
     font-weight: 700;
-    color: var(--color-navy);
+    color: var(--site-fg);
     margin-top: 2.5rem;
     margin-bottom: 1rem;
 }
@@ -1708,7 +1647,7 @@ p { margin-bottom: 1rem; }
         left: -100%;
         top: 0;
         flex-direction: column;
-        background-color: var(--color-navy);
+        background-color: var(--lva-navy-950);
         width: 100%;
         height: 100vh;
         text-align: center;
@@ -1896,8 +1835,8 @@ p { margin-bottom: 1rem; }
 }
 
 .solution-tab {
-    background: var(--bg-surface);
-    border: 2px solid var(--border-subtle);
+    background: var(--site-bg-card);
+    border: 2px solid var(--site-border);
     border-radius: var(--radius-lg);
     padding: 1.5rem;
     display: flex;
@@ -1929,7 +1868,7 @@ p { margin-bottom: 1rem; }
 
 .solution-tab.active {
     border-color: var(--border-brand);
-    background: var(--bg-brand-soft);
+    background: rgba(2, 169, 195, 0.1);
 }
 
 .solution-tab.active::before {
@@ -1940,7 +1879,7 @@ p { margin-bottom: 1rem; }
     width: 48px;
     height: 48px;
     border-radius: var(--radius-lg);
-    background: var(--bg-subtle);
+    background: rgba(255, 255, 255, 0.06);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1958,7 +1897,7 @@ p { margin-bottom: 1rem; }
 
 /* Iconografía de línea, gris ink-600 en reposo (manual de marca) */
 .tab-icon svg {
-    stroke: var(--fg-secondary);
+    stroke: var(--site-fg-dim);
     transition: stroke var(--dur-med) var(--ease-standard);
 }
 
@@ -1982,25 +1921,25 @@ p { margin-bottom: 1rem; }
     font-weight: 500;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--fg-secondary);
+    color: var(--site-fg-muted);
     line-height: 1.2;
 }
 
 .tab-desc {
     font-family: var(--font-display);
     font-size: 1.0625rem;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: -0.02em;
-    color: var(--lva-navy-900);
+    color: var(--site-fg);
     line-height: 1.25;
 }
 
 .solution-tab.active .tab-name {
-    color: var(--fg-brand-strong);
+    color: var(--lva-teal-400);
 }
 
 .solution-tab.active .tab-desc {
-    color: var(--lva-navy-900);
+    color: var(--site-fg);
 }
 
 /* Solution Areas Container */
@@ -2010,11 +1949,11 @@ p { margin-bottom: 1rem; }
 }
 
 .solution-area {
-    background: var(--bg-surface);
+    background: transparent;
     border-radius: var(--radius-xl);
     padding: 3rem;
     box-shadow: var(--shadow-md);
-    border: 1px solid var(--border-subtle);
+    border: 1px solid var(--site-border);
     transition: var(--transition);
     display: none;
 }
@@ -2041,7 +1980,7 @@ p { margin-bottom: 1rem; }
     align-items: flex-start;
     margin-bottom: 2.5rem;
     padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--site-border);
 }
 
 .area-icon {
@@ -2062,7 +2001,7 @@ p { margin-bottom: 1rem; }
     font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--fg-brand-strong);
+    color: var(--lva-teal-400);
     margin: 0 0 0.75rem 0;
     line-height: 1.2;
 }
@@ -2070,9 +2009,9 @@ p { margin-bottom: 1rem; }
 .area-tagline {
     font-family: var(--font-display);
     font-size: clamp(1.2rem, 2.1vw, 1.6rem);
-    font-weight: 800;
+    font-weight: 600;
     letter-spacing: -0.03em;
-    color: var(--lva-navy-900);
+    color: var(--site-fg);
     margin: 0;
     line-height: 1.24;
     text-wrap: balance;
@@ -2080,8 +2019,8 @@ p { margin-bottom: 1rem; }
 
 /* Product Cards V2 */
 .product-card-v2 {
-    background: var(--lva-ink-50);
-    border: 1px solid var(--border-subtle);
+    background: var(--site-bg-card);
+    border: 1px solid var(--site-border);
     border-radius: var(--radius-lg);
     padding: 1.75rem;
     transition: var(--transition);
@@ -2092,7 +2031,7 @@ p { margin-bottom: 1rem; }
 
 .product-card-v2:hover {
     border-color: var(--border-brand);
-    background: var(--bg-surface);
+    background: var(--site-bg-raised);
     box-shadow: 0 4px 16px rgba(2, 169, 195, 0.14);
     transform: translateY(-2px);
 }
@@ -2110,9 +2049,9 @@ p { margin-bottom: 1rem; }
 .product-card-v2 h4 {
     font-family: var(--font-display);
     font-size: 1.2rem;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: -0.025em;
-    color: var(--lva-navy-900);
+    color: var(--site-fg);
     margin: 0;
     line-height: 1.25;
     text-wrap: balance;
@@ -2124,7 +2063,7 @@ p { margin-bottom: 1rem; }
     align-items: center;
     gap: 0.5rem;
     background: none;
-    color: var(--fg-brand-strong);
+    color: var(--lva-teal-400);
     padding: 0;
     font-family: var(--font-mono);
     font-size: 0.6875rem;
@@ -2145,7 +2084,7 @@ p { margin-bottom: 1rem; }
 .product-description {
     font-size: 0.95rem;
     line-height: 1.65;
-    color: var(--fg-secondary);
+    color: var(--site-fg-muted);
     margin: 0 0 1rem 0;
     flex-grow: 1;
 }
@@ -2182,7 +2121,7 @@ p { margin-bottom: 1rem; }
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--fg-brand-strong);
+    color: var(--lva-teal-400);
     transition: color var(--dur-med) var(--ease-standard);
 }
 
@@ -2218,7 +2157,7 @@ p { margin-bottom: 1rem; }
 .bateria-reportes {
     margin-top: 2rem;
     padding-top: 1.75rem;
-    border-top: 1px solid var(--border-subtle);
+    border-top: 1px solid var(--site-border);
 }
 
 .bateria-label {
@@ -2228,7 +2167,7 @@ p { margin-bottom: 1rem; }
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.14em;
-    color: var(--fg-brand-strong);
+    color: var(--lva-teal-400);
     margin-bottom: 1rem;
 }
 
@@ -2239,9 +2178,9 @@ p { margin-bottom: 1rem; }
 }
 
 .bateria-chips span {
-    background: var(--bg-brand-soft);
-    border: 1px solid var(--lva-teal-200);
-    color: var(--fg-brand-strong);
+    background: rgba(2, 169, 195, 0.1);
+    border: 1px solid rgba(2, 169, 195, 0.3);
+    color: var(--lva-teal-400);
     padding: 0.45rem 0.9rem;
     border-radius: var(--radius-md);
     font-size: 0.85rem;
@@ -2250,24 +2189,24 @@ p { margin-bottom: 1rem; }
 
 /* Solutions Footer Elements */
 .solutions-footer-callout {
-    background: var(--bg-brand-soft);
+    background: rgba(2, 169, 195, 0.1);
     border-radius: var(--radius-xl);
     padding: 2.5rem;
     margin-top: 4rem;
-    border: 1px solid var(--lva-teal-200);
+    border: 1px solid rgba(2, 169, 195, 0.3);
 }
 
 .callout-content h3 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--lva-navy-900);
+    color: var(--site-fg);
     margin: 0 0 0.75rem 0;
 }
 
 .callout-content p {
     font-size: 1rem;
     line-height: 1.6;
-    color: var(--fg-primary);
+    color: var(--site-fg-body);
     margin: 0 0 1rem 0;
 }
 
@@ -2387,7 +2326,7 @@ p { margin-bottom: 1rem; }
 
 /* Modal Content */
 .modal-content {
-    background: var(--bg-surface);
+    background: var(--site-bg-card);
     border-radius: var(--radius-xl);
     max-width: 600px;
     width: 90%;
@@ -2408,14 +2347,14 @@ p { margin-bottom: 1rem; }
     justify-content: space-between;
     align-items: center;
     padding: 2rem 2rem 1rem;
-    border-bottom: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--site-border);
 }
 
 .modal-header h2 {
     margin: 0;
     font-size: 1.75rem;
     font-weight: 700;
-    color: var(--lva-navy-900);
+    color: var(--site-fg);
 }
 
 .modal-close {
@@ -2423,7 +2362,7 @@ p { margin-bottom: 1rem; }
     border: none;
     font-size: 2rem;
     line-height: 1;
-    color: var(--fg-secondary);
+    color: var(--site-fg-muted);
     cursor: pointer;
     padding: 0;
     width: 32px;
@@ -2436,8 +2375,8 @@ p { margin-bottom: 1rem; }
 }
 
 .modal-close:hover {
-    background: var(--bg-subtle);
-    color: var(--lva-navy-900);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--site-fg);
 }
 
 /* Modal Body */
@@ -2447,7 +2386,7 @@ p { margin-bottom: 1rem; }
 
 .modal-intro {
     margin: 0 0 1.5rem 0;
-    color: var(--fg-secondary);
+    color: var(--site-fg-muted);
     font-size: 1rem;
     line-height: 1.6;
 }
@@ -2461,7 +2400,7 @@ p { margin-bottom: 1rem; }
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
-    color: var(--fg-primary);
+    color: var(--site-fg-body);
     font-size: 0.95rem;
 }
 
@@ -2470,13 +2409,24 @@ p { margin-bottom: 1rem; }
 .form-group textarea {
     width: 100%;
     padding: 0.75rem 1rem;
-    border: 1px solid var(--border-default);
+    border: 1px solid var(--site-border-strong);
     border-radius: var(--radius-md);
     font-size: 1rem;
     font-family: var(--font-body);
-    color: var(--lva-navy-900);
+    color: var(--site-fg);
     transition: var(--transition-fast);
-    background: var(--bg-surface);
+    background: var(--lva-navy-950);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--site-fg-dim);
+}
+
+/* El desplegable nativo hereda el fondo del sistema si no se fuerza */
+.form-group select option {
+    background: var(--lva-navy-950);
+    color: var(--site-fg);
 }
 
 .form-group input:focus,
@@ -2495,7 +2445,7 @@ p { margin-bottom: 1rem; }
 .form-group select {
     cursor: pointer;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236D6E71' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237E94A8' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 1rem center;
     padding-right: 3rem;
@@ -2544,15 +2494,15 @@ p { margin-bottom: 1rem; }
 
 /* Colores semánticos de marca: positive #19A974 / negative #D0342C */
 .form-message.success {
-    background: rgba(25, 169, 116, 0.08);
+    background: rgba(25, 169, 116, 0.13);
     border: 1px solid rgba(25, 169, 116, 0.35);
-    color: #0F7551;
+    color: #5FD9AC;
 }
 
 .form-message.error {
-    background: rgba(208, 52, 44, 0.07);
+    background: rgba(208, 52, 44, 0.13);
     border: 1px solid rgba(208, 52, 44, 0.32);
-    color: #9C271F;
+    color: #F0928B;
 }
 
 .form-message svg {
