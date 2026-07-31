@@ -1,10 +1,14 @@
 /* ==========================================================================
    LVA Índices — Design tokens de marca (colors & type)
    Fuente: proyecto Claude Design "LVA Índices" → colors_and_type.css + design.md
-   Adaptación para web: las 36 TTF oficiales se sirven desde Google Fonts
-   (Open Sans variable, eje wdth) en vez de auto-hospedarse. Ver DESIGN_LOG.md.
-   NO editar valores de marca aquí sin validación: este archivo es la fuente
-   de verdad de color y tipografía para todo el sitio.
+   Este archivo es la fuente de verdad de color y tipografía del sitio.
+
+   Se aparta del manual en tres puntos, todos aprobados el 2026-07-31 y
+   documentados en DESIGN_LOG.md:
+     1. Navy corporativo como extensión de paleta (el manual no tiene navy).
+     2. Manrope en titulares, en vez de Open Sans Condensed.
+     3. Texto navy —no blanco— sobre relleno teal, por contraste WCAG.
+   NO agregar colores ni familias nuevas sin pasar por el mismo camino.
    ========================================================================== */
 
 :root {
@@ -17,6 +21,17 @@
   --lva-teal-400:   #66D4EC;   /* acentos claros, rellenos de gráfico */
   --lva-teal-200:   #B8EAF4;   /* rellenos sutiles, hover */
   --lva-teal-100:   #E5F7FB;   /* lavados de página / sección */
+
+  /* -------------------------------------------------------------------------
+     EXTENSIÓN DE PALETA (aprobada 2026-07-31, no viene del manual)
+     Navy corporativo. Matiz ~205°, el mismo rango que el teal, para que
+     #02A9C3 se vea encendido encima en vez de ensuciarse (el navy anterior
+     del sitio, #0A1628, tiraba al azul-violeta y apagaba el cian).
+     ------------------------------------------------------------------------- */
+  --lva-navy-950:   #081726;   /* bandas profundas, footer */
+  --lva-navy-900:   #0A1C2E;   /* superficie principal del sitio */
+  --lva-navy-800:   #0F2637;   /* tarjetas y superficies elevadas */
+  --lva-navy-700:   #17334A;   /* bordes fuertes sobre navy */
 
   /* Neutros — del logo en escala de grises */
   --lva-ink-900:    #1F1F21;   /* texto más profundo, títulos */
@@ -54,7 +69,11 @@
   --fg-primary:     var(--lva-ink-800);
   --fg-secondary:   var(--lva-ink-600);
   --fg-tertiary:    var(--lva-ink-400);
-  --fg-on-brand:    var(--lva-white);
+  /* Texto sobre relleno teal. El manual pide blanco, pero blanco sobre
+     #02A9C3 da 2,81:1 y no pasa WCAG AA. Navy profundo da 9,1:1 y mantiene
+     el mismo look. Decisión aprobada 2026-07-31 — ver DESIGN_LOG.md. */
+  --fg-on-brand:    #04222E;
+  --fg-on-brand-alt:var(--lva-white);  /* solo sobre teal-700 (#017A8C), 5,04:1 */
   --fg-brand:       var(--lva-teal-600);
   --fg-brand-strong:var(--lva-teal-700);
 
@@ -65,22 +84,22 @@
 
   /* ---------------------------------------------------------------------
      Tipografía — familias
-     Condensed      → titulares display (silueta angosta, más impacto)
-     SemiCondensed  → subtítulos, eyebrows, botones
-     Open Sans      → cuerpo, UI, formularios
-     Roboto Mono    → cifras financieras tabulares
-     Los nombres 'Open Sans Condensed' / 'SemiCondensed' van primero por si
-     LVA auto-hospeda las TTF oficiales; si no, resuelve 'Open Sans' + font-stretch.
+     Manrope      → titulares display. Sustituye a Open Sans Condensed, que es
+                    una cara utilitaria y no lee como marca tecnológica.
+                    Decisión aprobada 2026-07-31 — ver DESIGN_LOG.md.
+     Open Sans    → cuerpo, UI, formularios, botones (vínculo con la marca)
+     Roboto Mono  → cifras financieras tabulares
      --------------------------------------------------------------------- */
-  --font-display:      'Open Sans Condensed', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-  --font-display-semi: 'Open Sans SemiCondensed', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-display:      'Manrope', 'Helvetica Neue', Arial, sans-serif;
+  --font-display-semi: 'Manrope', 'Helvetica Neue', Arial, sans-serif;
   --font-body:         'Open Sans', 'Helvetica Neue', Arial, sans-serif;
   --font-mono:         'Roboto Mono', 'SFMono-Regular', Menlo, monospace;
 
-  /* Anchos (eje wdth de la variable de Google Fonts) */
-  --width-display:      condensed;       /* 75%  */
-  --width-display-semi: semi-condensed;  /* 87.5% */
-  --width-body:         normal;          /* 100% */
+  /* Manrope no tiene eje de ancho: los tokens quedan en normal para que las
+     reglas que ya usan font-stretch sigan siendo válidas sin tocarlas. */
+  --width-display:      normal;
+  --width-display-semi: normal;
+  --width-body:         normal;
 
   /* Escala tipográfica */
   --fs-xs:   12px;   --lh-xs:  16px;
@@ -135,7 +154,7 @@
   font-weight: var(--fw-display);
   font-size: var(--fs-5xl);
   line-height: var(--lh-5xl);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.03em;   /* Manrope pide tracking negativo en display */
   color: var(--fg-primary);
   text-wrap: balance;
 }
@@ -146,7 +165,7 @@
   font-weight: var(--fw-bold);
   font-size: var(--fs-4xl);
   line-height: var(--lh-4xl);
-  letter-spacing: -0.005em;
+  letter-spacing: -0.025em;
   color: var(--fg-primary);
   text-wrap: balance;
 }

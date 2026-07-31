@@ -425,4 +425,92 @@
         });
     }
 
+    // --- Detalle plegable ("Saber más") ---
+    // Mejora progresiva: sin JS el texto se ve completo. Con JS, las
+    // descripciones largas se recortan para que la primera lectura sea la
+    // promesa, no el detalle. No se elimina ni una palabra.
+    let detailSeq = 0;
+
+    function makeCollapsible(el) {
+        if (el.dataset.collapsible) return;
+
+        // Los paneles de pestañas arrancan ocultos y no se pueden medir:
+        // hasta que el elemento no tenga alto real, no se decide nada.
+        if (!el.getClientRects().length) return;
+
+        // Alto sin recorte vs. alto recortado: solo se pliega si sobra texto
+        el.classList.remove('is-clamped');
+        const full = el.scrollHeight;
+        el.classList.add('is-clamped');
+        const clamped = el.clientHeight;
+
+        el.dataset.collapsible = '1';
+
+        if (full <= clamped + 4) {
+            el.classList.remove('is-clamped');
+            return;
+        }
+
+        const id = 'detalle-' + (++detailSeq);
+        el.id = id;
+
+        const toggle = document.createElement('button');
+        toggle.type = 'button';
+        toggle.className = 'detail-toggle';
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-controls', id);
+        toggle.textContent = 'Saber más';
+
+        toggle.addEventListener('click', () => {
+            const open = el.classList.toggle('is-open');
+            el.classList.toggle('is-clamped', !open);
+            toggle.setAttribute('aria-expanded', String(open));
+            toggle.textContent = open ? 'Ver menos' : 'Saber más';
+        });
+
+        el.insertAdjacentElement('afterend', toggle);
+    }
+
+    // "Nosotros" son tres párrafos seguidos: se agrupan en un solo bloque para
+    // que haya un único "Saber más" y no tres botones apilados.
+    const aboutContent = document.querySelector('.about-content');
+    if (aboutContent) {
+        const paras = aboutContent.querySelectorAll('.about-description');
+        if (paras.length > 1) {
+            const wrap = document.createElement('div');
+            wrap.className = 'about-detail';
+            paras[0].parentNode.insertBefore(wrap, paras[0]);
+            paras.forEach(p => wrap.appendChild(p));
+        }
+    }
+
+    const COLLAPSIBLE_SELECTOR =
+        '.product-description, .ecosistema-card-content > p:not(.ecosistema-tagline), .about-detail';
+
+    document.querySelectorAll(COLLAPSIBLE_SELECTOR)
+        .forEach(el => el.classList.add('is-clamped'));
+
+    function setupCollapsibles(root) {
+        (root || document).querySelectorAll(COLLAPSIBLE_SELECTOR).forEach(makeCollapsible);
+    }
+
+    // Los paneles de pestañas arrancan ocultos y no se pueden medir, así que
+    // se inicializan al abrirse. Este listener se registra después del que
+    // cambia de pestaña, por lo que el panel ya está visible cuando corre.
+    // Se mide de forma síncrona a propósito: requestAnimationFrame no corre
+    // en pestañas de fondo y dejaría paneles sin inicializar.
+    document.querySelectorAll('.solution-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const panel = document.getElementById(tab.getAttribute('aria-controls'));
+            if (panel) setupCollapsibles(panel);
+        });
+    });
+
+    // Se espera a las fuentes: medir antes daría altos de la fuente de respaldo
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => setupCollapsibles());
+    } else {
+        setupCollapsibles();
+    }
+
 })();

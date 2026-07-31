@@ -13,9 +13,9 @@
     --color-lime: var(--lva-teal-400);
     --color-accent-soft: var(--lva-teal-500);
 
-    /* Superficies oscuras: navy antiguo → tinta de marca */
-    --color-navy: var(--lva-ink-900);
-    --color-dark-blue: var(--lva-ink-900);
+    /* Superficies oscuras: navy corporativo (hero, navbar, footer) */
+    --color-navy: var(--lva-navy-900);
+    --color-dark-blue: var(--lva-navy-950);
 
     /* Neutros → escala ink de marca */
     --color-gray-100: var(--lva-ink-50);
@@ -46,7 +46,7 @@
     --transition-slow: all var(--dur-slow) var(--ease-standard);
 
     /* El manual prohíbe gradientes: se conservan los nombres, con color plano */
-    --gradient-navy: var(--lva-ink-900);
+    --gradient-navy: var(--lva-navy-900);
     --gradient-cyan: var(--lva-teal-600);
     --gradient-accent: var(--lva-teal-600);
 }
@@ -94,26 +94,24 @@ textarea:focus-visible,
 /* ===================================
    Typography
    =================================== */
-/* Jerarquía de marca:
-   Condensed (800/700) → titulares display · SemiCondensed (600) → subtítulos */
+/* Titulares en Manrope; el cuerpo sigue en Open Sans (vínculo con la marca).
+   Manrope necesita tracking negativo para leerse bien en tamaños display. */
 h1, h2 {
     font-family: var(--font-display);
-    font-stretch: var(--width-display);
-    line-height: 1.12;
-    letter-spacing: -0.01em;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
 }
 
 h3, h4 {
     font-family: var(--font-display-semi);
-    font-stretch: var(--width-display-semi);
-    line-height: 1.2;
-    letter-spacing: 0;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
 }
 
 h1 { font-size: 3.25rem; font-weight: 800; }
-h2 { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
-h3 { font-size: 1.5rem; font-weight: 600; }
-h4 { font-weight: 600; }
+h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; }
+h3 { font-size: 1.5rem; font-weight: 700; }
+h4 { font-weight: 700; }
 p { margin-bottom: 1rem; }
 
 .text-cyan { color: var(--color-cyan); }
@@ -175,7 +173,7 @@ p { margin-bottom: 1rem; }
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(31, 31, 33, 0.95);
+    background: rgba(10, 28, 46, 0.92);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     z-index: 1000;
@@ -312,6 +310,124 @@ p { margin-bottom: 1rem; }
     overflow: hidden;
 }
 
+/* ---------------------------------------------------------------------------
+   Malla del hero — red neuronal lenta.
+   Tres capas: retícula de mapa fija · aristas fijas · destellos que recorren
+   la red. Los nodos se encienden y apagan desfasados. Todo muy tenue: es
+   textura de fondo, no ilustración. Nada de cifras ni gráficos financieros.
+   --------------------------------------------------------------------------- */
+.hero-mesh {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    pointer-events: none;
+    z-index: 0;
+    -webkit-mask-image: linear-gradient(105deg, transparent 0 28%, #000 70%, #000 100%);
+    mask-image: linear-gradient(105deg, transparent 0 28%, #000 70%, #000 100%);
+}
+
+.mesh-grid path {
+    stroke: var(--lva-teal-500);
+    stroke-opacity: 0.07;
+    stroke-width: 1;
+}
+
+.mesh-edges path {
+    stroke: var(--lva-teal-500);
+    stroke-opacity: 0.26;
+    stroke-width: 1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Destellos: un tramo corto de luz que viaja por las conexiones. Cada camino
+   tiene un largo distinto, así que a igual velocidad el recorrido se
+   desincroniza solo y la red nunca late al unísono. */
+.mesh-sparks path {
+    stroke: var(--lva-teal-400);
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 70 1500;
+    stroke-dashoffset: 1570;
+    animation: meshSpark 19s linear infinite;
+}
+
+.mesh-sparks path:nth-child(1) { animation-duration: 21s; animation-delay:  -2s; }
+.mesh-sparks path:nth-child(2) { animation-duration: 15s; animation-delay:  -7s; }
+.mesh-sparks path:nth-child(3) { animation-duration: 24s; animation-delay: -13s; }
+.mesh-sparks path:nth-child(4) { animation-duration: 17s; animation-delay:  -4s; }
+.mesh-sparks path:nth-child(5) { animation-duration: 26s; animation-delay: -18s; }
+.mesh-sparks path:nth-child(6) { animation-duration: 19s; animation-delay: -10s; }
+
+@keyframes meshSpark {
+    from { stroke-dashoffset: 1570; }
+    to   { stroke-dashoffset: 0; }
+}
+
+.mesh-nodes circle,
+.mesh-hubs circle {
+    fill: var(--lva-teal-400);
+    stroke: none;
+}
+
+.mesh-nodes circle {
+    fill-opacity: 0.42;
+    animation: meshNode 9s ease-in-out infinite;
+}
+
+/* Seis grupos de desfase: los nodos se encienden en oleadas irregulares */
+.mesh-nodes circle:nth-child(6n + 1) { animation-delay:  0s; }
+.mesh-nodes circle:nth-child(6n + 2) { animation-delay: -1.4s; }
+.mesh-nodes circle:nth-child(6n + 3) { animation-delay: -3.1s; }
+.mesh-nodes circle:nth-child(6n + 4) { animation-delay: -4.6s; }
+.mesh-nodes circle:nth-child(6n + 5) { animation-delay: -6.2s; }
+.mesh-nodes circle:nth-child(6n + 6) { animation-delay: -7.7s; }
+
+@keyframes meshNode {
+    0%, 100% { fill-opacity: 0.22; }
+    50%      { fill-opacity: 0.85; }
+}
+
+.mesh-hubs circle {
+    fill-opacity: 0.9;
+    animation: meshHub 11s ease-in-out infinite;
+}
+
+.mesh-hubs circle:nth-child(2) { animation-delay: -2.5s; }
+.mesh-hubs circle:nth-child(3) { animation-delay: -5s; }
+.mesh-hubs circle:nth-child(4) { animation-delay: -7.5s; }
+.mesh-hubs circle:nth-child(5) { animation-delay: -3.5s; }
+.mesh-hubs circle:nth-child(6) { animation-delay: -9s; }
+
+@keyframes meshHub {
+    0%, 100% { fill-opacity: 0.45; }
+    45%      { fill-opacity: 1; }
+}
+
+/* En pantallas chicas la malla se escala y engorda: se atenúa para no
+   competir con el titular, que ahí ocupa todo el ancho. */
+@media (max-width: 768px) {
+    .hero-mesh {
+        opacity: 0.5;
+        -webkit-mask-image: linear-gradient(180deg, transparent 0 32%, #000 76%);
+        mask-image: linear-gradient(180deg, transparent 0 32%, #000 76%);
+    }
+}
+
+/* La animación es decorativa: se congela si el sistema pide menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+    .mesh-sparks path,
+    .mesh-nodes circle,
+    .mesh-hubs circle {
+        animation: none;
+    }
+    .mesh-sparks path { stroke-dashoffset: 0; stroke-dasharray: none; stroke-opacity: 0.3; }
+    .mesh-nodes circle { fill-opacity: 0.45; }
+}
+
 .hero .container {
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
@@ -347,13 +463,16 @@ p { margin-bottom: 1rem; }
 
 .hero-headline {
     font-family: var(--font-display);
-    font-stretch: var(--width-display);
     font-size: 3.75rem;
     font-weight: 800;
     margin-bottom: 1.5rem;
-    line-height: 1.08;
-    letter-spacing: -0.01em;
+    line-height: 1.06;
+    letter-spacing: -0.035em;
     text-wrap: balance;
+}
+
+.hero-subheadline {
+    max-width: 34rem;
 }
 
 .hero-subheadline {
@@ -378,7 +497,6 @@ p { margin-bottom: 1rem; }
     border-radius: var(--radius-md);
     text-decoration: none;
     font-family: var(--font-display-semi);
-    font-stretch: var(--width-display-semi);
     font-weight: var(--fw-semibold);
     transition: var(--transition);
     cursor: pointer;
@@ -426,7 +544,7 @@ p { margin-bottom: 1rem; }
 }
 
 .btn-link {
-    color: var(--fg-brand);
+    color: var(--fg-brand-strong);
     font-weight: 600;
     text-decoration: none;
     transition: var(--transition);
@@ -617,23 +735,39 @@ p { margin-bottom: 1rem; }
    Solutions Section
    =================================== */
 .solutions {
-    background: var(--color-gray-100);
+    background-color: var(--color-gray-100);
     padding: 100px 0;
+}
+
+/* Retícula de fondo en las secciones claras: eco de la malla del hero, al
+   límite de lo perceptible. Da carácter técnico sin ensuciar la lectura. */
+.solutions,
+.about {
+    background-image:
+        linear-gradient(to right, rgba(2, 169, 195, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(2, 169, 195, 0.05) 1px, transparent 1px);
+    background-size: 72px 72px;
 }
 
 .section-header {
     text-align: center;
-    max-width: 700px;
+    max-width: 760px;
     margin: 0 auto 4rem;
 }
 
 .section-header h2 {
     color: var(--color-navy);
+    font-size: clamp(2rem, 3.6vw, 2.75rem);
+    letter-spacing: -0.035em;
 }
 
+/* La bajada es soporte, no protagonista: baja de tamaño y de contraste */
 .section-header p {
-    font-size: 1.15rem;
-    color: var(--color-gray-700);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--fg-secondary);
+    max-width: 62ch;
+    margin: 0 auto;
 }
 
 /* Client Type Tabs */
@@ -740,7 +874,7 @@ p { margin-bottom: 1rem; }
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--color-cyan);
+    color: var(--fg-brand-strong);
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid rgba(2, 169, 195, 0.2);
@@ -801,7 +935,7 @@ p { margin-bottom: 1rem; }
 }
 
 .ecosistema .section-header h2 {
-    color: var(--lva-ink-900);
+    color: var(--lva-navy-900);
 }
 
 .ecosistema .section-header p {
@@ -839,23 +973,33 @@ p { margin-bottom: 1rem; }
     padding: 2rem;
 }
 
+/* El nombre del premio es la etiqueta; lo que significa es el titular */
 .ecosistema-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--lva-ink-900);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg-brand-strong);
+    margin-bottom: 0.7rem;
+    line-height: 1.2;
 }
 
 .ecosistema-tagline {
-    color: var(--fg-brand-strong);
-    font-weight: 600;
-    font-size: 0.95rem;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.22;
+    color: var(--lva-navy-900);
     margin-bottom: 1rem;
+    text-wrap: balance;
 }
 
-.ecosistema-card-content > p {
+.ecosistema-card-content > p:not(.ecosistema-tagline) {
     color: var(--fg-secondary);
     font-size: 0.9rem;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 .ecosistema-badge {
@@ -865,7 +1009,6 @@ p { margin-bottom: 1rem; }
     padding: 0.3rem 0.8rem;
     border-radius: var(--radius-pill);
     font-family: var(--font-display-semi);
-    font-stretch: var(--width-display-semi);
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -920,7 +1063,7 @@ p { margin-bottom: 1rem; }
 .how-it-works h2 {
     text-align: center;
     margin-bottom: 4rem;
-    color: var(--lva-ink-900);
+    color: var(--lva-navy-900);
 }
 
 .steps {
@@ -969,7 +1112,7 @@ p { margin-bottom: 1rem; }
     margin-bottom: 0.75rem;
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--lva-ink-900);
+    color: var(--lva-navy-900);
 }
 
 .step p {
@@ -1035,7 +1178,7 @@ p { margin-bottom: 1rem; }
    =================================== */
 .about {
     padding: 100px 0;
-    background: var(--color-gray-100);
+    background-color: var(--color-gray-100);
 }
 
 .about-grid {
@@ -1051,9 +1194,11 @@ p { margin-bottom: 1rem; }
     margin-bottom: 0.75rem;
 }
 
+/* Teal 700, no 600: sobre fondo claro el teal primario da 2,67:1 y no
+   pasa WCAG AA. El 700 da 4,83:1 y es el mismo color de marca. */
 .about-tagline {
     font-size: 1.25rem;
-    color: var(--color-cyan);
+    color: var(--fg-brand-strong);
     font-weight: 600;
     margin-bottom: 2rem;
 }
@@ -1132,7 +1277,7 @@ p { margin-bottom: 1rem; }
     margin-bottom: 1rem;
     font-size: 3rem;
     font-weight: 800;
-    color: var(--lva-ink-900);
+    color: var(--lva-navy-900);
 }
 
 .final-cta p {
@@ -1163,7 +1308,7 @@ p { margin-bottom: 1rem; }
    Footer
    =================================== */
 .footer {
-    background: var(--color-navy);
+    background: var(--lva-navy-950);
     color: var(--color-white);
     padding: 4rem 0 2rem;
 }
@@ -1335,7 +1480,7 @@ p { margin-bottom: 1rem; }
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg-inverse);
+    background: var(--lva-navy-900);
 }
 
 .blog-card-image-placeholder svg {
@@ -1394,7 +1539,7 @@ p { margin-bottom: 1rem; }
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    color: var(--color-cyan);
+    color: var(--fg-brand-strong);
     font-weight: 600;
     font-size: 0.9rem;
     margin-top: 1rem;
@@ -1824,27 +1969,38 @@ p { margin-bottom: 1rem; }
 .tab-text {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.4rem;
     text-align: left;
 }
 
+/* Jerarquía invertida: el nombre del área es la ETIQUETA (mono, pequeña) y la
+   promesa es lo que se lee primero. Antes era al revés y la promesa quedaba
+   sepultada como texto secundario. */
 .tab-name {
-    font-family: var(--font-display-semi);
-    font-stretch: var(--width-display-semi);
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: var(--lva-ink-900);
-    line-height: 1.3;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fg-secondary);
+    line-height: 1.2;
 }
 
 .tab-desc {
-    font-size: 0.875rem;
-    color: var(--fg-secondary);
-    line-height: 1.4;
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--lva-navy-900);
+    line-height: 1.25;
+}
+
+.solution-tab.active .tab-name {
+    color: var(--fg-brand-strong);
 }
 
 .solution-tab.active .tab-desc {
-    color: var(--fg-brand-strong);
+    color: var(--lva-navy-900);
 }
 
 /* Solution Areas Container */
@@ -1899,19 +2055,27 @@ p { margin-bottom: 1rem; }
     box-shadow: var(--shadow-sm);
 }
 
+/* Mismo giro: el nombre del área pasa a etiqueta y la promesa toma el peso */
 .area-header h3 {
-    font-size: 1.75rem;
-    font-weight: 600;
-    color: var(--lva-ink-900);
-    margin: 0 0 0.5rem 0;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg-brand-strong);
+    margin: 0 0 0.75rem 0;
     line-height: 1.2;
 }
 
 .area-tagline {
-    font-size: 1rem;
-    color: var(--fg-secondary);
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 2.1vw, 1.6rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--lva-navy-900);
     margin: 0;
-    line-height: 1.5;
+    line-height: 1.24;
+    text-wrap: balance;
 }
 
 /* Product Cards V2 */
@@ -1933,42 +2097,105 @@ p { margin-bottom: 1rem; }
     transform: translateY(-2px);
 }
 
+/* El badge deja de ser una píldora flotando a la derecha y pasa a ser la
+   etiqueta del producto, arriba. La promesa (h4) es lo primero que se lee. */
 .product-card-header {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 1rem;
-    gap: 1rem;
+    margin-bottom: 0.75rem;
+    gap: 0.55rem;
 }
 
 .product-card-v2 h4 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--lva-ink-900);
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--lva-navy-900);
     margin: 0;
-    line-height: 1.3;
+    line-height: 1.25;
+    text-wrap: balance;
 }
 
 .product-badge {
-    background: var(--bg-brand);
-    color: var(--fg-on-brand);
-    padding: 0.25rem 0.75rem;
-    border-radius: var(--radius-sm);
-    font-family: var(--font-display-semi);
-    font-stretch: var(--width-display-semi);
-    font-size: 0.75rem;
-    font-weight: 600;
-    white-space: nowrap;
+    order: -1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    color: var(--fg-brand-strong);
+    padding: 0;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.15em;
+}
+
+/* Guion teal: marca visualmente que es etiqueta y no titular */
+.product-badge::before {
+    content: '';
+    width: 14px;
+    height: 1px;
+    background: var(--lva-teal-600);
+    flex-shrink: 0;
 }
 
 .product-description {
     font-size: 0.95rem;
-    line-height: 1.6;
+    line-height: 1.65;
     color: var(--fg-secondary);
-    margin: 0 0 1.25rem 0;
+    margin: 0 0 1rem 0;
     flex-grow: 1;
+}
+
+/* ---------------------------------------------------------------------------
+   Detalle plegable — la promesa se lee primero, el detalle queda a un clic.
+   El recorte lo aplica JS (mejora progresiva): sin JS se ve el texto completo.
+   --------------------------------------------------------------------------- */
+.is-clamped {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* El bloque de "Nosotros" son tres párrafos: se recorta más largo */
+.about-detail.is-clamped {
+    -webkit-line-clamp: 4;
+}
+
+.about-detail p:last-child {
+    margin-bottom: 0;
+}
+
+.detail-toggle {
+    align-self: flex-start;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-brand-strong);
+    transition: color var(--dur-med) var(--ease-standard);
+}
+
+.detail-toggle::after {
+    content: ' +';
+}
+
+.detail-toggle[aria-expanded="true"]::after {
+    content: ' −';
+}
+
+.detail-toggle:hover {
+    color: var(--lva-teal-600);
 }
 
 .product-highlights {
@@ -1997,7 +2224,6 @@ p { margin-bottom: 1rem; }
 .bateria-label {
     display: inline-block;
     font-family: var(--font-display-semi);
-    font-stretch: var(--width-display-semi);
     font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -2034,7 +2260,7 @@ p { margin-bottom: 1rem; }
 .callout-content h3 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--lva-ink-900);
+    color: var(--lva-navy-900);
     margin: 0 0 0.75rem 0;
 }
 
@@ -2049,7 +2275,7 @@ p { margin-bottom: 1rem; }
     text-align: center;
     margin-top: 4rem;
     padding: 3rem 2rem;
-    background: var(--bg-inverse);
+    background: var(--lva-navy-900);
     border-radius: var(--radius-xl);
     color: var(--color-white);
 }
@@ -2084,12 +2310,14 @@ p { margin-bottom: 1rem; }
         height: 40px;
     }
 
+    /* La etiqueta se mantiene chica y la promesa grande también en móvil:
+       si no, este bloque volvía a invertir la jerarquía. */
     .tab-name {
-        font-size: 0.95rem;
+        font-size: 0.625rem;
     }
 
     .tab-desc {
-        font-size: 0.8rem;
+        font-size: 1rem;
     }
 
     .solution-area {
@@ -2107,7 +2335,7 @@ p { margin-bottom: 1rem; }
     }
 
     .area-header h3 {
-        font-size: 1.5rem;
+        font-size: 0.625rem;
     }
 
     .product-card-header {
@@ -2187,7 +2415,7 @@ p { margin-bottom: 1rem; }
     margin: 0;
     font-size: 1.75rem;
     font-weight: 700;
-    color: var(--lva-ink-900);
+    color: var(--lva-navy-900);
 }
 
 .modal-close {
@@ -2209,7 +2437,7 @@ p { margin-bottom: 1rem; }
 
 .modal-close:hover {
     background: var(--bg-subtle);
-    color: var(--lva-ink-900);
+    color: var(--lva-navy-900);
 }
 
 /* Modal Body */
@@ -2246,7 +2474,7 @@ p { margin-bottom: 1rem; }
     border-radius: var(--radius-md);
     font-size: 1rem;
     font-family: var(--font-body);
-    color: var(--lva-ink-900);
+    color: var(--lva-navy-900);
     transition: var(--transition-fast);
     background: var(--bg-surface);
 }
@@ -2290,7 +2518,6 @@ p { margin-bottom: 1rem; }
     cursor: pointer;
     transition: var(--transition);
     font-family: var(--font-display-semi);
-    font-stretch: var(--width-display-semi);
 }
 
 .btn-form-submit:hover {
