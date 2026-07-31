@@ -1,0 +1,226 @@
+/* ==========================================================================
+   LVA Índices — Design tokens de marca (colors & type)
+   Fuente: proyecto Claude Design "LVA Índices" → colors_and_type.css + design.md
+   Adaptación para web: las 36 TTF oficiales se sirven desde Google Fonts
+   (Open Sans variable, eje wdth) en vez de auto-hospedarse. Ver DESIGN_LOG.md.
+   NO editar valores de marca aquí sin validación: este archivo es la fuente
+   de verdad de color y tipografía para todo el sitio.
+   ========================================================================== */
+
+:root {
+  /* ---------------------------------------------------------------------
+     Colores de marca — extraídos de los SVG del logo LVA
+     --------------------------------------------------------------------- */
+  --lva-teal-700:   #017A8C;   /* hover / pressed del teal primario */
+  --lva-teal-600:   #02A9C3;   /* PRIMARIO — flecha del logo / acento */
+  --lva-teal-500:   #2FC3E3;   /* SECUNDARIO — caja del logo */
+  --lva-teal-400:   #66D4EC;   /* acentos claros, rellenos de gráfico */
+  --lva-teal-200:   #B8EAF4;   /* rellenos sutiles, hover */
+  --lva-teal-100:   #E5F7FB;   /* lavados de página / sección */
+
+  /* Neutros — del logo en escala de grises */
+  --lva-ink-900:    #1F1F21;   /* texto más profundo, títulos */
+  --lva-ink-800:    #414042;   /* texto de cuerpo PRIMARIO — del logo */
+  --lva-ink-600:    #6D6E71;   /* texto secundario / captions — del logo */
+  --lva-ink-400:    #9C9D9F;   /* deshabilitado / terciario */
+  --lva-ink-300:    #C9CACC;   /* bordes / divisores */
+  --lva-ink-200:    #E4E5E7;   /* bordes de tarjeta, divisores sutiles */
+  --lva-ink-100:    #F2F3F5;   /* fondo suave, filas zebra */
+  --lva-ink-50:     #F8F9FA;   /* fondo de página */
+  --lva-white:      #FFFFFF;
+
+  /* Semánticos / mercado financiero */
+  --lva-positive:   #19A974;
+  --lva-negative:   #D0342C;
+  --lva-warning:    #E8A317;
+  --lva-info:       var(--lva-teal-600);
+
+  /* Series de gráfico (usar en orden) */
+  --lva-chart-1:    #02A9C3;
+  --lva-chart-2:    #0B5E73;
+  --lva-chart-3:    #19A974;
+  --lva-chart-4:    #E8A317;
+  --lva-chart-5:    #7A5AA0;
+  --lva-chart-6:    #6D6E71;
+
+  /* Tokens semánticos de superficie */
+  --bg-page:        var(--lva-ink-50);
+  --bg-surface:     var(--lva-white);
+  --bg-subtle:      var(--lva-ink-100);
+  --bg-brand:       var(--lva-teal-600);
+  --bg-brand-soft:  var(--lva-teal-100);
+  --bg-inverse:     var(--lva-ink-900);
+
+  --fg-primary:     var(--lva-ink-800);
+  --fg-secondary:   var(--lva-ink-600);
+  --fg-tertiary:    var(--lva-ink-400);
+  --fg-on-brand:    var(--lva-white);
+  --fg-brand:       var(--lva-teal-600);
+  --fg-brand-strong:var(--lva-teal-700);
+
+  --border-subtle:  var(--lva-ink-200);
+  --border-default: var(--lva-ink-300);
+  --border-strong:  var(--lva-ink-600);
+  --border-brand:   var(--lva-teal-600);
+
+  /* ---------------------------------------------------------------------
+     Tipografía — familias
+     Condensed      → titulares display (silueta angosta, más impacto)
+     SemiCondensed  → subtítulos, eyebrows, botones
+     Open Sans      → cuerpo, UI, formularios
+     Roboto Mono    → cifras financieras tabulares
+     Los nombres 'Open Sans Condensed' / 'SemiCondensed' van primero por si
+     LVA auto-hospeda las TTF oficiales; si no, resuelve 'Open Sans' + font-stretch.
+     --------------------------------------------------------------------- */
+  --font-display:      'Open Sans Condensed', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-display-semi: 'Open Sans SemiCondensed', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-body:         'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:         'Roboto Mono', 'SFMono-Regular', Menlo, monospace;
+
+  /* Anchos (eje wdth de la variable de Google Fonts) */
+  --width-display:      condensed;       /* 75%  */
+  --width-display-semi: semi-condensed;  /* 87.5% */
+  --width-body:         normal;          /* 100% */
+
+  /* Escala tipográfica */
+  --fs-xs:   12px;   --lh-xs:  16px;
+  --fs-sm:   14px;   --lh-sm:  20px;
+  --fs-md:   16px;   --lh-md:  24px;
+  --fs-lg:   18px;   --lh-lg:  28px;
+  --fs-xl:   20px;   --lh-xl:  28px;
+  --fs-2xl:  24px;   --lh-2xl: 32px;
+  --fs-3xl:  30px;   --lh-3xl: 38px;
+  --fs-4xl:  36px;   --lh-4xl: 44px;
+  --fs-5xl:  48px;   --lh-5xl: 56px;
+  --fs-6xl:  64px;   --lh-6xl: 72px;
+
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semibold:600;
+  --fw-bold:    700;
+  --fw-display: 800;
+
+  /* Espaciado (grilla base 4px) / radios / sombras */
+  --space-0: 0;    --space-1: 4px;  --space-2: 8px;  --space-3: 12px;
+  --space-4: 16px; --space-5: 20px; --space-6: 24px; --space-8: 32px;
+  --space-10: 40px; --space-12: 48px; --space-16: 64px; --space-20: 80px;
+
+  --radius-xs: 2px;  --radius-sm: 4px;  --radius-md: 6px;
+  --radius-lg: 10px; --radius-xl: 16px; --radius-pill: 999px;
+
+  --shadow-xs: 0 1px 1px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 8px rgba(15, 23, 42, 0.06), 0 2px 4px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 12px 24px rgba(15, 23, 42, 0.10), 0 4px 8px rgba(15, 23, 42, 0.04);
+  --shadow-xl: 0 24px 48px rgba(15, 23, 42, 0.14);
+  --shadow-brand: 0 8px 24px rgba(2, 169, 195, 0.22);
+  --shadow-inner: inset 0 1px 2px rgba(15, 23, 42, 0.06);
+
+  --focus-ring: 0 0 0 3px rgba(2, 169, 195, 0.32);
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1.2);
+  --dur-fast: 120ms;
+  --dur-med: 200ms;
+  --dur-slow: 320ms;
+}
+
+/* ==========================================================================
+   Roles tipográficos semánticos
+   ========================================================================== */
+
+.lva-h1, h1.lva {
+  font-family: var(--font-display);
+  font-stretch: var(--width-display);
+  font-weight: var(--fw-display);
+  font-size: var(--fs-5xl);
+  line-height: var(--lh-5xl);
+  letter-spacing: -0.01em;
+  color: var(--fg-primary);
+  text-wrap: balance;
+}
+
+.lva-h2, h2.lva {
+  font-family: var(--font-display);
+  font-stretch: var(--width-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-4xl);
+  line-height: var(--lh-4xl);
+  letter-spacing: -0.005em;
+  color: var(--fg-primary);
+  text-wrap: balance;
+}
+
+.lva-h3, h3.lva {
+  font-family: var(--font-display-semi);
+  font-stretch: var(--width-display-semi);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-2xl);
+  line-height: var(--lh-2xl);
+  color: var(--fg-primary);
+}
+
+.lva-h4, h4.lva {
+  font-family: var(--font-display-semi);
+  font-stretch: var(--width-display-semi);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-xl);
+  line-height: var(--lh-xl);
+  color: var(--fg-primary);
+}
+
+.lva-eyebrow {
+  font-family: var(--font-display-semi);
+  font-stretch: var(--width-display-semi);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-xs);
+  line-height: var(--lh-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-brand-strong);
+}
+
+.lva-lede {
+  font-family: var(--font-body);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-lg);
+  line-height: var(--lh-lg);
+  color: var(--fg-secondary);
+  text-wrap: pretty;
+}
+
+.lva-body, p.lva {
+  font-family: var(--font-body);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-md);
+  line-height: var(--lh-md);
+  color: var(--fg-primary);
+  text-wrap: pretty;
+}
+
+.lva-small {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-sm);
+  color: var(--fg-secondary);
+}
+
+.lva-caption {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  line-height: var(--lh-xs);
+  color: var(--fg-tertiary);
+  letter-spacing: 0.02em;
+}
+
+.lva-mono, code.lva, .lva-tabular {
+  font-family: var(--font-mono);
+  font-feature-settings: 'tnum' 1, 'zero' 1;
+  font-size: var(--fs-sm);
+  color: var(--fg-primary);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
