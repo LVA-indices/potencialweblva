@@ -76,6 +76,33 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Acceso: misma altura que el hero, y formulario más legible
+
+Tres correcciones sobre la primera versión.
+
+**1. El canvas salía estirado.** El bloque se había estirado a `100dvh`, así
+que el hero medía 900px en vez de 583 y el dibujo se deformaba. Se quitó el
+estirado: ahora manda el `min-height` del hero, igual que en la portada.
+
+A 1440px queda **idéntico**: 1440×583, proporción 2,469, el mismo número que
+la portada. Debajo de 1440 el hero de acceso es más alto (519px a 1024, 503 a
+768, 530 a 390) contra los 430 de la portada: **un formulario necesita más alto
+que un titular de dos líneas**, y comprimirlo hasta 430 obligaría a achicar los
+campos, que es lo contrario de lo pedido.
+
+**2. El componente subió.** Al quitar el centrado vertical y ajustar los
+paddings —clamp(40,4.2vw,60) arriba, clamp(24,2.5vw,36) abajo, contra los
+144/56 de la portada— el título arranca mucho más arriba. Los paddings tienen
+que ser menores que los del hero: si el contenido superara los 583px, el bloque
+crecería y el canvas volvería a estirarse.
+
+**3. Campos más legibles.** El fondo pasó de `rgba(255,255,255,0.06)` a
+`rgba(18,45,63,0.92)`: al 6% de blanco se transparentaba el dibujo del canvas
+por debajo y el texto escrito costaba de leer. Texto de 15 a 16,5px, alto de 47
+a 53px, placeholder de `faint` a `dim`.
+
+Contraste dentro del campo: texto escrito **14,47**, placeholder **6,59**.
+
 ### Página de acceso (`acceso.html`)
 
 Pantalla de login con el bloque superior de la portada —nav, lavado radial y
