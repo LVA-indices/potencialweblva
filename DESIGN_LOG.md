@@ -76,6 +76,12 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Acceso: el texto de ayuda se centra
+
+"¿Aún no tienes cuenta?" pasa a `text-align: center`. Comparte los 430px del
+formulario con el botón, así que su centro cae en el mismo eje: 720px ambos a
+1440. El resto del formulario sigue alineado a la izquierda.
+
 ### Acceso: dibujo atenuado y el fondo deja de cortarse
 
 **El corte de media pantalla.** El bloque superior lleva una línea blanca de
