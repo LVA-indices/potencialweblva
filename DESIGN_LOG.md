@@ -76,6 +76,19 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Acceso: la cabecera se queda solo con el logo
+
+Fuera los enlaces, "Agenda tu demo" y "Acceso clientes". Razón de Andrea: quien
+llega aquí **ya es cliente**, no necesita recorrer el sitio. El logo queda como
+única salida, apuntando a la portada.
+
+Se va también la hamburguesa: sin enlaces no hay nada que desplegar.
+`startNav()` no necesitó cambios, porque ya salía sin hacer nada si no
+encontraba el toggle (`if (!toggle || !panel) return`).
+
+Verificado a 1440 y 390: un solo enlace en la cabecera, sin desborde, y el hero
+sigue en 583px con proporción 2,469.
+
 ### Acceso: el componente baja 16px
 
 Los paddings del hero pasan de 60/36 a **76/20**. Se sumó arriba lo mismo que

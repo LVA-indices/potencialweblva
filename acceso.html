@@ -16,31 +16,15 @@
 <body>
 
 <!-- Misma pieza que el bloque superior de la portada: nav, lavado radial y
-     canvas. Misma altura y proporcion que en la portada. -->
+     canvas. Misma altura y proporción que en la portada. -->
 <div class="top top--plain">
 
+    <!-- Solo el logo: esta pantalla no lleva navegación. El JS del menú
+         sale solo si no encuentra el toggle, así que no hace falta tocarlo. -->
     <nav class="nav" aria-label="Principal">
         <a class="nav__brand" href="index.html" aria-label="LVA Índices — inicio">
             <img class="nav__logo" src="assets/brand/logos/lva-logo-color-on-dark.svg" alt="LVA Índices">
         </a>
-
-        <button type="button" class="nav__toggle" id="nav-toggle"
-                aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-collapse">
-            <span></span><span></span><span></span>
-        </button>
-
-        <div class="nav__collapse" id="nav-collapse">
-            <ul class="nav__links">
-                <li><a href="index.html#soluciones">Soluciones</a></li>
-                <li><a href="index.html#datos">Datos</a></li>
-                <li><a href="index.html#premios">Premios</a></li>
-                <li><a href="index.html#nosotros">Nosotros</a></li>
-            </ul>
-            <div class="nav__actions">
-                <a class="btn-demo" href="mailto:comercial@lvaindices.com?subject=Solicitud%20de%20demo">Agenda tu demo</a>
-                <a class="nav__access" href="acceso.html" aria-current="page">Acceso clientes</a>
-            </div>
-        </div>
     </nav>
 
     <section class="hero hero--access">
