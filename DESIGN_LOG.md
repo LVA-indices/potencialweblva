@@ -76,6 +76,43 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Columnas parejas para que el justificado funcione
+
+Andrea pidió justificado sin huecos enormes, aceptando cambiar anchos de
+columna, con la condición de que quedara **parejo** y sin perder la grilla.
+
+El desparejo venía de Premios: con el logo al costado, la columna de 150px más
+su gap se comen 182px de la media columna, dejando el párrafo en 237px a
+1024px y 304px a 1200px, contra los 410–480px de Datos y Nosotros.
+
+Cálculo: con el logo al lado, el párrafo solo alcanza 380px sobre **1405px** de
+viewport. Debajo de eso el logo sube y el párrafo se queda con la media columna
+entera. La grilla de dos premios no se toca. La regla ya existía para móvil a
+600px; solo se elevó el umbral.
+
+Anchos de columna resultantes, idénticos en los tres bloques:
+
+| Viewport | Columna | Peor espacio |
+|---|---|---|
+| 1440 | 576 / 576 / 394 | 1,2× — 1,8× |
+| 1300 | 520 en los tres | hasta 3,0× |
+| 1024 | 410 en los tres | hasta 2,3× |
+| 950 | 380 en los tres | hasta 2,9× |
+| 768 | 660 en los tres | hasta 2,2× |
+| 390 | 335 → izquierda | 1× |
+
+### Por qué "Así funciona" y las tarjetas quedan a la izquierda
+
+Se midió justificar también esos bloques, y no es viable: sus columnas son de
+275px (pasos) y 217px (CTA) por diseño, al ir cuatro en fila. Justificados dan
+**23,9×** en el primer paso — casi el doble de malo que el peor caso que se
+acaba de corregir. El motivo es "latinoamericano": una palabra de 15 letras en
+una columna de 275px deja líneas de dos palabras.
+
+El justificado necesita medida: bajo ~380px no hay suficientes palabras por
+línea para repartir el sobrante. Esos bloques quedan alineados a la izquierda,
+que es la decisión tipográfica correcta, no una omisión.
+
 ### Justificado sí, guiones no: la condición por ancho de columna
 
 Corrección de la entrada anterior. Andrea **sí quiere** el texto en bloque

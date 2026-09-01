@@ -856,6 +856,24 @@ button:focus-visible,
    completo; es el único caso ambiguo y cabe de sobra.
    --------------------------------------------------------------------------- */
 
+@media (max-width: 1405px) {
+  /* Premios: logo arriba, texto abajo.
+     Con el logo al costado, el párrafo se queda con lo que sobra: la columna
+     de 150px del logo más su gap se comen 182px de la media columna. Medido,
+     eso deja 237px de texto a 1024px y 304px a 1200px — demasiado angosto
+     para justificar sin abrir huecos.
+     Sobre 1405px la media columna da de sí y el párrafo llega a 380px con el
+     logo al lado; debajo, no. Así que debajo el logo sube y el párrafo se
+     queda con la media columna entera, la misma medida que tienen Datos y
+     Nosotros. La grilla de dos premios no se toca. */
+  .award {
+    grid-template-columns: 1fr;
+    row-gap: 18px;
+  }
+
+  .award__logo { justify-content: flex-start; }
+}
+
 @media (max-width: 1023.98px) {
   /* El panel sale del flujo, así que solo quedan logo y botón */
   .nav { grid-template-columns: 1fr auto; }
@@ -930,15 +948,6 @@ button:focus-visible,
   /* Los cuatro datos se mantienen en grilla 2×2: son cifras cortas y apiladas
      en una sola columna estiran la sección sin ganar nada. */
   .facts { grid-template-columns: 1fr 1fr; }
-
-  /* Premios: logo arriba, texto abajo. A este ancho la columna de 150px del
-     logo deja el párrafo demasiado angosto. */
-  .award {
-    grid-template-columns: 1fr;
-    row-gap: 18px;
-  }
-
-  .award__logo { justify-content: flex-start; }
 }
 
 @media (prefers-reduced-motion: reduce) {
