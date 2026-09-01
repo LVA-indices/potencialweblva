@@ -76,6 +76,37 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Justificado sí, guiones no: la condición por ancho de columna
+
+Corrección de la entrada anterior. Andrea **sí quiere** el texto en bloque
+justificado; lo que no quiere son los cortes con guion. Al quitar el justificado
+quedó el borde derecho irregular ("con flecos"), que no era lo pedido.
+
+Vuelve `text-align: justify` en los tres bloques, con `hyphens: none`. El
+problema de los huecos se resuelve con una **container query**: la condición
+mira el ancho de la propia columna, no el del viewport, porque una misma
+pantalla tiene columnas muy distintas según la sección. Bajo 380px de columna
+se alinea a la izquierda.
+
+Peor espacio entre palabras, medido (1 = ancho natural):
+
+| Viewport | Datos | Premios | Nosotros |
+|---|---|---|---|
+| 1440 | 1,2× | 1,8× | 1,2× |
+| 1200 | 2,0× | *izq.* (col 304px) | 2,0× |
+| 1024 | 2,1× | *izq.* (col 237px) | 1,5× |
+| 768 | 1,5× | 2,4× | 2,2× |
+| 390 | *izq.* | *izq.* | *izq.* |
+
+Antes de la regla, Premios a 1024px llegaba a **13,9×**. El máximo ahora es 2,4×,
+dentro de lo normal en texto justificado.
+
+**Trampa de cascada:** el bloque `@container` se insertó primero a media hoja y
+solo funcionaba en `.data__lead`. Las reglas de `.award__body` y
+`.about__story p` vienen después en el archivo y, con la misma especificidad,
+ganaban por orden. La container query no altera la especificidad. Se movió el
+bloque al final de la hoja.
+
 ### Fuera los cortes de palabra con guion
 
 Andrea pidió que ningún texto se corte con guion ("inde-pendiente",
