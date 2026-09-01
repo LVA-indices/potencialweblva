@@ -76,6 +76,42 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Página de acceso (`acceso.html`)
+
+Pantalla de login con el bloque superior de la portada —nav, lavado radial y
+canvas animado—, con el formulario en el lugar del titular y la bajada.
+
+No es una copia del hero: es **la misma pieza**. Reutiliza `.top`, `.nav`,
+`.hero` y el canvas `data-field="hero"`, así que el menú sandwich, el acordeón
+de nav y la animación funcionan sin una línea nueva.
+
+**Formulario estándar:** correo (`type=email`, `autocomplete=username`),
+contraseña (`autocomplete=current-password`), "Recuérdame en este equipo",
+"¿Olvidaste tu contraseña?" y "Ingresar". Etiquetas visibles, no solo
+placeholders. Campos y botón de 47px de alto. Zona `aria-live` para mensajes.
+
+**La autenticación NO está conectada.** El envío se intercepta con
+`preventDefault`: sin eso el navegador mandaría la contraseña al propio
+servidor por no tener `action`. Comprobado enviando una clave de prueba: la URL
+no cambia y no aparece en ella. Quien conecte el backend debe reemplazar ese
+listener; el enlace de recuperación (`#recuperar`) también está pendiente.
+
+**Decisiones de medida:**
+
+- El bloque estira a `100dvh`. Con la altura propia del hero (584px máx.)
+  quedaba una franja blanca debajo en cualquier escritorio.
+- Formulario de 430px. A 400px la casilla y el enlace de contraseña se quedaban
+  a 12px y se leían como un solo bloque; ahora hay 72px.
+- `.hero__inner` necesitó `width: 100%`: dentro de la grilla del hero el `.wrap`
+  se encogía al contenido y dejaba el formulario en 370px.
+- Bajo 420px la casilla y el enlace se apilan.
+
+Contraste sobre navy, todo sobre el mínimo AA de 4,5: título 16,92; bajada
+7,71; etiquetas 10,94; enlace de contraseña 8,09; texto de ayuda 5,25.
+
+El enlace "Acceso clientes" del menú deja de apuntar al login antiguo
+(`lvaindices.com/login3/`) y apunta a esta página.
+
 ### Columnas parejas para que el justificado funcione
 
 Andrea pidió justificado sin huecos enormes, aceptando cambiar anchos de
