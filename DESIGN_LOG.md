@@ -76,6 +76,15 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Acceso: cumbres más altas
+
+Tercer parámetro de la variante `data-soft`: `lift = 1.3`, un 30% más de altura
+en las cumbres.
+
+Se aplica **solo al dibujar**, no al valor `hgt`. Escalar la altura misma haría
+que más tramos superaran los umbrales `FLOOR` (0.055) y el del filo de cumbres
+(0.3), y el dibujo se llenaría de líneas justo cuando se buscaba lo contrario.
+
 ### Acceso: el texto de ayuda se centra
 
 "¿Aún no tienes cuenta?" pasa a `text-align: center`. Comparte los 430px del

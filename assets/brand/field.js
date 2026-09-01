@@ -154,6 +154,10 @@
             const fx = soft ? 4.6 : 8.4;
             // Atenuacion global de trazos.
             const dim = soft ? 0.42 : 1;
+            // Cumbres mas altas. Se aplica solo al dibujar, no al 'hgt': si
+            // escalara la altura misma, mas tramos superarian los umbrales
+            // FLOOR y 0.3 y el dibujo se llenaria de lineas.
+            const lift = soft ? 1.3 : 1;
             const horizon = h * (dark ? 0.22 : 0.34), seed = this.off;
             const drift = t * 0.035;
             const FLOOR = 0.055;                       // bajo este relieve no se dibuja nada
@@ -171,7 +175,7 @@
                     const hgt = Math.max(0, r - 0.26) * mass * 1.7;
                     row.push({
                         x: w * (0.5 + (vx - 0.5) * (0.78 + persp * 0.42)),
-                        y: horizon + vy * (h - horizon) * (dark ? 0.88 : 0.99) - hgt * (h - horizon) * (dark ? 1.06 : 0.95) * (0.35 + persp * 0.55),
+                        y: horizon + vy * (h - horizon) * (dark ? 0.88 : 0.99) - hgt * (h - horizon) * (dark ? 1.06 : 0.95) * lift * (0.35 + persp * 0.55),
                         persp, hgt
                     });
                 }
