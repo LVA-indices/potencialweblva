@@ -36,9 +36,39 @@ Por eso van al claro, que además es el color que ya tenían antes de este cambi
 Se añadió `transition: color 0.18s ease` en `a` para que el cambio de tono se
 lea como intencional y no como un salto.
 
+### Los cuatro "Leer más" a la misma altura
+
+El párrafo de Riesgo ocupa una línea más que los otros tres —tiene las cifras
+que se devolvieron del brief—, así que su "Leer más" caía más abajo y los
+cuatro quedaban desalineados. El `min-height: 5.1em` del párrafo cubría tres
+líneas y Riesgo se pasaba.
+
+**Primer intento, descartado:** columna en flex con `margin-top: auto` en el
+botón. Alinea perfecto en reposo, pero al desplegar una tarjeta las otras tres
+se estiran a la altura de la abierta y su "Leer más" cae **1.112 px** por debajo
+de su propio párrafo. Se midió y se revirtió.
+
+**Solución:** `grid-template-rows: subgrid` en `.area`. Cada tarjeta hereda las
+filas de la grilla madre, así etiqueta, promesa, párrafo y botón se alinean
+entre columnas sin encadenar las alturas totales. El detalle desplegable ocupa
+una quinta fila que crece sola.
+
+Dos consecuencias del subgrid que hubo que resolver:
+
+1. El `row-gap` de la grilla madre se aplicaría **dentro** de cada tarjeta,
+   separando etiqueta de promesa. Se puso en `0` y la separación entre filas de
+   tarjetas pasó a `padding-bottom` en `.area`.
+2. Ese relleno dejaba 46 px de aire sobrante bajo la última fila. Se cancela con
+   un `margin-bottom` negativo del mismo valor en `.areas`.
+
+Medido en 1440, 1024, 768 y 390: alineados en todas las filas y en ambos
+estados (cerrado y con Riesgo abierto), hueco párrafo→botón constante de 22 px,
+separación entre filas de 28 px, sin desborde horizontal, y el aire hasta la
+sección "Datos" de vuelta en 132 px.
+
 ### Archivos
 
-- `styles.css` — reglas de hover de enlaces.
+- `styles.css` — reglas de hover de enlaces y alineación de las cuatro áreas.
 
 ### Verificación
 

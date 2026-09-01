@@ -333,7 +333,25 @@ button:focus-visible,
   margin-top: clamp(40px, 5vw, 72px);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: clamp(28px, 3.2vw, 48px);
+  column-gap: clamp(28px, 3.2vw, 48px);
+  row-gap: 0;
+  /* Cancela el padding-bottom de la última fila de tarjetas, que si no
+     agregaría aire de más antes de la sección siguiente. */
+  margin-bottom: calc(-1 * clamp(28px, 3.2vw, 48px));
+}
+
+/* Cada tarjeta hereda las filas de la grilla madre (subgrid), así etiqueta,
+   promesa, párrafo y "Leer más" quedan a la misma altura entre columnas
+   aunque un párrafo tenga más líneas —Riesgo tiene una más que el resto.
+   Se evitó resolverlo con margin-top:auto: al desplegar una tarjeta, las
+   demás estiraban y su "Leer más" caía 1.100px más abajo.
+   El row-gap va en 0 y la separación entre filas de tarjetas la da el
+   padding-bottom, que en subgrid no puede venir del gap. */
+.area {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 5;
+  padding-bottom: clamp(28px, 3.2vw, 48px);
 }
 
 .area__label { font-size: 10.5px; font-weight: 500; letter-spacing: 0.17em; color: var(--v5-teal-deep); }
@@ -360,6 +378,7 @@ button:focus-visible,
 
 .disclose {
   margin-top: 22px;
+  justify-self: start;
   display: inline-flex;
   align-items: center;
   gap: 11px;
