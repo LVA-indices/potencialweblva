@@ -94,8 +94,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-a { color: var(--v5-teal-light); text-decoration: none; }
-a:hover { color: #F4EFE6; text-decoration: underline; }
+a { color: var(--v5-teal-light); text-decoration: none; transition: color 0.18s ease; }
+a:hover { color: var(--v5-teal-light); }
+
+/* Los enlaces que ya son turquesa en reposo viran al claro, no a sí mismos. */
+.nav__access:hover,
+.footer__bottom a:hover { color: #F4EFE6; }
 
 img { max-width: 100%; }
 
@@ -165,7 +169,7 @@ button:focus-visible,
 }
 
 .nav__links a { color: var(--v5-on-dark-nav); }
-.nav__links a:hover { color: #F4EFE6; }
+.nav__links a:hover { color: var(--v5-teal-light); }
 
 .nav__actions {
   justify-self: end;

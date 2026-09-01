@@ -8,6 +8,56 @@ no puede contener su propio hash).
 
 ---
 
+## 2026-09-01 — Sesión 5: el hover de los enlaces deja de subrayar
+
+Hash de la sesión 4: **`ba7cbce`**.
+
+### Qué cambió
+
+En escritorio los enlaces se subrayaban al pasar el mouse. Andrea pidió que en
+vez de la línea cambien de tonalidad. El subrayado venía de una única regla
+global heredada de la V5 (`a:hover { text-decoration: underline }`), que se
+aplicaba también sobre reglas que solo definían color —el menú, por ejemplo,
+fijaba su color de hover pero heredaba la línea igual.
+
+Como el nav no tiene estado claro (vive siempre sobre el navy del bloque
+superior), **todos** los enlaces del sitio están sobre fondo oscuro. Eso deja
+dos familias, y cada una vira en la dirección contraria para que el cambio se
+note:
+
+| En reposo | Al pasar el mouse | Contraste sobre navy |
+|---|---|---|
+| Menú y enlaces del footer, gris `#C4D2DA` | turquesa `#2FC3E3` | 10.94 → 8.09 |
+| Acceso Clientes y LinkedIn, turquesa `#2FC3E3` | claro `#F4EFE6` | 8.09 → 14.78 |
+
+Los que ya son turquesa en reposo no podían virar al turquesa: no se vería nada.
+Por eso van al claro, que además es el color que ya tenían antes de este cambio.
+
+Se añadió `transition: color 0.18s ease` en `a` para que el cambio de tono se
+lea como intencional y no como un salto.
+
+### Archivos
+
+- `styles.css` — reglas de hover de enlaces.
+
+### Verificación
+
+El panel de vista previa volvió a quedar en cero píxeles, así que no se pudo
+hacer hover con el mouse. Se verificó recorriendo el CSSOM: para cada enlace se
+listaron **todas** las reglas `:hover` de la hoja que le aplican. Ninguna
+declara `underline`, y todas cambian el color. El único enlace sin cambio de
+tono es `.nav__brand`, que es el logo: no tiene texto.
+
+### Nota de accesibilidad
+
+Quitar el subrayado deja el color como única señal del hover, lo que en texto
+corrido incumpliría WCAG 1.4.1. Aquí no aplica: el sitio no tiene enlaces
+dentro de párrafos —todos están en el menú, el footer o son botones—, donde la
+posición ya los identifica como navegación. **Si en el futuro se agregan
+enlaces dentro de un párrafo, hay que devolverles el subrayado.**
+
+---
+
 ## 2026-09-01 — Sesión 4: se implementa la V5 de Claude Design
 
 Hash de la sesión 3: **`3f34d57`**.
