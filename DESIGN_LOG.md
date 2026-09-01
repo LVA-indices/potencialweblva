@@ -66,9 +66,20 @@ estados (cerrado y con Riesgo abierto), hueco párrafo→botón constante de 22 
 separación entre filas de 28 px, sin desborde horizontal, y el aire hasta la
 sección "Datos" de vuelta en 132 px.
 
+### Typo en una cifra del hero
+
+La cuarta cifra decía `20 años` con la bajada `Años de series históricas
+continuas`: repetía la unidad. Queda `De series históricas continuas`, en
+mayúscula como las otras tres bajadas y como el paralelo exacto que ya existía
+en "Datos" (`20 años → De series comparables`).
+
+Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
+era la única que repetía.
+
 ### Archivos
 
 - `styles.css` — reglas de hover de enlaces y alineación de las cuatro áreas.
+- `index.html` — bajada de la cifra de años.
 
 ### Verificación
 
