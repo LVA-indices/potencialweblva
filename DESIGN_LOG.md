@@ -76,6 +76,29 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Fuera los cortes de palabra con guion
+
+Andrea pidió que ningún texto se corte con guion ("inde-pendiente",
+"Co-lombia"). La partición venía de `hyphens: auto` en tres bloques:
+`.data__lead`, `.award__body` y `.about__story p`.
+
+Quitar los guiones **no bastaba**: esos tres bloques estaban justificados, y la
+justificación sin guiones estira los espacios. Medido tras desactivarlos:
+
+| Ancho | Bloque | Columna | Espacio |
+|---|---|---|---|
+| 1024 | Premios | 237px | **+41,8px** sobre 3,2px naturales (14×) |
+| 390 | Datos | 335px | +12,8px sobre 3,5px (4,6×) |
+| 390 | Nosotros | 335px | +8,8px (3,5×) |
+
+Así que se quitó también la justificación en esos tres bloques. No es una
+decisión nueva: el propio diseño ya desactivaba el justificado de `.award__body`
+en pantallas angostas, con el comentario "justificado a este ancho abre ríos
+entre palabras". Se eliminó esa regla del media query por redundante.
+
+Verificado en 1440, 1024 y 390: los cinco párrafos en `left`, `hyphens: none`,
+estiramiento de espacio **0** y sin desborde horizontal.
+
 ### Archivos
 
 - `styles.css` — reglas de hover de enlaces y alineación de las cuatro áreas.

@@ -513,9 +513,11 @@ button:focus-visible,
   font-size: 15px;
   line-height: 1.78;
   color: var(--v5-on-light-alt);
-  text-align: justify;
-  text-align-last: left;
-  hyphens: auto;
+  /* Sin justificar: al quitar los guiones, justificar abría espacios de hasta
+     14 veces el ancho normal. Es la misma razón por la que el diseño ya lo
+     desactivaba en pantallas angostas. */
+  text-align: left;
+  hyphens: none;
 }
 
 .facts {
@@ -627,11 +629,10 @@ button:focus-visible,
   font-size: 14px;
   line-height: 1.72;
   color: var(--v5-on-dark-dim);
-  text-align: justify;
-  text-align-last: left;
-  text-justify: inter-word;
-  hyphens: auto;
-  -webkit-hyphens: auto;
+  /* Sin justificar: ver nota en .data__lead. */
+  text-align: left;
+  hyphens: none;
+  -webkit-hyphens: none;
   orphans: 2;
   widows: 2;
   overflow-wrap: break-word;
@@ -678,9 +679,11 @@ button:focus-visible,
   font-size: 15px;
   line-height: 1.8;
   color: var(--v5-on-dark-muted);
-  text-align: justify;
-  text-align-last: left;
-  hyphens: auto;
+  /* Sin justificar: al quitar los guiones, justificar abría espacios de hasta
+     14 veces el ancho normal. Es la misma razón por la que el diseño ya lo
+     desactivaba en pantallas angostas. */
+  text-align: left;
+  hyphens: none;
 }
 
 .about__story p + p { color: var(--v5-on-dark-dim); }
@@ -936,11 +939,6 @@ button:focus-visible,
   }
 
   .award__logo { justify-content: flex-start; }
-
-  .award__body {
-    text-align: left;      /* justificado a este ancho abre ríos entre palabras */
-    text-align-last: left;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
