@@ -985,8 +985,8 @@ button:focus-visible,
   /* Paddings más ajustados que los de la portada para que el formulario -más
      alto que un titular de dos líneas- quepa dentro de los 583px del hero.
      Si el contenido los superara, el bloque crecería y el canvas se estiraría. */
-  padding-top: clamp(40px, 4.2vw, 60px);
-  padding-bottom: clamp(24px, 2.5vw, 36px);
+  padding-top: clamp(52px, 5.3vw, 76px);
+  padding-bottom: clamp(16px, 1.4vw, 20px);
 }
 
 /* width:100% explícito: dentro de la grilla del hero el .wrap se encogía

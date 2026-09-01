@@ -76,6 +76,15 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Acceso: el componente baja 16px
+
+Los paddings del hero pasan de 60/36 a **76/20**. Se sumó arriba lo mismo que
+se restó abajo: el contenido ocupa 574 de los 583px disponibles y solo quedan
+9px de holgura, así que añadir margen superior sin compensar habría hecho
+crecer el bloque y estirado el canvas otra vez.
+
+Verificado: hero en 583px, canvas 1440×583, proporción 2,469.
+
 ### Acceso: cumbres más altas
 
 Tercer parámetro de la variante `data-soft`: `lift = 1.3`, un 30% más de altura
