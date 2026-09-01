@@ -62,6 +62,9 @@
     class Field {
         constructor(canvas, mode, seed) {
             this.c = canvas; this.mode = mode; this.rnd = mulberry(seed);
+            // data-soft: variante atenuada y mas estirada en horizontal, para la
+            // pantalla de acceso, donde el dibujo va detras de un formulario.
+            this.soft = canvas.hasAttribute('data-soft');
             this.ctx = canvas.getContext('2d');
             this.t = 0; this.acc = 0; this.visible = true;
             this.dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -146,6 +149,11 @@
             const dark = this.mode === 'hero';
             ctx.clearRect(0, 0, w, h);
             const cols = w > 1000 ? (dark ? 96 : 130) : 70, rows = dark ? 26 : 38;
+            const soft = this.soft;
+            // Menos frecuencia horizontal = cumbres mas anchas, dibujo estirado.
+            const fx = soft ? 4.6 : 8.4;
+            // Atenuacion global de trazos.
+            const dim = soft ? 0.42 : 1;
             const horizon = h * (dark ? 0.22 : 0.34), seed = this.off;
             const drift = t * 0.035;
             const FLOOR = 0.055;                       // bajo este relieve no se dibuja nada
@@ -159,7 +167,7 @@
                     // cordillera de borde a borde: solo cae en los extremos
                     const mass = Math.pow(Math.max(0, 1 - Math.pow(Math.abs(vx - 0.5) * 2, 3.4)), 0.85)
                         * Math.pow(Math.max(0, 1 - Math.abs(vy - 0.56) * 1.7), 0.8);
-                    const r = ridged(vx * 8.4 + drift, vy * 3.4 - drift * 0.6, seed);
+                    const r = ridged(vx * fx + drift, vy * 3.4 - drift * 0.6, seed);
                     const hgt = Math.max(0, r - 0.26) * mass * 1.7;
                     row.push({
                         x: w * (0.5 + (vx - 0.5) * (0.78 + persp * 0.42)),
@@ -170,8 +178,8 @@
                 P.push(row);
             }
             const stroke = dark
-                ? a => 'rgba(120,215,238,' + (a * 0.95).toFixed(3) + ')'
-                : a => 'rgba(11,30,47,' + a.toFixed(3) + ')';
+                ? a => 'rgba(120,215,238,' + (a * 0.95 * dim).toFixed(3) + ')'
+                : a => 'rgba(11,30,47,' + (a * dim).toFixed(3) + ')';
             // solo los tramos con relieve: la planicie desaparece
             const runs = (get, n, colorFor) => {
                 let on = false;
@@ -203,7 +211,9 @@
                     if (row[i].hgt < 0.3) { on = false; continue; }
                     on ? ctx.lineTo(row[i].x, row[i].y) : (ctx.moveTo(row[i].x, row[i].y), on = true);
                 }
-                ctx.strokeStyle = dark ? 'rgba(47,195,227,0.44)' : 'rgba(2,169,195,0.4)';
+                ctx.strokeStyle = dark
+                    ? 'rgba(47,195,227,' + (0.44 * dim).toFixed(3) + ')'
+                    : 'rgba(2,169,195,' + (0.4 * dim).toFixed(3) + ')';
                 ctx.stroke();
             }
         }

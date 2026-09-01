@@ -968,6 +968,19 @@ button:focus-visible,
    no se estira a la ventana: el min-height del hero (583px a 1440) manda, y el
    único ajuste es un padding superior menor que el de la portada, para que el
    formulario -más alto que el titular- quepa dentro sin empujar el bloque. */
+/* La portada lleva una línea blanca de 1px bajo el bloque superior para
+   separarlo de las secciones blancas. En acceso no hay nada debajo, así que esa
+   línea quedaba suelta a media pantalla y se leía como un corte.
+
+   El bloque estira a la ventana para que el degradado llegue hasta abajo: al
+   terminar en los 583px del hero, el fondo se cortaba en seco contra el navy
+   plano del body. Ojo: estira el CONTENEDOR, no el hero — el canvas sigue
+   midiendo 583px y conserva la proporción de la portada. */
+.top--plain {
+  box-shadow: none;
+  min-height: 100dvh;
+}
+
 .hero--access {
   /* Paddings más ajustados que los de la portada para que el formulario -más
      alto que un titular de dos líneas- quepa dentro de los 583px del hero.

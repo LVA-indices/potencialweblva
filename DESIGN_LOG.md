@@ -76,6 +76,29 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Acceso: dibujo atenuado y el fondo deja de cortarse
+
+**El corte de media pantalla.** El bloque superior lleva una línea blanca de
+1px para separarse de las secciones blancas de la portada. En acceso no hay
+nada debajo, así que la línea quedaba suelta y, peor, el degradado terminaba a
+los 583px del hero y chocaba contra el navy plano del `body`. Se quita la línea
+y el `.top` estira a `100dvh`.
+
+Ojo con la distinción, que es la que evita repetir el error anterior: estira el
+**contenedor**, no el hero. El canvas sigue midiendo 583px y conserva la
+proporción 2,469 de la portada. Estirar el hero fue lo que deformó el dibujo la
+primera vez.
+
+**Dibujo atenuado y estirado.** `field.js` acepta ahora `data-soft` en el
+canvas. Con ese atributo:
+
+- la frecuencia horizontal del ruido baja de `8.4` a `4.6`, así las cumbres son
+  más anchas y el dibujo se lee estirado;
+- todos los trazos se multiplican por `0.42`, incluido el filo de cumbres.
+
+Es una variante, no un cambio del motor: la portada no lleva el atributo y su
+canvas quedó verificado idéntico (1440×583, proporción 2,469).
+
 ### Acceso: misma altura que el hero, y formulario más legible
 
 Tres correcciones sobre la primera versión.
