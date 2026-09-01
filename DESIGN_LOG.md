@@ -8,6 +8,364 @@ no puede contener su propio hash).
 
 ---
 
+## 2026-09-01 — Sesión 4: se implementa la V5 de Claude Design
+
+Hash de la sesión 3: **`3f34d57`**.
+
+### Qué pasó
+
+Andrea diseñó el sitio en Claude Design y exportó un handoff. **Esa V5 manda
+sobre todo lo anterior**: se descartó la dirección que veníamos construyendo
+(hero oscuro disolviéndose en sitio blanco, Manrope, deboxing) y se implementó
+`LVA Sitio V5 - Generativa.dc.html` tal cual.
+
+El bundle no se pudo importar por MCP —la autorización de design expiró a mitad
+de sesión y `/design-login` no corre en un contexto no interactivo—, así que se
+trabajó desde el zip de handoff.
+
+### Qué cambió respecto del sitio anterior
+
+**Contenido nuevo, no solo estilos.** La V5 trae copy distinto y una sección
+que no existía:
+
+| | Antes | V5 |
+|---|---|---|
+| Titular | "La mejor versión de la información" | "La infraestructura de datos financieros del asset management latinoamericano." |
+| Voz | tú | **usted** ("Su equipo comercial", "Conozca al comprador") |
+| Secciones | Hero · Soluciones · Premios · Nosotros · Así funciona · CTA | Hero · **KPIs** · Soluciones · **Datos** · Premios · Nosotros |
+| Navegación | Soluciones, Premios, Nosotros, Blog | Soluciones, Datos, Premios, Nosotros |
+
+Esto cierra el pendiente de voz que arrastrábamos desde la sesión 1: la V5 está
+escrita de usted, como pide el manual de marca.
+
+**Tipografía:** Google Sans / Google Sans Text con **DM Sans** de respaldo desde
+Google Fonts. Reemplaza a Manrope + Open Sans. Ojo: Google Sans no se
+distribuye libremente, así que quien no la tenga instalada verá DM Sans — que
+es exactamente lo que define el prototipo.
+
+**Paleta:** navy `#0B1E2F` y `#173A50`, sobre los que van los lavados radiales
+del bloque superior. Reemplaza al `#0A1C2E` que veníamos usando.
+
+**Dos motivos generativos** (`assets/brand/field.js`), portados del prototipo:
+- *hero* — cordillera en retícula de perspectiva, ruido `ridged` de 5 octavas,
+  96×26 nodos, ~20 fps. Solo se dibujan los tramos con relieve: la planicie
+  desaparece.
+- *datos* — nube de 1.300 puntos sobre dos curvas Catmull-Rom, recorrida por un
+  frente que los agranda al pasar, ~55 fps, con zonas limpias donde va el texto.
+
+Ambos se siembran al azar en cada carga, se pausan fuera de pantalla y se
+congelan con `prefers-reduced-motion`.
+
+**Acordeón de Soluciones:** exclusivo (abrir uno cierra los demás), como en el
+prototipo, con `aria-expanded` y `aria-controls`.
+
+### Desviaciones deliberadas respecto del prototipo
+
+1. **Ancho máximo de contenido 1440px** con los fondos a sangre. El prototipo va
+   a sangre completa sin tope. Pedido de diseño para que las columnas no se
+   estiren sin control en pantallas anchas.
+2. **Premios y Nosotros usan `repeat(2, 1fr)`** en vez de `auto-fit minmax(320px)`,
+   con colapso a una columna bajo 900px. Así el canal de columnas coincide entre
+   ambas secciones — verificado: **56 px en las dos**. Era el arreglo pedido.
+3. **Los CTA "Agenda tu demo" son enlaces `mailto:`** a `comercial@lvaindices.com`.
+   En el prototipo son `<span>` sin acción. Se prefirió eso a dejar botones
+   muertos. **Decisión abierta:** el sitio anterior tenía un modal de contacto
+   con formulario web3forms; la V5 no lo contempla y quedó fuera.
+4. **Foco visible** con anillo teal, que el prototipo no define pero el manual
+   de marca exige.
+
+### Archivos
+- `index.html` — reescrito completo
+- `styles.css` — reescrito completo (el anterior se conservó como
+  `styles-legacy.css`, del que dependen blog y artículo)
+- `assets/brand/field.js` *(nuevo)* — motivos generativos y acordeón
+- `assets/brand/logos/` — se agregan `premio-salmon-on-dark.png` y
+  `prixtar-on-dark.svg`; se actualizan los dos logos LVA desde el bundle
+- `assets/brand/hero-field.js` *(eliminado)* — la malla de la sesión 3
+- `blog.html`, `blog/ejemplo-articulo.html` — apuntan a `styles-legacy.css`
+
+### Verificación
+Servido en local y auditado por DOM: los 8 bloques con sus fondos exactos, los
+dos canvas dibujando (6,95% y 5,65% de píxeles con tinta), acordeón abriendo,
+cerrando y siendo exclusivo, canal de columnas 56 px en Premios y Nosotros, sin
+errores de consola.
+
+El panel de preview solo captura de forma fiable la parte superior de la página,
+así que **el hero se vio en imagen y el resto se verificó por medidas del DOM**.
+Conviene recorrerlo entero en un navegador real.
+
+### ⚠️ Contraste: 14 fallos WCAG AA que vienen del diseño
+
+Se implementó fiel, sin cambiar colores. Pero el prototipo tiene cuatro pares
+que no pasan AA. Los valores están medidos:
+
+| Elemento | Actual | Mínimo | Corrección propuesta | Queda |
+|---|---|---|---|---|
+| Botón "Agenda tu demo" (nav) | blanco sobre `#02A9C3` = **2,81** | 4,5 | texto `#0B1E2F` | 6,02 |
+| "Leer más" y su glifo | `#02A9C3` sobre blanco = **2,81** | 4,5 | `#067C90` (ya en la paleta) | 4,89 |
+| `product__tag` (9,5px) | `#6E7C85` = **4,30** | 4,5 | `#5C6B75` | 5,50 |
+| Eyebrow y labels del bloque Datos | `#5C6B75` sobre `#DED9D2` = **3,92** | 4,5 | `#4E5C66` | 4,91 |
+
+El propio diseño ya usa **navy sobre teal** en el botón de la tarjeta de CTA
+(8,09), así que la corrección del botón del nav lo dejaría internamente
+consistente, no menos fiel.
+
+**Aplicados el 2026-09-01 a pedido de Andrea.** Los cuatro cambios usan colores
+que ya estaban en la paleta del diseño, así que no se introdujo ninguno nuevo:
+el `#067C90` es el mismo de los eyebrow, el `#5C6B75` y el `#4E5C66` ya se usan
+en cuerpo de texto, y el navy sobre teal es lo que el propio diseño hace en el
+botón de la tarjeta de CTA. **Verificado: de 14 fallos a 0.**
+
+### Ajustes posteriores del mismo día
+
+- **Aire sobre la grilla de Soluciones**: `clamp(64px, 8vw, 116px)` →
+  `clamp(40px, 5vw, 72px)`. Un 38% menos; el titular quedó conversando con las
+  columnas en vez de flotando.
+- **Premios: logo a la izquierda, texto a la derecha.** Los dos logos tienen
+  proporciones muy distintas (Salmón 546×352 = 1,55 · Prixtar 1920×768 = 2,50),
+  así que comparten una caja fija de 150×86 y se ajustan con `object-fit:
+  contain`: quedan ópticamente parejos sin deformarse. La columna de texto va a
+  alto completo con las cifras empujadas al pie (`margin-top: auto`), de modo
+  que **la línea de cifras queda alineada entre los dos premios** aunque los
+  párrafos midan distinto. Verificado: ambas en el mismo píxel.
+- **Copy: todo el sitio pasa a tú.** Estaba mezclado —Soluciones en usted
+  ("Su equipo comercial", "Conozca", "Cumpla") y los CTA en tú— justo en los
+  botones. Se unificó en tú con registro corporativo: imperativo directo, sin
+  coloquialismos. Nueve frases cambiadas, más `sólo` → `solo` (la RAE ya no
+  recomienda la tilde). **Se aparta del manual de marca, que pide usted**;
+  decisión de Andrea.
+
+- **Copy devuelto al brief original.** Al comparar el brief contra lo
+  implementado quedó claro que Claude Design lo había reescrito de más: la V5
+  leía como un resumen ejecutivo del texto, no como el texto. Se restauró:
+
+  - **Hero y bajada del brief, en su estructura original de dos frases:**
+    "La mejor versión de la información. / Más de 20 años entregándola." con la
+    bajada "Somos la plataforma que más de 120 gestoras en Chile, Colombia,
+    México y Perú eligen para distribuir, invertir y cumplir."
+
+    Se probó primero una versión de una sola frase que incorporaba el mercado
+    ("+20 años entregando la mejor versión de la información para el asset
+    management latinoamericano.", 96 caracteres, tres líneas) y quedó larga.
+    El brief ya lo tenía resuelto mejor: **golpe y prueba en dos tiempos**,
+    63 caracteres. El mercado no se pierde — la bajada lo dice con países, que
+    es más concreto que la etiqueta de categoría. `<title>` y meta description
+    sí conservan "asset management latinoamericano", que ahí sirve para
+    búsqueda.
+
+    Se probó `+20 años` para que rimara con la fila de KPIs (+11.000, +1.400,
+    +120), pero se dejó "Más de 20 años" tal como estaba en el brief: en una
+    frase completa lee mejor que la abreviatura.
+
+  - **La sección "Así funciona LVA"**, que la V5 había eliminado entera. Era la
+    pérdida más grave: es el único lugar del sitio que responde "¿cuánto me
+    cuesta implementar esto?", con "plataformas SaaS listas para usar" y sobre
+    todo **"sin proyectos largos de implementación"**. Vuelve sobre
+    `--v5-navy-mid`, con el mismo índice numerado de la batería de reportes,
+    entre Nosotros y el footer.
+
+  - **Las cifras de Riesgo** (3.000 reportes mensuales, 70+ fondos, +6.000
+    millones gestionados). Sin ellas Riesgo era el dominio con menos evidencia
+    de los cuatro, cuando en el brief era de los mejor respaldados.
+
+  - **Cinco cierres de tarjeta** que estaban recortados, entre ellos el mejor
+    argumento comercial del brief: "Tu fuerza de venta está para cerrar
+    negocios, no armar documentos."
+
+  - **Dos tarjetas caídas**: "Dedícate al análisis, no a los cálculos"
+    (Automatización) e "Información pre-trade para tu equipo". De 16 a 18.
+
+  - **El CTA de demo se movió de Nosotros a "Así funciona", como cuarta
+    columna.** Remata el arco de esa sección —cómo empiezas— en vez del de
+    quiénes somos, y al quedar en la misma fila que los tres pasos se lee como
+    el cuarto tiempo de la secuencia: "Conversemos".
+
+    Es **la única columna con caja** —lavado teal al 10% sobre el navy de la
+    sección, con filete teal y radio 16— justamente para destacarla del resto,
+    que va sin marco.
+
+    La grilla es de cuatro columnas: la `<ol>` de pasos ocupa las tres primeras
+    y se subdivide con el mismo gap, así las cuatro miden igual sin romper la
+    semántica de lista. Se usó el gap de `.areas` —la otra grilla de cuatro del
+    sitio— y el resultado calza exacto: **275px por columna en ambas secciones**.
+
+    Se eliminó del CTA la frase "Sin proyecto de implementación" porque el paso
+    03, justo al lado, ya la dice.
+
+    Efecto colateral que hubo que corregir: sin el CTA, la columna derecha de
+    Nosotros quedaba en 131px contra 406 de la izquierda. Los pilares pasaron
+    de 2×2 a una sola columna con filete; la diferencia bajó a 64px y además
+    leen como lo que son, una lista de principios.
+
+  - **Los pilares de Nosotros alineados con el texto de Premios.** La columna
+    derecha de Nosotros arrancaba en el borde de su columna (763px) mientras el
+    texto de los premios de arriba empieza después del logo (945px), así que
+    las dos secciones no compartían eje. Se sangró la columna de pilares
+    exactamente el ancho del logo más su canal — tokenizado como
+    `--v5-award-logo` + `--v5-award-gap`, no un número a ojo, para que siga
+    cuadrando si cambia el tamaño del logo. Verificado: **ambos en 945px** a
+    1440 y desfase 0 también a 1100. Se anula al apilar.
+
+  - **Titular de "Así funciona" en una sola línea**: `max-width` de 760 a 920px.
+    Comprobado a 1440 y a 1100.
+
+  - **Eyebrow de esa sección: "ASÍ FUNCIONA LVA" → "TU CAMINO CON LVA".**
+    El problema era de idea, no de layout: "así funciona" prometía un mecanismo
+    y el titular daba una identidad, así que la etiqueta y el titular tiraban
+    para lados distintos antes de llegar a las columnas. "Tu camino con LVA"
+    encuadra las cuatro columnas como el arco de la relación —conocemos,
+    construimos, creces, conversemos— y el titular dice quién está del otro
+    lado. Se probó antes alinear el bloque a la izquierda para acercarlo a la
+    grilla; se descartó, porque el problema no estaba en la maqueta.
+
+    Se pasó por "TU PROYECTO CON LVA" y se cambió a "camino" porque el paso 03
+    dice "sin proyectos largos de implementación" a veinte centímetros: la
+    misma palabra con valencia opuesta —recorrido vs. implementación pesada—
+    justo donde se promete evitarla.
+
+  - **Bajada de Premios: vuelve la del brief.** La de la V5 tenía 246
+    caracteres y caía en tres líneas; la del brief tiene 181 y entra en dos
+    sin forzar la medida de lectura. Otro caso donde el texto original ya
+    estaba mejor resuelto.
+
+  - **Título de "Así funciona": "El partner tecnológico que sabe de
+    inversiones."** Costó cuatro intentos y vale la pena dejar por qué, porque
+    cada descarte acercó el foco:
+
+    1. *"De la primera conversación a los primeros resultados."* — invento mío,
+       describía un proceso sin prometer nada.
+    2. *"Empiezas a usarlo, no a implementarlo."* — apuntaba a la objeción del
+       proyecto largo, pero era una promesa de producto: cualquiera dice que su
+       software está listo.
+    3. *"Hablemos de lo que necesitas, no de cómo implementarlo."* — mejor,
+       movía el eje a dónde vive la conversación, pero seguía sin nombrar la
+       competencia que la hace posible.
+    4. Andrea lo cerró: **no es un equipo de TI externo, es el partner
+       tecnológico (data + SaaS) con conocimiento financiero.** "Sabe" y no
+       "entiende": es la palabra que ella misma usó al describirlo, y afirma
+       más. Gente que puede
+       sentarse con un equipo de inversión como par y a la vez ir al fondo de
+       los problemas de data y despliegue.
+
+    Ese es el diferenciador difícil de copiar: la mayoría de los proveedores es
+    o gente de finanzas que terceriza la tecnología, o gente de tecnología que
+    no entiende los instrumentos. El dolor concreto del cliente es tener que
+    explicarle duración o valorización a un consultor de TI.
+
+  Se mantuvo de la V5 lo que sí mejoraba el brief: la jerarquía invertida
+  (etiqueta chica + promesa grande) y el recorte de los *intros* de área, que
+  estaban largos para un primer vistazo.
+
+- **Tarjeta de CTA reordenada.** El texto iba con un `<br>` a mitad que
+  chocaba con el corte natural del primer enunciado: la línea 1 terminaba con
+  un "tu" colgando y la 2 era solo "propia cartera.". Ahora cada frase es su
+  propio bloque con `text-wrap: balance`, así que la primera reparte sus dos
+  líneas parejas y la segunda va en la suya. **Tres líneas ordenadas**, sin
+  huérfanas. El botón se fijó con `flex: 0 0 auto` y `white-space: nowrap`
+  para que no se encoja ni se parta; en teléfono baja debajo del texto.
+
+- **Header: menú centrado en el eje de la página y texto más grande.** El nav
+  pasó de flex con `space-between` a grilla `1fr | auto | 1fr`. Con flex los
+  enlaces se centraban *entre* el logo y los botones, que tienen anchos
+  distintos, así que quedaban corridos del eje. Con la grilla el centro es el
+  de la página. Verificado a 1440: menú, eje de página y titular del hero los
+  tres en **720 px**, desvío 0. En móvil la grilla pasa a `1fr auto` (logo y
+  botón sandwich), con el panel fuera del flujo.
+  Tamaños: enlaces 14 → **15,5px**; "Agenda tu demo" y "Acceso clientes"
+  12,5 → **13,5px**.
+
+- **Contenido desplegado de "Leer más" también más grande**: título de producto
+  14,5 → 16px, párrafo 13 → **15px**, etiqueta 9,5 → 10,5px, ítems de la
+  batería 13,5 → 14,5px.
+
+- **Mini-títulos: un turquesa por fondo.** El `#067C90` del prototipo no
+  alcanza AA en los degradados claros (4,27 al pie de Soluciones, 3,48 en
+  Datos). Se armó una escala de tres tonos, cada uno el más vivo que pasa
+  sobre su fondo, todos medidos en el peor caso del degradado:
+
+  | Token | Valor | Dónde | Contraste |
+  |---|---|---|---|
+  | `--v5-teal-deep` | `#056E80` | Soluciones (blanco → #E9F1F4) | 5,92 / 5,17 |
+  | `--v5-teal-mist` | `#056373` | Datos (#DCEAEE → #DED9D2) | 5,61 / 4,92 |
+  | `--v5-teal-navy` | `#2FC3E3` | Premios y Nosotros | 5,71 / 8,09 |
+
+  El eyebrow de Datos iba en gris en el prototipo; ahora es turquesa como los
+  otros tres.
+
+- **Columna derecha alineada al titular, no al mini-título**, en Datos y
+  Nosotros. El desfase es un token calculado
+  (`calc(13.2px + clamp(22px, 2.4vw, 32px))` = alto del eyebrow + margen del
+  h2), no un número a ojo: si cambia el margen del titular, sigue cuadrando.
+  Se anula al apilar bajo 900px. Verificado: desfase **0 px** a 1440 y a 1024.
+
+- **Batería de reportes: fuera las píldoras.** El prototipo las traía como
+  chips con fondo y radio 999px, y leían como botones o tags que llevaban a
+  algún lado. No son interactivas: son el contenido de la batería. Pasaron a
+  `<ul>` con índice numerado en teal (`01`–`06`, contador CSS, cifras
+  tabulares) y filas separadas por filete: ordenado, escaneable, hace contable
+  la batería y no parece un control. Se eliminó el token `--v5-chip`, que quedó sin uso.
+
+- **Texto de párrafo más grande** que el prototipo, que iba en 12,5–13,5px:
+  intros y cuerpos a 14–15px, y las etiquetas de apoyo un punto arriba para no
+  perder la jerarquía. Sin desbordes a 1440 ni a 390, y el contraste sigue en 0
+  fallos (subir el tamaño solo puede aflojar el umbral, nunca endurecerlo).
+
+- **Hero un punto abajo**: titular `clamp(30px,3.7vw,54px)` →
+  `clamp(28px,3.4vw,49px)` y bajada `clamp(15px,1.45vw,21px)` →
+  `clamp(14.5px,1.32vw,19px)`. De 53/21 a 49/19 a 1440.
+
+- **Datos: se quitaron los `max-width` del titular y del párrafo** (480px y
+  452px del prototipo). Venían de un layout a sangre sin cap de 1440 y dejaban
+  el texto 96 y 76px corto respecto del borde de su columna, que mide 576.
+  Ahora ambos llenan la columna y cierran en el mismo píxel que Nosotros.
+
+- **Eyebrow "NOSOTROS"** en el mismo turquesa `#5FC5DD` de Premios (8,47:1
+  sobre navy), con el mismo respiro hasta el titular que en Datos. Nota: el
+  eyebrow de Datos va en gris y no en turquesa **por decisión del prototipo**,
+  no por el arreglo de contraste; homologarlo pediría un turquesa más oscuro,
+  porque `#067C90` sobre `#DED9D2` solo alcanza 3,48:1.
+
+- **Una sola grilla para Datos, Premios y Nosotros.** Datos usaba
+  `auto-fit minmax(340px)` con su propio gap y colapsaba en otro punto; ahora
+  las tres son `repeat(2, 1fr)` con el mismo token `--v5-gap-cols` y el mismo
+  corte a una columna en 900px. El canal se ensanchó de 56 a **86,4 px** a
+  1440 (`clamp(40px, 6vw, 88px)`). Verificado: idéntico en las tres, a 1440 y
+  a 1024, y las tres apilan juntas bajo 900.
+
+- **Más aire entre la bajada de Premios y los dos bloques**:
+  `clamp(46px, 5vw, 68px)` → `clamp(56px, 7vw, 104px)`. De 68 a **100,8 px**.
+
+- **Menú sandwich con corte en 1024px.** Es el estándar actual: tablet
+  apaisada (1024 / 1194 / 1366) y escritorio con el menú completo; tablet
+  vertical (768 / 834) y teléfono con sandwich. Verificado en los cinco anchos.
+  El único caso ambiguo es el iPad Pro de 12,9" en vertical, que mide justo
+  1024 y se queda con el menú completo — cabe de sobra, así que se dejó así.
+
+  El panel **no duplica los enlaces**: el envoltorio `.nav__collapse` es
+  `display: contents` en escritorio, así que logo, enlaces y acciones siguen
+  siendo hermanos del mismo flex; bajo 1024px pasa a ser el desplegable.
+  Accesible: `aria-expanded`, `aria-controls`, cierre con Escape, al hacer clic
+  fuera y al elegir un enlace, y limpieza del estado si se pasa a escritorio
+  con el panel abierto.
+
+- **Datos en grilla 2×2 en teléfono.** Las cuatro cifras son cortas; apiladas
+  en una sola columna estiraban la sección sin ganar legibilidad.
+
+- **Premios apilados en teléfono**, con el logo arriba y el texto abajo: bajo
+  600px la columna de 150px del logo dejaba el párrafo demasiado angosto. A ese
+  ancho el párrafo además pasa de justificado a alineado a la izquierda, porque
+  justificar abría ríos entre palabras.
+
+- **Más margen lateral en todo el sitio, menos el header.** Se separó el ritmo
+  horizontal en dos tokens: `--v5-pad-x` (56px máx, solo el header, intacto) y
+  `--v5-pad-content` (`clamp(24px, 7vw, 112px)`) para el resto. A 1440px el
+  contenido pasa de 56 a 101 px por lado; el logo y el menú siguen en 56.
+
+### Commit asociado
+`Implementa el diseño V5 de Claude Design`
+
+---
+
 ## 2026-07-31 — Sesión 3: navy dominante y malla viva
 
 Hash de la sesión 2: **`6071d0d`**.
