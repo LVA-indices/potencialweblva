@@ -76,6 +76,21 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### El subgrid abría las tarjetas por dentro
+
+Efecto secundario del cambio anterior: el `row-gap` de `.panel__grid` se aplica
+**dentro** de cada tarjeta cuando esta es un subgrid, así que etiqueta, título y
+párrafo quedaron separados los mismos 40px que hay entre columnas.
+
+Es la segunda vez que aparece esta trampa —la primera fue con `.areas`—, y
+conviene tenerla presente: **al convertir un hijo en subgrid, el gap del padre
+pasa a separar también sus filas internas.**
+
+Se pone `row-gap: 0` dentro del bloque de 901px, que es donde el subgrid actúa
+y donde las tarjetas van en una sola fila. La separación interna la dan los
+márgenes: 7px bajo la etiqueta y 6px bajo el título. Bajo 901px las tarjetas se
+apilan y el gap sigue haciendo falta, así que ahí no se toca.
+
 ### El título de tarjeta y su párrafo comparten cuerpo e interlínea
 
 El título ya estaba en 15px, igual que el párrafo, y en negrita. Lo que lo hacía

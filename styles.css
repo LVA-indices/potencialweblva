@@ -432,6 +432,12 @@ button:focus-visible,
    Solo de 901px hacia arriba, que es donde las tarjetas van en una sola fila;
    más abajo se apilan y no hay nada con qué alinearse. */
 @media (min-width: 901px) {
+  /* El row-gap de la grilla se aplicaría DENTRO de cada tarjeta, separando
+     etiqueta, título y párrafo los mismos 40px que hay entre columnas. A este
+     ancho las tarjetas van en una sola fila, así que no hace falta ninguno.
+     La separación interna la dan los márgenes de cada pieza. */
+  .panel__grid { row-gap: 0; }
+
   .product {
     display: grid;
     grid-template-rows: subgrid;
