@@ -82,6 +82,43 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### El modal de demo: botón anclado y campos sobrios
+
+**El botón quedaba fuera de la ventana.** Medido: el formulario ocupa 794px en
+una caja que a 800px de pantalla solo puede medir 720. La caja se desplazaba por
+dentro, pero el botón caía abajo y no se veía. Ahora el pie va `sticky`, pegado
+al fondo de la caja, con márgenes negativos que lo hacen sangrar hasta los
+bordes y un degradado que tapa el texto que pasa por debajo. Verificado a 800,
+700 y 390px: el botón siempre a la vista.
+
+**Los campos parecían seleccionados.** El borde era turquesa al 42%, que es lo
+que uno espera de un campo con foco, así que los siete se veían activos a la
+vez. Pasa a `--v5-rule-dark`, la regla del sitio sobre oscuro. El radio baja de
+10 a 8px.
+
+| | Antes | Ahora |
+|---|---|---|
+| Borde | turquesa 42% | regla del sitio, 12% |
+| Alto del campo | 53px | 44px |
+| Texto del campo | 16,5px | 15,5px |
+| **Etiqueta** | 13px | **14px** |
+
+La etiqueta sube y el campo baja: el que tiene que leerse es el rótulo, no la
+caja vacía. Entre eso y los márgenes más ajustados, el formulario pasó de 865 a
+794px.
+
+*No se pudo verificar el estado de foco en el panel de pruebas:*
+`document.hasFocus()` es `false` porque la ventana no tiene el foco del sistema,
+y Chrome no aplica `:focus` en ese caso. Se comprobó por CSSOM que la regla
+existe y que el selector coincide con el campo.
+
+### Homologación del signo +
+
+`70+ fondos` pasa a `+70 fondos`. Era la única de las ocho cifras del sitio con
+el signo pospuesto; las otras siete ya lo llevaban delante. Además se ponen
+espacios duros entre cada cifra y su unidad, para que el salto de línea no las
+separe.
+
 ### Más turquesa en Soluciones, hasta donde el contraste lo permite
 
 La sección se veía plana. El acento estaba en `#056E80`, el turquesa más oscuro
