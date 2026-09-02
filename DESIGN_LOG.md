@@ -3,6 +3,12 @@
 Bitácora de decisiones de UI/UX del rediseño del sitio corporativo.
 Rama de trabajo: `PruebaUI`. **Nada de esto va a `main` sin validación humana.**
 
+**Fuente del copy:** el brief original vive en Google Docs —
+`docs.google.com/document/d/1cZCwskW_5wTKijLPJr--zDi-x3ZTCtVtmjN9dSmGYEI`—.
+Es la referencia contra la que se contrasta cualquier texto del sitio antes de
+cambiarlo. No está versionado junto al código: si el documento se edita, el
+sitio y el brief pueden separarse sin que nada lo avise.
+
 Convención: el hash de cada commit se registra en la entrada siguiente (un commit
 no puede contener su propio hash).
 
@@ -107,9 +113,7 @@ venían de una sola frase corta y se completaron con material del propio brief
 —la metodología auditada sale de su tarjeta de pricing, y los cuatro marcos, de
 la de distribución internacional—.
 
-El brief se recuperó de la transcripción de la sesión, porque no está versionado
-en el repo. **Convendría guardarlo en `docs/`**: es la fuente de la que sale todo
-el copy y hoy depende de un historial de chat.
+El brief vive en Google Docs; el enlace está al principio de esta bitácora.
 
 ### La bajada de Riesgo se parte en dos líneas
 
