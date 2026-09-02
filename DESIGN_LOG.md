@@ -82,6 +82,32 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Portabilidad: el sitio no depende de dónde se aloje
+
+Pendiente decidir con IT desde dónde se sirve —puede acabar en otro repo—, así
+que se comprobó que nada lo ate al alojamiento actual.
+
+**Verificado sirviendo el repo bajo un subdirectorio**, como haría GitHub Pages
+en `/potencialweblva/`: 0 imágenes rotas, CSS aplicado, animación y menú de
+áreas funcionando, 0 errores en consola.
+
+Lo que lo hace portable:
+
+- **Cero rutas absolutas.** Todo relativo, así que da igual si cuelga de la raíz
+  o de un subdirectorio.
+- **Cero configuración del alojamiento en el repo.** El candado de la vista
+  previa y su `netlify.toml` viven fuera del control de versiones.
+- **Sin paso de compilación.** Son archivos estáticos: sirve cualquier servidor.
+
+Tres cosas cambian según dónde se aloje, y conviene decidirlas con IT:
+
+1. **La contraseña desaparece.** Es una función de Netlify. En Pages el sitio es
+   público desde el primer segundo, y el merge y la publicación son el mismo acto.
+2. **Las URLs llevarán `.html`.** Netlify sirve `/demo`; Pages, `/demo.html`. Los
+   enlaces internos ya usan la extensión y funcionan en ambos.
+3. **El editor quedaría público.** Hoy lo cubre el candado. No permite publicar
+   —solo descarga archivos—, pero es una herramienta interna a la vista.
+
 ### Auditoría del rediseño
 
 Repaso propio de todo lo construido, antes de dar nada por cerrado.
