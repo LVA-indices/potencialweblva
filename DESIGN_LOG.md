@@ -82,6 +82,26 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### El editor se publica en la vista previa
+
+Se necesitaba poder enseñar el editor, no solo el sitio. Se sube a la vista
+previa de Netlify, donde **queda cubierto por el mismo candado**: sin la clave
+devuelve 401.
+
+`http://localhost:5273/editor/` en local, `/editor/` en la vista previa.
+
+Cambia lo que decía la entrada anterior sobre que el editor no se desplegaba.
+Sigue sin enlazarse desde el sitio y sigue con `noindex`, pero ya no es solo
+local. **Quien tenga la clave de la vista previa puede abrir el editor**, que es
+aceptable para revisar y presentar, pero conviene saberlo.
+
+### Cabecera del post centrada y columna más ancha
+
+- Título y metadatos **centrados**. El titular lleva `max-width: 19ch` con
+  márgenes automáticos: sin tope se estiraría de borde a borde.
+- La columna de texto pasa de 680 a **750px**. A 18px son unos 75 caracteres por
+  línea, el techo del rango cómodo para leer seguido.
+
 ### Aire en Soluciones
 
 La sección se sentía comprimida. Lo más apretado no eran los bloques grandes

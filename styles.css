@@ -1249,6 +1249,7 @@ button:focus-visible,
    caracteres por línea es el rango cómodo para leer seguido, y por eso el
    ancho no sigue al de las secciones comerciales. */
 .post__hero {
+  text-align: center;
   padding: clamp(56px, 6.4vw, 88px) var(--v5-pad-content) clamp(40px, 4.4vw, 60px);
 }
 
@@ -1260,9 +1261,10 @@ button:focus-visible,
 }
 
 .post__titulo {
-  margin: clamp(18px, 2vw, 26px) 0 0;
-  max-width: 15ch;
-  min-width: 0;
+  /* Centrado: el auto de los lados es lo que centra la caja; el text-align lo
+     hereda del hero. Sin max-width el titular se estiraría de borde a borde. */
+  margin: clamp(18px, 2vw, 26px) auto 0;
+  max-width: 19ch;
   font-size: clamp(30px, 3.9vw, 54px);
   font-weight: 600;
   line-height: 1.14;
@@ -1276,6 +1278,7 @@ button:focus-visible,
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 10px 14px;
   font-size: 13px;
   color: var(--v5-on-dark-dim);
@@ -1310,7 +1313,9 @@ button:focus-visible,
 }
 
 .post__texto {
-  max-width: 680px;
+  /* 750px a 18px son unos 75 caracteres por línea: el techo del rango cómodo
+     para leer seguido. A 680 la columna se sentía estrecha. */
+  max-width: 750px;
   margin: 0 auto;
   font-size: 18px;
   line-height: 1.75;
