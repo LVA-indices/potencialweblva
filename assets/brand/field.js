@@ -276,24 +276,42 @@
 
     // ---------- acordeón de Soluciones ----------
     // Exclusivo: abrir una cierra las demás, como en el prototipo.
-    function startDisclosures() {
-        const buttons = [...document.querySelectorAll('.disclose')];
-        if (!buttons.length) return;
+    // Menu de areas de Soluciones. Sustituye al acordeon de "Leer mas".
+    function startTabs() {
+        const strip = document.querySelector('.tabs__strip');
+        if (!strip) return;
+        const tabs = [...strip.querySelectorAll('[role="tab"]')];
+        if (!tabs.length) return;
 
-        const setState = (btn, open) => {
-            const panel = document.getElementById(btn.getAttribute('aria-controls'));
-            if (!panel) return;
-            btn.setAttribute('aria-expanded', String(open));
-            panel.hidden = !open;
-            btn.querySelector('.disclose__glyph').textContent = open ? '−' : '+';
-            btn.querySelector('.disclose__label').textContent = open ? 'Cerrar' : 'Leer más';
+        const select = (tab, mover) => {
+            tabs.forEach(t => {
+                const activa = t === tab;
+                t.setAttribute('aria-selected', String(activa));
+                // Solo la activa es tabulable: el patron de pestanas se recorre
+                // con las flechas, no con el tabulador.
+                t.tabIndex = activa ? 0 : -1;
+                const panel = document.getElementById(t.getAttribute('aria-controls'));
+                if (panel) panel.hidden = !activa;
+            });
+            if (mover) {
+                tab.focus();
+                // Si la tira esta desplazada en movil, trae la elegida a la vista.
+                tab.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+            }
         };
 
-        buttons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const wasOpen = btn.getAttribute('aria-expanded') === 'true';
-                buttons.forEach(b => setState(b, false));
-                if (!wasOpen) setState(btn, true);
+        tabs.forEach((tab, i) => {
+            tab.addEventListener('click', () => select(tab, false));
+            tab.addEventListener('keydown', e => {
+                const salto = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+                if (salto) {
+                    e.preventDefault();
+                    select(tabs[(i + salto + tabs.length) % tabs.length], true);
+                } else if (e.key === 'Home') {
+                    e.preventDefault(); select(tabs[0], true);
+                } else if (e.key === 'End') {
+                    e.preventDefault(); select(tabs[tabs.length - 1], true);
+                }
             });
         });
     }
@@ -340,7 +358,7 @@
         mq.addEventListener('change', () => { if (!mq.matches) setOpen(false); });
     }
 
-    function init() { startFields(); startDisclosures(); startNav(); }
+    function init() { startFields(); startTabs(); startNav(); }
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);

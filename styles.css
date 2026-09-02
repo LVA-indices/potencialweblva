@@ -30,6 +30,12 @@
   --v5-teal-mist:   #056373;   /* sobre el degradado de Datos */
   --v5-teal-navy:   #2FC3E3;   /* sobre navy */
 
+  /* Amarillo del diseño, solo para el botón de demo: es la única acción
+     comercial del sitio y en turquesa competía con el resto de acentos.
+     Texto navy encima da 12,16 de contraste; blanco daría 1,39. */
+  --v5-yellow:      #FFD816;
+  --v5-yellow-hover:#F0C400;
+
   /* Texto sobre oscuro */
   --v5-on-dark:        #FFFFFF;
   --v5-on-dark-body:   #C2D0D8;
@@ -214,18 +220,16 @@ button:focus-visible,
 .btn-demo {
   font-size: 13.5px;
   font-weight: 700;
-  /* Navy, no blanco: blanco sobre #02A9C3 da 2,81:1 y no pasa AA. Con navy
-     queda en 6,02 y coincide con el botón de la tarjeta de CTA, que el
-     diseño ya traía en navy. Ver DESIGN_LOG. */
+  /* Navy sobre el amarillo: 12,16 de contraste. Blanco daría 1,39. */
   color: var(--v5-navy);
-  background: var(--v5-teal);
+  background: var(--v5-yellow);
   padding: 9px 16px;
   border-radius: 10px;
   border: 0;
   font-family: inherit;
   cursor: pointer;
 }
-.btn-demo:hover { color: var(--v5-navy); background: #2BBFD8; text-decoration: none; }
+.btn-demo:hover { color: var(--v5-navy); background: var(--v5-yellow-hover); text-decoration: none; }
 
 .nav__access {
   font-size: 13.5px;
@@ -327,94 +331,84 @@ button:focus-visible,
   color: var(--v5-on-light);
 }
 
-.areas {
-  /* El prototipo trae clamp(64px, 8vw, 116px); se bajó por pedido: el aire
-     entre el titular y las columnas se leía excesivo. */
-  margin-top: clamp(40px, 5vw, 72px);
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  column-gap: clamp(28px, 3.2vw, 48px);
-  row-gap: 0;
-  /* Cancela el padding-bottom de la última fila de tarjetas, que si no
-     agregaría aire de más antes de la sección siguiente. */
-  margin-bottom: calc(-1 * clamp(28px, 3.2vw, 48px));
+/* ---------------------------------------------------------------------------
+   Menú de áreas (pestañas)
+   ---------------------------------------------------------------------------
+   Sustituye a las cuatro columnas con "Leer más". Allí el detalle de cada área
+   quedaba escondido tras un clic; aquí el área elegida se muestra entera.
+
+   La tira va sobre una línea que cruza todo el ancho y la pestaña activa la
+   pisa con su subrayado. Sin esa línea las pestañas flotan sueltas entre el
+   titular y el contenido, que era el riesgo del diseño. */
+.tabs {
+  margin-top: clamp(30px, 3.4vw, 44px);
+  border-bottom: 1px solid var(--v5-rule-light);
 }
 
-/* Cada tarjeta hereda las filas de la grilla madre (subgrid), así etiqueta,
-   promesa, párrafo y "Leer más" quedan a la misma altura entre columnas
-   aunque un párrafo tenga más líneas —Riesgo tiene una más que el resto.
-   Se evitó resolverlo con margin-top:auto: al desplegar una tarjeta, las
-   demás estiraban y su "Leer más" caía 1.100px más abajo.
-   El row-gap va en 0 y la separación entre filas de tarjetas la da el
-   padding-bottom, que en subgrid no puede venir del gap. */
-.area {
-  display: grid;
-  grid-template-rows: subgrid;
-  grid-row: span 5;
-  padding-bottom: clamp(28px, 3.2vw, 48px);
+.tabs__strip {
+  display: flex;
+  justify-content: center;
+  gap: clamp(12px, 2.4vw, 38px);
+  /* En móvil no caben las cuatro: la tira se desliza en horizontal. */
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
-.area__label { font-size: 10.5px; font-weight: 500; letter-spacing: 0.17em; color: var(--v5-teal-deep); }
+.tabs__strip::-webkit-scrollbar { display: none; }
 
-.area__promise {
-  margin-top: 16px;
-  min-height: 2.7em;
-  font-size: clamp(18px, 1.5vw, 21px);
+.tab {
+  flex: 0 0 auto;
+  margin-bottom: -1px;                   /* el subrayado pisa la línea */
+  padding: 0 2px 14px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--v5-on-light-body);
+  white-space: nowrap;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.tab:hover { color: var(--v5-teal-deep); }
+
+.tab[aria-selected="true"] {
+  color: var(--v5-teal-deep);
+  border-bottom-color: var(--v5-teal-deep);
+}
+
+.panel { margin-top: clamp(36px, 4.2vw, 58px); }
+.panel[hidden] { display: none; }
+
+.panel__promise {
+  margin-top: 14px;
+  font-size: clamp(21px, 2vw, 27px);
   font-weight: 600;
-  line-height: 1.32;
-  letter-spacing: -0.01em;
+  line-height: 1.28;
+  letter-spacing: -0.012em;
   color: var(--v5-on-light);
-  text-wrap: balance;
 }
 
-.area__intro {
-  margin-top: 16px;
-  min-height: 5.1em;
-  font-size: 14.5px;
+.panel__intro {
+  margin: 12px 0 0;
+  max-width: 780px;
+  font-size: 15px;
   line-height: 1.7;
   color: var(--v5-on-light-body);
-  text-wrap: pretty;
 }
 
-.disclose {
-  margin-top: 22px;
-  justify-self: start;
-  display: inline-flex;
-  align-items: center;
-  gap: 11px;
-  cursor: pointer;
-  user-select: none;
-  font-size: 13px;
-  font-weight: 500;
-  /* #067C90 en vez de #02A9C3: el teal primario sobre blanco da 2,81:1 */
-  color: var(--v5-teal-deep);
-  background: none;
-  border: 0;
-  padding: 0;
-  font-family: inherit;
+.panel__grid {
+  margin-top: clamp(32px, 3.6vw, 50px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(24px, 2.8vw, 40px);
+  align-items: start;
 }
 
-.disclose__glyph {
-  width: 22px; height: 22px;
-  border-radius: 999px;
-  border: 1px solid var(--v5-teal-deep);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  line-height: 1;
-  color: var(--v5-teal-deep);
-  flex: 0 0 auto;
-}
-
-.area__detail {
-  margin-top: 26px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.area__detail[hidden] { display: none; }
 
 .product { padding-top: 14px; border-top: 1px solid var(--v5-rule-light); }
 /* #5C6B75 y no #6E7C85: a este tamaño el segundo da 4,30:1 */
@@ -741,11 +735,11 @@ button:focus-visible,
   white-space: nowrap;
   font-size: 13.5px;
   color: var(--v5-navy);
-  background: var(--v5-teal-light);
+  background: var(--v5-yellow);
   padding: 13px 22px;
 }
 
-.how__cta .btn-demo:hover { color: var(--v5-navy); background: #55D0EA; }
+.how__cta .btn-demo:hover { color: var(--v5-navy); background: var(--v5-yellow-hover); }
 
 
 
@@ -776,7 +770,7 @@ button:focus-visible,
 /* Cuatro columnas: los tres pasos y, cerrando la secuencia, la invitación a
    conversar. La <ol> ocupa las tres primeras y se subdivide con el mismo gap,
    así las cuatro quedan del mismo ancho sin romper la semántica de lista.
-   Se usa el gap de .areas —la otra grilla de cuatro del sitio— para que las
+   Se usa el gap de .panel__grid —la otra grilla de cuatro del sitio— para que las
    columnas midan lo mismo en ambas secciones (275px a 1440). */
 .how__grid {
   margin: clamp(48px, 5.4vw, 76px) 0 0;
@@ -923,6 +917,9 @@ button:focus-visible,
 }
 
 @media (max-width: 900px) {
+  /* Cuatro tarjetas no caben; a dos columnas siguen siendo legibles. */
+  .panel__grid { grid-template-columns: repeat(2, 1fr); }
+
   .data__grid,
   .awards__grid,
   .about__grid { grid-template-columns: 1fr; }
@@ -938,13 +935,13 @@ button:focus-visible,
 
 @media (max-width: 760px) {
   .solutions h2 { text-wrap: balance; }   /* nowrap desborda en pantalla chica */
-  .area__promise,
-  .area__intro { min-height: 0; }         /* la reserva de alto solo sirve en grilla */
   .pillars { grid-template-columns: 1fr; }
 }
 
 /* Teléfono vertical */
 @media (max-width: 600px) {
+  .panel__grid { grid-template-columns: 1fr; }
+
   /* Los cuatro datos se mantienen en grilla 2×2: son cifras cortas y apiladas
      en una sola columna estiran la sección sin ganar nada. */
   .facts { grid-template-columns: 1fr 1fr; }

@@ -76,6 +76,49 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Soluciones pasa a menú de áreas, y el amarillo del diseño
+
+Tres cambios de una tanda de feedback.
+
+**1. Fuera el "Leer más".** Era el reparo de fondo: información importante
+escondida tras un clic. Las cuatro columnas se sustituyen por un menú de áreas
+—una pestaña por dominio— donde el área elegida se muestra **entera**: etiqueta,
+promesa, bajada y sus tarjetas. Nada queda oculto tras un "ver más".
+
+Las 18 tarjetas se conservan íntegras: se extrajeron del HTML y se
+reinsertaron, sin transcribir a mano. Distribución 4, Riesgo 5, Inversión y
+mercado 5, Compliance 4.
+
+**Contra el efecto "flotando"**, que era la preocupación: la tira de pestañas
+se apoya en una línea que cruza todo el ancho, y la activa la pisa con su
+subrayado (`margin-bottom: -1px`). Sin esa línea las pestañas quedan sueltas
+entre el titular y el contenido. Es el patrón estándar de conmutador, no una
+invención.
+
+Accesibilidad completa: `role="tablist"/"tab"/"tabpanel"`, `aria-selected`,
+`aria-controls`, y **tabindex móvil** —solo la activa es tabulable, el resto se
+recorre con flechas, Home y End—, que es lo que espera un lector de pantalla en
+este patrón.
+
+En móvil las cuatro etiquetas no caben: la tira se desliza en horizontal (450px
+de contenido en 335 de ancho) y las tarjetas pasan a 2 columnas bajo 900px y a
+1 bajo 600px.
+
+**2. Amarillo `#FFD816` en los botones de demo.** Tomado del SVG del diseño,
+donde aparece exactamente dos veces: los dos "Agenda tu demo". Es la única
+acción comercial del sitio y en turquesa competía con el resto de acentos.
+Texto navy encima: **12,16**. En blanco daría 1,39, inservible.
+
+**3. "Esa base de verdad" → "Esa base de información"**, en el segundo párrafo
+de Nosotros.
+
+También se adaptó la promesa de Distribución a "Tu equipo comercial potenciado".
+El resto del texto del mockup era simulado y no se tocó.
+
+Contraste de lo nuevo, contra el peor extremo del degradado de la sección:
+pestaña activa 5,17; inactiva 4,81; promesa y títulos 14,79; cuerpos 4,81.
+Todo sobre el mínimo AA.
+
 ### Acceso: la cabecera se queda solo con el logo
 
 Fuera los enlaces, "Agenda tu demo" y "Acceso clientes". Razón de Andrea: quien
