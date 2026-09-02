@@ -76,6 +76,36 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Menú de áreas: fuera la etiqueta repetida y el salto de altura
+
+**La etiqueta repetida.** Bajo la pestaña activa "DISTRIBUCIÓN", el panel volvía
+a decir "DISTRIBUCIÓN". La pestaña ya lo comunica, así que la promesa pasa a ser
+la primera línea del panel.
+
+*Tropiezo:* el primer intento borró por patrón **todos** los `class="eyebrow"`
+en mayúsculas, y se llevó también los rótulos DATOS y NOSOTROS de otras
+secciones. Se revirtió con `git checkout` y se rehízo acotando la búsqueda al
+interior de cada `.panel`.
+
+**El salto de altura.** Medido: 199px entre el panel más bajo (283px) y el más
+alto (482px). Se atacó en dos pasos, en vez de reservar sin más la altura mayor
+—que habría dejado 199px de hueco en la mitad de las pestañas—:
+
+1. **Cinco tarjetas, cinco columnas.** Con cuatro columnas la quinta rompía a
+   una segunda fila ella sola. Con `:has(> .product:nth-child(5))` el panel usa
+   cinco. El salto cayó de 199px a 74px, sin ningún hueco. Va envuelto en
+   `:where()` para dejar la especificidad en 0,1,0 y que los cortes de móvil
+   puedan reescribirlo: si no, ganaría por especificidad pese a ir antes.
+2. **Paneles apilados en la misma celda de grilla**, con los ocultos en
+   `visibility: hidden` en vez de `display: none`, para que sigan ocupando su
+   sitio. El contenedor mide siempre lo que el más alto: **salto 0**.
+   `visibility` los saca igual del foco y del lector de pantalla (verificado: 0
+   elementos enfocables en paneles ocultos).
+
+El apilado solo de 901px hacia arriba. En móvil el panel es largo y se recorre
+scrolleando: reservar la altura mayor solo dejaría un hueco. Verificado que a
+900 y 390px los ocultos vuelven a `display: none`.
+
 ### "Valorización" → "información", solo en el titular
 
 Criterio de Andrea: **"información" engloba mejor el negocio**. "Valorización"

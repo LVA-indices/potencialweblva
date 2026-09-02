@@ -381,8 +381,21 @@ button:focus-visible,
   border-bottom-color: var(--v5-teal-deep);
 }
 
-.panel { margin-top: clamp(36px, 4.2vw, 58px); }
+/* Los paneles se apilan en la misma celda: el contenedor mide siempre lo que
+   el más alto y la página no salta al cambiar de área. Los ocultos se esconden
+   con visibility, no con display, para que sigan ocupando su sitio; visibility
+   los saca igual del foco y del lector de pantalla.
+   Solo de 901px hacia arriba: en móvil el panel es largo y se recorre
+   scrolleando, así que reservar la altura mayor solo dejaría un hueco. */
+.panels { margin-top: clamp(36px, 4.2vw, 58px); }
+
 .panel[hidden] { display: none; }
+
+@media (min-width: 901px) {
+  .panels { display: grid; }
+  .panel { grid-area: 1 / 1; }
+  .panel[hidden] { display: block; visibility: hidden; }
+}
 
 .panel__promise {
   margin-top: 14px;
@@ -407,6 +420,14 @@ button:focus-visible,
   grid-template-columns: repeat(4, 1fr);
   gap: clamp(24px, 2.8vw, 40px);
   align-items: start;
+}
+
+/* Cinco tarjetas caben en cinco columnas. Con cuatro, la quinta rompía a una
+   segunda fila ella sola y el panel crecía 199px respecto de los de cuatro.
+   El :where() deja la especificidad en 0,1,0 para que los cortes de abajo
+   puedan reescribirlo. */
+.panel__grid:where(:has(> .product:nth-child(5))) {
+  grid-template-columns: repeat(5, 1fr);
 }
 
 
