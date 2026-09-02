@@ -82,6 +82,32 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Más turquesa en Soluciones, hasta donde el contraste lo permite
+
+La sección se veía plana. El acento estaba en `#056E80`, el turquesa más oscuro
+de la escala.
+
+**El techo real es más bajo de lo que parece,** y conviene dejarlo escrito: el
+fondo de Soluciones es un degradado que termina en `#E9F1F4`, y las tarjetas
+caen justo en esa zona. El contraste hay que medirlo contra **ese extremo**, no
+contra el blanco. Ahí el primario de marca `#02A9C3` da 2,46 —muy lejos del 4,5—
+y un primer intento con `#068196` daba 4,58 sobre blanco pero **4,00** sobre el
+degradado.
+
+| Elemento | Antes | Ahora | Contraste |
+|---|---|---|---|
+| Texto turquesa | `#056E80` | **`#04758A`** | 4,69 |
+| Barra de la pestaña activa | `#056E80`, 2px | **`#0295AE`, 2,5px** | 3,10 |
+| Etiquetas de tarjeta | gris `#5C6B75` | **turquesa** | 4,69 |
+| Separadores | gris `#D3DFE4` | **`#C6DFE7`** | decorativo |
+
+El cambio que más pesa no es el tono sino las **19 etiquetas**: eran grises y
+ahora son turquesa, así que el acento se repite a lo largo de toda la sección en
+vez de aparecer solo en el eyebrow y la pestaña.
+
+La barra de la pestaña puede ir bastante más viva que el texto porque es un
+elemento gráfico: el mínimo es 3,0 y no 4,5.
+
 ### Auditoría de las 18 tarjetas contra el brief
 
 Se compararon una a una las tarjetas del sitio con las del brief. **No hay
