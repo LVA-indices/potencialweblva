@@ -76,6 +76,21 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Tarjetas más angostas para que los títulos rompan
+
+Se revierte lo de las cinco columnas fijas —el hueco al final no convencía— y
+vuelven cuatro columnas para cuatro tarjetas y cinco para cinco. Pero la tarjeta
+ya no llena su columna: **tope de 215px**, con `justify-items: start`, y el
+sobrante pasa a ser separación.
+
+El valor sale de medir, no de tantear. Los títulos que quedaban en una sola
+línea larga medían 243, 221, 220 y 206px; los cortos de verdad, 193px hacia
+abajo. Un tope de 215 rompe los primeros y deja intactos los segundos.
+
+Resultado: 215px de tarjeta en las cuatro áreas. La separación sí cambia —105px
+en las áreas de cuatro y 41 en las de cinco—, porque la columna es más ancha
+donde hay menos tarjetas.
+
 ### Ancho de tarjeta constante entre áreas
 
 Antes la grilla usaba cuatro o cinco columnas según cuántas tarjetas tuviera el

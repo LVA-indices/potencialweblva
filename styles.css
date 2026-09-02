@@ -421,12 +421,20 @@ button:focus-visible,
 .panel__grid {
   margin-top: clamp(32px, 3.6vw, 50px);
   display: grid;
-  /* Cinco columnas siempre, haya cuatro tarjetas o cinco: así la tarjeta mide
-     lo mismo en todas las áreas. Con cuatro queda un hueco al final, que es
-     preferible a que cambien de ancho al saltar de pestaña. */
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: clamp(24px, 2.8vw, 40px);
   align-items: start;
+  /* Las tarjetas se alinean a la izquierda de su columna y no la llenan: el
+     sobrante pasa a ser separación. Así el título rompe antes de línea en las
+     áreas de cuatro, donde la columna daba de sí y las frases se estiraban. */
+  justify-items: start;
+}
+
+/* Cinco tarjetas en cinco columnas: con cuatro, la quinta rompía a una segunda
+   fila ella sola. El :where() deja la especificidad en 0,1,0 para que los
+   cortes de móvil puedan reescribirlo. */
+.panel__grid:where(:has(> .product:nth-child(5))) {
+  grid-template-columns: repeat(5, 1fr);
 }
 
 /* Las tres filas de la tarjeta -etiqueta, título y cuerpo- se alinean entre
@@ -442,6 +450,13 @@ button:focus-visible,
   .panel__grid { row-gap: 0; }
 
   .product {
+    /* Tope de ancho. En las áreas de cuatro la columna da 279px y los títulos
+       se estiraban en una sola línea larga: medidos, el peor llegaba a 243px.
+       A 215 rompen los cuatro que se pasaban y siguen en una línea solo las
+       frases cortas de verdad (193px hacia abajo). Coincide además con el
+       ancho que ya tenían las áreas de cinco. */
+    width: 100%;
+    max-width: 215px;
     display: grid;
     grid-template-rows: subgrid;
     grid-row: span 3;
