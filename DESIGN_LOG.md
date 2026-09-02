@@ -112,8 +112,11 @@ Texto navy encima: **12,16**. En blanco daría 1,39, inservible.
 **3. "Esa base de verdad" → "Esa base de información"**, en el segundo párrafo
 de Nosotros.
 
-También se adaptó la promesa de Distribución a "Tu equipo comercial potenciado".
-El resto del texto del mockup era simulado y no se tocó.
+También se adaptó la promesa de Distribución a "Tu equipo comercial potenciado"
+y el titular de la sección pasa a "Cuatro dominios, un solo estándar de
+**información**" —antes "de valorización"—, que además hace eco del hero ("La
+mejor versión de la información"). El resto del texto del mockup era simulado y
+no se tocó.
 
 Contraste de lo nuevo, contra el peor extremo del degradado de la sección:
 pestaña activa 5,17; inactiva 4,81; promesa y títulos 14,79; cuerpos 4,81.
