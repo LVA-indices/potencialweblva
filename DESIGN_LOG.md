@@ -76,6 +76,29 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### "Información" como palabra global del sitio
+
+Criterio de Andrea: **"información" engloba mejor el negocio**. "Valorización"
+en finanzas se asocia a *valorización de derivados* —una pieza, no el conjunto—
+y deja fuera Distribución, Riesgo y Compliance. Y "data" es palabra de
+ingeniería; "información" es comercial.
+
+Además del titular de Soluciones, se cambian las tres apariciones de "data" en
+el texto visible:
+
+| Antes | Ahora |
+|---|---|
+| Operando sobre nuestra **data** | Operando sobre nuestra **información** |
+| …material comercial sobre **data** al día | …sobre **información** al día |
+| **Data** certificada y al día | **Información** certificada y al día |
+
+"Datos" se mantiene como nombre de sección: ahí funciona como categoría, no
+como argumento de venta.
+
+Efecto medido: a 1024px la etiqueta "Operando sobre nuestra información" pasa a
+dos líneas mientras las otras tres siguen en una. No desborda a ningún ancho.
+Si esa desigualdad molesta, se acorta la etiqueta.
+
 ### Soluciones pasa a menú de áreas, y el amarillo del diseño
 
 Tres cambios de una tanda de feedback.
