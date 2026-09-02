@@ -276,6 +276,72 @@
 
     // ---------- acordeón de Soluciones ----------
     // Exclusivo: abrir una cierra las demás, como en el prototipo.
+    // Modal de "Agenda tu demo".
+    function startModal() {
+        const modal = document.getElementById('modal-demo');
+        if (!modal) return;
+        const caja = modal.querySelector('.modal__caja');
+        const form = document.getElementById('form-demo');
+        const msg = document.getElementById('modal-demo-msg');
+        let quienAbrio = null;
+
+        const enfocables = () => [...caja.querySelectorAll(
+            'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )].filter(el => !el.disabled && el.offsetParent !== null);
+
+        const abrir = disparador => {
+            quienAbrio = disparador;
+            modal.hidden = false;
+            // Sin esto la pagina de atras sigue desplazandose bajo el modal.
+            document.body.style.overflow = 'hidden';
+            const primero = enfocables()[1] || caja;   // saltar la X
+            primero.focus();
+        };
+
+        const cerrar = () => {
+            modal.hidden = true;
+            document.body.style.overflow = '';
+            msg.textContent = '';
+            // Devolver el foco a donde estaba: si no, se pierde al principio.
+            if (quienAbrio) quienAbrio.focus();
+        };
+
+        document.querySelectorAll('[data-abre="modal-demo"]').forEach(b => {
+            b.addEventListener('click', () => abrir(b));
+        });
+        modal.querySelectorAll('[data-cerrar]').forEach(b => {
+            b.addEventListener('click', cerrar);
+        });
+
+        modal.addEventListener('keydown', e => {
+            if (e.key === 'Escape') { cerrar(); return; }
+            if (e.key !== 'Tab') return;
+            // Trampa de foco: el tabulador no debe salirse del modal.
+            const f = enfocables();
+            if (!f.length) return;
+            const primero = f[0], ultimo = f[f.length - 1];
+            if (e.shiftKey && document.activeElement === primero) {
+                e.preventDefault(); ultimo.focus();
+            } else if (!e.shiftKey && document.activeElement === ultimo) {
+                e.preventDefault(); primero.focus();
+            }
+        });
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            // El envio no esta conectado. Se intercepta para que los datos
+            // personales del formulario no viajen a ninguna parte mientras
+            // tanto: sin action, el navegador los mandaria al propio servidor.
+            const faltan = [...form.querySelectorAll('[required]')].filter(c => !c.value.trim());
+            if (faltan.length) {
+                faltan[0].focus();
+                msg.textContent = 'Completa los campos obligatorios.';
+                return;
+            }
+            msg.textContent = 'Formulario de diseño: falta conectar el envío.';
+        });
+    }
+
     // Menu de areas de Soluciones. Sustituye al acordeon de "Leer mas".
     function startTabs() {
         const strip = document.querySelector('.tabs__strip');
@@ -358,7 +424,7 @@
         mq.addEventListener('change', () => { if (!mq.matches) setOpen(false); });
     }
 
-    function init() { startFields(); startTabs(); startNav(); }
+    function init() { startFields(); startTabs(); startNav(); startModal(); }
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);

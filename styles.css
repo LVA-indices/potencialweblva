@@ -1137,6 +1137,130 @@ button:focus-visible,
 
 
 /* ---------------------------------------------------------------------------
+   Modal de "Agenda tu demo"
+   ---------------------------------------------------------------------------
+   Recupera el formulario que existía antes de la V5. Va en navy y reutiliza
+   .field / .field__input de la pantalla de acceso: es el mismo tipo de pieza y
+   no hay razón para que se vean distintas. */
+.modal[hidden] { display: none; }
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 4vw, 40px);
+}
+
+.modal__fondo {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 16, 26, 0.72);
+}
+
+.modal__caja {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  /* El formulario es largo: en pantallas bajas la caja se desplaza por dentro
+     y no empuja la página. */
+  max-height: calc(100dvh - clamp(32px, 8vw, 80px));
+  overflow-y: auto;
+  padding: clamp(28px, 3.4vw, 40px);
+  border-radius: 16px;
+  background: var(--v5-navy);
+  border: 1px solid rgba(47, 195, 227, 0.24);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.modal__cerrar {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 34px; height: 34px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--v5-on-dark-nav);
+  cursor: pointer;
+  transition: color 0.18s ease, background 0.18s ease;
+}
+
+.modal__cerrar:hover { color: var(--v5-on-dark); background: rgba(255, 255, 255, 0.08); }
+
+.modal__titulo {
+  margin: 0 36px 0 0;
+  font-size: clamp(22px, 2.2vw, 27px);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.012em;
+  color: var(--v5-on-dark);
+}
+
+.modal__bajada {
+  margin: 10px 0 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--v5-on-dark-dim);
+}
+
+.modal__form { margin-top: clamp(22px, 2.4vw, 30px); }
+
+/* Empresa y teléfono comparten fila: son cortos y acortan el formulario. */
+.modal__fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.modal__fila .field + .field { margin-top: 0; }
+
+.modal__form select.field__input {
+  /* La flecha nativa desaparece sobre fondo oscuro en algunos navegadores. */
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C4D2DA' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+
+.modal__form textarea.field__input { resize: vertical; min-height: 96px; }
+
+.modal__enviar {
+  margin-top: 22px;
+  width: 100%;
+  padding: 14px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--v5-navy);
+  background: var(--v5-yellow);
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+
+.modal__enviar:hover { background: var(--v5-yellow-hover); }
+
+.modal__msg {
+  margin: 14px 0 0;
+  min-height: 1.2em;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--v5-teal-light);
+}
+
+@media (max-width: 460px) {
+  /* Apilados, la separación la da el row-gap. El margin-top se sumaba al
+     gap y dejaba 30px donde el resto del formulario usa 16. */
+  .modal__fila { grid-template-columns: 1fr; row-gap: 16px; }
+}
+
+
+/* ---------------------------------------------------------------------------
    Justificado condicionado al ancho de la COLUMNA (no de la pantalla)
    ---------------------------------------------------------------------------
    El texto va en bloque justificado, que es lo pedido. Pero sin partición con

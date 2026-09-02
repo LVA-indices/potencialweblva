@@ -76,6 +76,32 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Vuelve el formulario de demo, ahora en modal
+
+Recupera la única funcionalidad que se había perdido en la migración a la V5.
+Los dos botones "Agenda tu demo" dejan de ser `mailto:` y abren un modal.
+
+Campos con los **mismos nombres que el formulario original** (`name`, `email`,
+`company`, `phone`, `country`, `clientType`, `message`), para que quien conecte
+el backend no tenga que renombrar nada. Reutiliza `.field` / `.field__input` de
+la pantalla de acceso: es el mismo tipo de pieza.
+
+**Comportamiento de modal completo:** foco al primer campo al abrir, trampa de
+foco con Tab y Shift+Tab, Escape y clic fuera para cerrar, devolución del foco
+al botón que lo abrió, y bloqueo del scroll de fondo. Verificado los cuatro.
+
+**El envío NO está conectado, y el original tampoco lo estaba:** su
+`access_key` de web3forms es el literal `YOUR_ACCESS_KEY_HERE`. Aquí se
+intercepta el submit —sin `action`, el navegador mandaría los datos personales
+al propio servidor—. Comprobado con datos de prueba: la URL no cambia ni los
+contiene. Valida los obligatorios y enfoca el primero que falte.
+
+Contraste sobre el navy del modal: título 16,92; bajada 7,71; etiquetas 10,94;
+texto escrito 14,26; botón Enviar 12,16. Mínimo 7,71.
+
+En móvil la caja se desplaza por dentro en vez de empujar la página, y Empresa
+y Teléfono se apilan.
+
 ### Menú de áreas: fuera la etiqueta repetida y el salto de altura
 
 **La etiqueta repetida.** Bajo la pestaña activa "DISTRIBUCIÓN", el panel volvía
