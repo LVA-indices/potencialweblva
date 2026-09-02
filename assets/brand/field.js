@@ -280,20 +280,76 @@
     function startDemo() {
         const form = document.getElementById('form-demo');
         if (!form) return;
-        const msg = document.getElementById('demo-msg');
+        const aviso = document.getElementById('demo-msg');
+        const campos = [...form.querySelectorAll('input, select, textarea')];
+
+        const CORREO = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+        const problema = c => {
+            const v = c.value.trim();
+            if (c.hasAttribute('required') && !v) {
+                return c.tagName === 'SELECT' ? 'Elige una opción.' : 'Este campo es obligatorio.';
+            }
+            if (!v) return '';
+            if (c.type === 'email' && !CORREO.test(v)) return 'Revisa el correo: parece que falta el dominio.';
+            if (c.type === 'tel' && !/^[\d+()\s-]{6,}$/.test(v)) return 'Solo números, espacios y + ( ) -';
+            if (c.id === 'd-mensaje' && v.length < 10) return 'Cuéntanos un poco más, con una frase basta.';
+            return '';
+        };
+
+        const pintar = (c, texto) => {
+            const campo = c.closest('.field');
+            let error = campo.querySelector('.field__error');
+            if (texto) {
+                if (!error) {
+                    error = document.createElement('p');
+                    error.className = 'field__error';
+                    error.id = c.id + '-error';
+                    campo.appendChild(error);
+                }
+                error.textContent = texto;
+                c.setAttribute('aria-invalid', 'true');
+                c.setAttribute('aria-describedby', error.id);
+            } else if (error) {
+                error.remove();
+                c.removeAttribute('aria-invalid');
+                c.removeAttribute('aria-describedby');
+            }
+        };
+
+        campos.forEach(c => {
+            /* Se valida al salir del campo, no mientras se escribe: avisar de que
+               un correo esta incompleto cuando aun se esta tecleando es hostil.
+               Ya marcado como erroneo, si se corrige al vuelo el aviso desaparece. */
+            c.addEventListener('blur', () => pintar(c, problema(c)));
+            c.addEventListener('input', () => {
+                if (c.getAttribute('aria-invalid')) pintar(c, problema(c));
+            });
+            c.addEventListener('change', () => {
+                if (c.tagName === 'SELECT') pintar(c, problema(c));
+            });
+        });
 
         form.addEventListener('submit', e => {
             e.preventDefault();
             /* El envio no esta conectado; lo hara IT. Se intercepta para que los
                datos personales no viajen a ninguna parte mientras tanto: sin
                action, el navegador los mandaria al propio servidor. */
-            const faltan = [...form.querySelectorAll('[required]')].filter(c => !c.value.trim());
-            if (faltan.length) {
-                faltan[0].focus();
-                msg.textContent = 'Completa los campos obligatorios.';
+            let primero = null;
+            campos.forEach(c => {
+                const t = problema(c);
+                pintar(c, t);
+                if (t && !primero) primero = c;
+            });
+            if (primero) {
+                primero.focus();
+                primero.scrollIntoView({ block: 'center', behavior: 'smooth' });
+                aviso.textContent = 'Revisa los campos marcados.';
+                aviso.className = 'demo__msg demo__msg--mal';
                 return;
             }
-            msg.textContent = 'Formulario de diseno: falta conectar el envio.';
+            aviso.textContent = 'Formulario de diseño: falta conectar el envío.';
+            aviso.className = 'demo__msg';
         });
     }
 

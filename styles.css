@@ -1142,11 +1142,14 @@ button:focus-visible,
 
 .access__form { margin-top: clamp(22px, 2.2vw, 30px); }
 
-.field + .field { margin-top: 13px; }
+/* 22px entre campos: con 13 la etiqueta del siguiente casi tocaba el campo
+   anterior y el formulario se leía como un solo bloque. */
+.field + .field { margin-top: 22px; }
 
 .field__label {
   display: block;
-  margin-bottom: 6px;
+  /* 10px: a 6 la etiqueta se pegaba a su campo y casi tocaba el de arriba. */
+  margin-bottom: 10px;
   font-size: 14px;
   letter-spacing: 0.01em;
   color: var(--v5-on-dark-nav);
@@ -1328,7 +1331,7 @@ button:focus-visible,
 .demo__fila {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  gap: 22px;
 }
 
 .demo__fila .field + .field { margin-top: 0; }
@@ -1360,6 +1363,21 @@ button:focus-visible,
 
 .demo__enviar:hover { background: var(--v5-yellow-hover); }
 
+.field__error {
+  margin: 7px 0 0;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: #FFB4A8;
+}
+
+/* El borde rojo acompaña al mensaje; el color por sí solo no basta para quien
+   no lo distingue. */
+.field__input[aria-invalid] {
+  border-color: rgba(255, 180, 168, 0.55);
+}
+
+.demo__msg--mal { color: #FFB4A8; }
+
 .demo__msg {
   margin: 14px 0 0;
   min-height: 1.2em;
@@ -1374,7 +1392,7 @@ button:focus-visible,
 
 @media (max-width: 520px) {
   .demo__fila { grid-template-columns: 1fr; }
-  .demo__fila .field + .field { margin-top: 13px; }
+  .demo__fila .field + .field { margin-top: 22px; }
 }
 
 /* ---------------------------------------------------------------------------

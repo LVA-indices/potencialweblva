@@ -82,6 +82,26 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### El formulario de demo: aire y validaciones
+
+Etiqueta a campo de 6 a **10px**, y entre campos de 13 a **22px**. Con 13 la
+etiqueta de un campo casi tocaba el campo anterior, que es otro dato.
+
+**Validación por campo**, no un aviso genérico al final: obligatorios, formato
+de correo, teléfono y un mínimo en el mensaje. Cada error aparece bajo su campo,
+con `aria-invalid` y `aria-describedby`, y el borde cambia además del color —el
+color solo no basta para quien no lo distingue—.
+
+Se valida **al salir del campo**, no mientras se escribe: avisar de que un correo
+está incompleto cuando aún se teclea es hostil. Una vez marcado, sí se corrige al
+vuelo. Al enviar, foco y desplazamiento al primer error.
+
+*Tropiezos:* el patrón `.field + .field { margin-top: 13px; }` aparecía **dos
+veces** —la segunda como subcadena de la regla de móvil— y el archivo tiene
+finales de línea mezclados, así que dos scripts fallaron antes de escribir. Se
+resolvió con expresiones ancladas a línea. Y los mensajes salieron **sin
+acentos** en la primera versión: son texto que lee el usuario.
+
 ### Criterio de marca: afirmar, no contrastar
 
 Andrea lo formula así: *"no me importa cómo venda el resto, yo vendo lo mío, que
