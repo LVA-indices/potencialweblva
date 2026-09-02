@@ -82,6 +82,41 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Criterio de marca: afirmar, no contrastar
+
+Andrea lo formula así: *"no me importa cómo venda el resto, yo vendo lo mío, que
+es valioso"*. Vale para todo el sitio, no solo para la demo.
+
+Se auditó el copy visible buscando negaciones y comparativos. Aparecen 13
+frases, pero **no todas son lo mismo**, y la distinción es la que decide qué se
+toca:
+
+- **Describen el producto** —"sin producción manual", "sin fricción con tus
+  procesos", "sin importar la cantidad de fondos"—: no hay competidor a la
+  vista. Se quedan.
+- **Describen el dolor del cliente** —"cerrar negocios, no armar documentos",
+  "dedícate al análisis, no a los cálculos"—: hablan de su día, no del rival.
+  Se quedan, y además vienen del brief.
+- **Se comparan con el mercado**: son las que aplican al criterio.
+
+Cambiadas, las dos de los pilares de Nosotros:
+
+| Antes | Ahora |
+|---|---|
+| Independencia → **Sin conflicto** con la gestión de activos | Independencia → **Nuestro único negocio es la información** |
+| IA integrada → Parte de cómo operamos, **no un slogan** | IA integrada → **Parte de cómo desarrollamos y operamos** |
+
+La segunda usa las palabras del propio brief, que en la misma frase trae la
+versión afirmativa: *"es parte integral de cómo desarrollamos y operamos"*.
+
+*Corrección:* una primera comprobación dio que "no un slogan" no venía del
+brief. Era un falso negativo por buscar la frase literal: el brief dice "No es
+un slogan".
+
+Queda una sin resolver, en el párrafo de Nosotros: *"y no seguimos tendencias…
+las anticipamos"*. Viene del brief y habla de LVA, no de terceros, pero el
+contraste está. Pendiente de decisión.
+
 ### El copy de la demo deja de definirse por negación
 
 Reparo de Andrea: el tono sonaba peyorativo, describía **lo que la demo no es**
