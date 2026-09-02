@@ -1343,7 +1343,7 @@ button:focus-visible,
 /* ---------------------------------------------------------------------------
    Post del blog — diseño V5
    ---------------------------------------------------------------------------
-   Reemplaza al layout heredado de styles-legacy.css. La cabecera es el mismo
+   Reemplaza al layout heredado del sitio anterior. La cabecera es el mismo
    bloque navy del sitio; el cuerpo va sobre papel, con medida corta: 68
    caracteres por línea es el rango cómodo para leer seguido, y por eso el
    ancho no sigue al de las secciones comerciales. */

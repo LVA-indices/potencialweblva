@@ -82,6 +82,28 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Fuera el sitio antiguo
+
+La cabecera del blog queda en **"Blog"** con la bajada **"Noticias y novedades
+desde LVA Índices"**, sin más.
+
+Y se elimina todo lo heredado, que ya no lo usaba nadie. La cadena era simple:
+`blog/ejemplo-articulo.html` no estaba enlazado desde ninguna parte, y era el
+único que sostenía a los otros tres.
+
+| Archivo | Peso |
+|---|---|
+| `styles-legacy.css` | 64 KB, 2.840 líneas |
+| `script.js` | 20 KB |
+| `blog/ejemplo-articulo.html` | 16 KB |
+| `blog/images/tiempo-valioso.jpg` | 488 KB |
+
+El repo queda con 14 archivos. Verificado tras borrar: ninguna página pide nada
+que ya no exista y no hay errores en consola.
+
+Con esto **el rediseño ya no convive con el sitio anterior**: index, acceso,
+blog, el post y el editor usan la misma hoja de estilos.
+
 ### El listado del blog pasa al diseño V5
 
 `blog.html` era lo último que quedaba con `styles-legacy.css`. Se reescribe con
