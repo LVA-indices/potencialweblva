@@ -82,6 +82,41 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Auditoría del rediseño
+
+Repaso propio de todo lo construido, antes de dar nada por cerrado.
+
+**Estructura:** 0 enlaces rotos, 0 recursos ausentes, 0 IDs duplicados en las
+seis páginas. Todas con `lang`, `title` y meta description salvo el editor, que
+es interno. Los dos selectores de archivo del editor no tenían nombre accesible:
+corregido con `aria-label`.
+
+**Contraste: 6 fallos reales.** El bloque superior no es navy plano —lleva
+lavados de turquesa que en su punto más claro dejan el fondo en `#084D61`— y
+contra ese punto varios tonos se quedaban cortos:
+
+| Elemento | Antes | Ahora |
+|---|---|---|
+| Eyebrow de demo y blog | 1,75 | **5,43** |
+| "Acceso clientes" del menú | 4,45 | **5,43** |
+| Bajadas y metadatos sobre el lavado | 4,26 | **5,34** |
+| "¿Prefieres escribirnos?", "¿Aún no tienes cuenta?" | 2,90 | **5,34** |
+| Enlaces turquesa sobre el lavado | 4,47 | **5,43** |
+| Cifras del hero **en móvil** | 4,45 | **5,43** |
+
+La última solo aparecía a 390px: la cifra baja de 24px y con ello el mínimo
+exigido sube de 3 a 4,5. Auditar solo en escritorio no la habría encontrado.
+
+**Tropiezo de la propia auditoría.** La primera pasada dio 18 fallos en la
+portada, incluido texto blanco sobre navy con un supuesto 1,35. Era falso: la
+función tomaba los lavados semitransparentes como si fueran el fondo, en vez de
+componerlos sobre el color de abajo. Corregida para componer capas con alfa, los
+18 se quedaron en 1 real. **Una herramienta de medición sin verificar es peor
+que no medir**, porque da una lista de trabajo inventada.
+
+Estado final: 5 páginas × 3 anchos, **0 fallos de contraste, 0 desbordes
+horizontales, 0 errores en consola**.
+
 ### El formulario de demo: aire y validaciones
 
 Etiqueta a campo de 6 a **10px**, y entre campos de 13 a **22px**. Con 13 la
