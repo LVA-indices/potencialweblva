@@ -113,9 +113,12 @@ versión afirmativa: *"es parte integral de cómo desarrollamos y operamos"*.
 brief. Era un falso negativo por buscar la frase literal: el brief dice "No es
 un slogan".
 
-Queda una sin resolver, en el párrafo de Nosotros: *"y no seguimos tendencias…
-las anticipamos"*. Viene del brief y habla de LVA, no de terceros, pero el
-contraste está. Pendiente de decisión.
+**Decidido:** *"y no seguimos tendencias… las anticipamos"*, del párrafo de
+Nosotros, **se queda como está**. Viene del brief y habla de LVA, no de
+terceros. Criterio de Andrea: el brief no se mueve más de lo necesario.
+
+Lo mismo vale hacia adelante: **el criterio de afirmar en vez de contrastar se
+aplica al copy que escribimos nosotros, no para reescribir el brief.**
 
 ### El copy de la demo deja de definirse por negación
 
