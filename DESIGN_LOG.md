@@ -1180,6 +1180,23 @@ Servido en local y auditado por DOM (no solo a ojo):
 
 ## Decisiones abiertas — requieren validación humana
 
+**0. Parqueadas del editor de posts (sesión 5)**
+
+- **Botón de IA para el resumen.** Propuesto y **descartado por ahora**: el repo
+  es público y una clave de API dentro del editor quedaría expuesta en cuanto se
+  commitee. La alternativa inmediata —clave pegada a mano y guardada solo en el
+  navegador— también se descartó. Andrea lo retomará **si adoptan Netlify
+  institucional**, donde la clave vive en el servidor. El mismo botón podría
+  proponer título, etiqueta y minutos de lectura.
+- **Resumen único para dos usos.** Hoy el mismo texto alimenta la
+  `meta description` de Google y el extracto de la tarjeta del listado. Son
+  públicos distintos: uno decide si entrar desde el buscador, el otro ya está
+  dentro del sitio. Separarlos en dos campos está pendiente de decisión.
+- **Importar `.docx` desde Google Docs.** Pegar desde Docs ya funciona con
+  limpieza de formato. Arrastrar el archivo añadiría las imágenes del documento.
+  A la espera de que el uso real lo pida.
+
+
 **1. ✅ Contraste de los botones — RESUELTO en la sesión 2**
 `--fg-on-brand` pasó a navy profundo `#04222E` (9,1:1 sobre teal-600). Las tres
 páginas pasan la auditoría WCAG AA completa, sin excepciones.
