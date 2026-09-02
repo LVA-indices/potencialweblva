@@ -76,6 +76,43 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Blog en el menú y editor local de posts
+
+"Blog" entra como quinto enlace de la cabecera. Verificado a 1440 y 1100: el
+menú sigue en una línea y no se solapa con los botones de la derecha.
+
+**Editor de posts** en `editor/index.html`. Decisión de arquitectura tomada con
+Andrea entre tres caminos: editor local, CMS sobre git (Decap) o Supabase con
+render en cliente. Se eligió el **editor local** porque no añade
+infraestructura ni dependencias, encaja con el flujo actual y no cierra puertas:
+el trabajo de composición se reaprovecha si más adelante se migra a Decap con el
+Netlify institucional.
+
+Qué hace: campos del post, cabecera (imagen, video de YouTube o video propio),
+editor de texto con negrita, cursiva, enlace, títulos, listas y frase destacada,
+vista previa en vivo con el CSS real del blog, y descarga del `.html` listo más
+el archivo de imagen o video ya renombrado. También copia la tarjeta para
+pegar en `blog.html`.
+
+Detalles que importan:
+
+- Genera **las mismas clases** que `blog/ejemplo-articulo.html`, así que cuando
+  el blog reciba su pasada al diseño V5, los posts se restilan solos.
+- **Pegado limpio** desde Word o Google Docs: conserva negritas, cursivas,
+  enlaces, títulos y listas, y descarta el resto de etiquetas y estilos.
+- Minutos de lectura calculados a 200 palabras por minuto.
+- Borrador en `localStorage` para no perder el texto al cerrar.
+- `noindex`, sin enlaces desde el sitio y **excluido del despliegue**: vive solo
+  en el repo y en local.
+
+*Tropiezo:* la plantilla se embebe como cadena JS y contiene un `</script>`,
+que corta el bloque de JavaScript al parsear el HTML. La vista previa salía en
+blanco. Se escapa como `<\/script>`.
+
+Usa `document.execCommand`, marcado como obsoleto pero sin sustituto
+equivalente y con soporte universal. Es una herramienta interna, no código del
+sitio publicado.
+
 ### Vuelve el formulario de demo, ahora en modal
 
 Recupera la única funcionalidad que se había perdido en la migración a la V5.
