@@ -76,6 +76,27 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Tarjetas: los párrafos dejan de escalonarse
+
+Con títulos de una o dos líneas, cada párrafo arrancaba a distinta altura y la
+fila se veía desordenada.
+
+Se resuelve con **subgrid en `.product`**: las tres filas de la tarjeta
+—etiqueta, título y cuerpo— se alinean entre columnas, así que el título
+reserva la altura del más largo y todos los cuerpos empiezan igual. Es la misma
+técnica que ya ordenaba los "Leer más".
+
+Se añade `text-wrap: balance` en el título, para repartir las dos líneas en vez
+de dejar una palabra suelta abajo.
+
+Verificado en las cuatro áreas a 1440 y 1024: cuerpos alineados en todas. Bajo
+901px el subgrid se apaga: las tarjetas se apilan y no hay nada con qué
+alinearse.
+
+Queda una diferencia menor: dos títulos cortos —"Cumple la norma a cabalidad" y
+"Tecnología, no solo datos"— siguen ocupando una línea dentro del espacio de
+dos. Forzarlos a dos líneas exigiría reescribir el texto, no CSS.
+
 ### Ajustes en el menú de áreas
 
 - **Fuera las líneas sobre las tarjetas.** Cuatro reglas horizontales encima de
