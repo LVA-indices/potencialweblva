@@ -39,7 +39,7 @@
                 <li><a href="blog.html">Blog</a></li>
             </ul>
             <div class="nav__actions">
-                <button type="button" class="btn-demo" data-abre="modal-demo">Agenda tu demo</button>
+                <a class="btn-demo" href="demo.html">Agenda tu demo</a>
                 <a class="nav__access" href="acceso.html">Acceso clientes</a>
             </div>
         </div>
@@ -306,7 +306,7 @@
                     <div class="how__cta-title">Conversemos</div>
                     <p class="how__cta-text">Conoce nuestra oferta en una demo de solo 30 minutos, sobre tu propia cartera.</p>
                 </div>
-                <button type="button" class="btn-demo" data-abre="modal-demo">Agenda tu demo</button>
+                <a class="btn-demo" href="demo.html">Agenda tu demo</a>
             </div>
         </div>
     </div>
@@ -346,85 +346,6 @@
         </div>
     </div>
 </footer>
-
-<!-- Modal de "Agenda tu demo". Recupera el formulario que existía antes de la
-     V5. Los nombres de campo son los mismos de entonces (name, email, company,
-     phone, country, clientType, message) para que el backend que lo reciba no
-     tenga que renombrar nada. -->
-<div class="modal" id="modal-demo" hidden>
-    <div class="modal__fondo" data-cerrar></div>
-
-    <div class="modal__caja" role="dialog" aria-modal="true"
-         aria-labelledby="modal-demo-titulo" aria-describedby="modal-demo-bajada">
-
-        <button type="button" class="modal__cerrar" data-cerrar aria-label="Cerrar">
-            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-                <path d="M1 1l14 14M15 1L1 15" stroke="currentColor" stroke-width="1.6" fill="none"/>
-            </svg>
-        </button>
-
-        <h2 class="modal__titulo" id="modal-demo-titulo">Agenda tu demo</h2>
-        <p class="modal__bajada" id="modal-demo-bajada">Completa el formulario y nos pondremos en contacto contigo a la brevedad.</p>
-
-        <form class="modal__form" id="form-demo" novalidate>
-            <div class="field">
-                <label class="field__label" for="d-nombre">Nombre completo *</label>
-                <input class="field__input" type="text" id="d-nombre" name="name" autocomplete="name" required>
-            </div>
-
-            <div class="field">
-                <label class="field__label" for="d-email">Email corporativo *</label>
-                <input class="field__input" type="email" id="d-email" name="email" autocomplete="email" required>
-            </div>
-
-            <div class="modal__fila">
-                <div class="field">
-                    <label class="field__label" for="d-empresa">Empresa *</label>
-                    <input class="field__input" type="text" id="d-empresa" name="company" autocomplete="organization" required>
-                </div>
-                <div class="field">
-                    <label class="field__label" for="d-tel">Teléfono</label>
-                    <input class="field__input" type="tel" id="d-tel" name="phone" autocomplete="tel">
-                </div>
-            </div>
-
-            <div class="field">
-                <label class="field__label" for="d-pais">País *</label>
-                <select class="field__input" id="d-pais" name="country" required>
-                    <option value="">Selecciona tu país</option>
-                    <option value="Chile">Chile</option>
-                    <option value="Colombia">Colombia</option>
-                    <option value="México">México</option>
-                    <option value="Perú">Perú</option>
-                    <option value="Otro">Otro</option>
-                </select>
-            </div>
-
-            <div class="field">
-                <label class="field__label" for="d-tipo">Tipo de organización *</label>
-                <select class="field__input" id="d-tipo" name="clientType" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="AGF">Gestora de Activos (AGF)</option>
-                    <option value="Distribuidora">Distribuidora / Agencia</option>
-                    <option value="AFP">AFP / Pensiones</option>
-                    <option value="Asset Manager Intl">Asset Manager Internacional</option>
-                    <option value="Otro">Otro</option>
-                </select>
-            </div>
-
-            <div class="field">
-                <label class="field__label" for="d-mensaje">Mensaje *</label>
-                <textarea class="field__input" id="d-mensaje" name="message" rows="4"
-                          placeholder="Cuéntanos cómo podemos ayudarte..." required></textarea>
-            </div>
-
-            <div class="modal__pie">
-                <button type="submit" class="modal__enviar">Enviar</button>
-                <p class="modal__msg" id="modal-demo-msg" role="status" aria-live="polite"></p>
-            </div>
-        </form>
-    </div>
-</div>
 
 <script src="assets/brand/field.js"></script>
 </body>

@@ -1242,6 +1242,141 @@ button:focus-visible,
 
 
 
+
+/* ---------------------------------------------------------------------------
+   Página "Agenda tu demo"
+   ---------------------------------------------------------------------------
+   Reemplaza al modal: agendar una reunión comercial en una ventana flotante se
+   siente efímero, y una página tiene dirección propia que compartir o enlazar
+   desde una campaña, y sitio para el argumento junto al formulario.
+   Reutiliza .field / .field__input de la pantalla de acceso. */
+.demo {
+  padding: clamp(52px, 6vw, 84px) var(--v5-pad-content) clamp(72px, 8vw, 108px);
+}
+
+.demo__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+
+.demo__titulo {
+  margin: clamp(14px, 1.6vw, 20px) 0 0;
+  font-size: clamp(28px, 3.2vw, 44px);
+  font-weight: 600;
+  line-height: 1.16;
+  letter-spacing: -0.018em;
+  color: var(--v5-on-dark);
+  text-wrap: balance;
+}
+
+.demo__bajada {
+  margin: 18px 0 0;
+  max-width: 44ch;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--v5-on-dark-dim);
+}
+
+.demo__lista {
+  margin: clamp(26px, 3vw, 36px) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.demo__lista li {
+  position: relative;
+  padding-left: 24px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--v5-on-dark-muted);
+}
+
+/* Guion turquesa en vez de viñeta: la lista apoya el argumento, no enumera. */
+.demo__lista li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 12px;
+  height: 1px;
+  background: var(--v5-teal-light);
+}
+
+.demo__contacto {
+  margin-top: clamp(30px, 3.4vw, 42px);
+  padding-top: clamp(22px, 2.4vw, 28px);
+  border-top: 1px solid var(--v5-rule-dark);
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+.demo__contacto span { display: block; color: var(--v5-on-dark-faint); }
+.demo__contacto a { display: inline-block; margin-top: 4px; font-weight: 500; }
+
+.demo__form {
+  padding: clamp(26px, 3vw, 38px);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--v5-rule-dark);
+}
+
+.demo__fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.demo__fila .field + .field { margin-top: 0; }
+
+.demo__form select.field__input {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C4D2DA' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 38px;
+}
+
+.demo__form textarea.field__input { resize: vertical; min-height: 96px; }
+
+.demo__enviar {
+  margin-top: 24px;
+  width: 100%;
+  padding: 14px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--v5-navy);
+  background: var(--v5-yellow);
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+
+.demo__enviar:hover { background: var(--v5-yellow-hover); }
+
+.demo__msg {
+  margin: 14px 0 0;
+  min-height: 1.2em;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--v5-teal-light);
+}
+
+@media (max-width: 900px) {
+  .demo__grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px) {
+  .demo__fila { grid-template-columns: 1fr; }
+  .demo__fila .field + .field { margin-top: 13px; }
+}
+
 /* ---------------------------------------------------------------------------
    Listado del blog
    ---------------------------------------------------------------------------
@@ -1467,142 +1602,6 @@ button:focus-visible,
   font-size: 13.5px;
   line-height: 1.5;
   color: var(--v5-on-light-tag);
-}
-
-
-/* ---------------------------------------------------------------------------
-   Modal de "Agenda tu demo"
-   ---------------------------------------------------------------------------
-   Recupera el formulario que existía antes de la V5. Va en navy y reutiliza
-   .field / .field__input de la pantalla de acceso: es el mismo tipo de pieza y
-   no hay razón para que se vean distintas. */
-.modal[hidden] { display: none; }
-
-.modal {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: grid;
-  place-items: center;
-  padding: clamp(16px, 4vw, 40px);
-}
-
-.modal__fondo {
-  position: absolute;
-  inset: 0;
-  background: rgba(5, 16, 26, 0.72);
-}
-
-.modal__caja {
-  position: relative;
-  width: 100%;
-  max-width: 520px;
-  /* El formulario es largo: en pantallas bajas la caja se desplaza por dentro
-     y no empuja la página. */
-  max-height: calc(100dvh - clamp(32px, 8vw, 80px));
-  overflow-y: auto;
-  --pad: clamp(24px, 3vw, 34px);
-  padding: var(--pad);
-  border-radius: 16px;
-  background: var(--v5-navy);
-  border: 1px solid rgba(47, 195, 227, 0.24);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
-}
-
-.modal__cerrar {
-  position: absolute;
-  top: 16px; right: 16px;
-  width: 34px; height: 34px;
-  display: grid;
-  place-items: center;
-  border: 0;
-  border-radius: 999px;
-  background: none;
-  color: var(--v5-on-dark-nav);
-  cursor: pointer;
-  transition: color 0.18s ease, background 0.18s ease;
-}
-
-.modal__cerrar:hover { color: var(--v5-on-dark); background: rgba(255, 255, 255, 0.08); }
-
-.modal__titulo {
-  margin: 0 36px 0 0;
-  font-size: clamp(22px, 2.2vw, 27px);
-  font-weight: 600;
-  line-height: 1.22;
-  letter-spacing: -0.012em;
-  color: var(--v5-on-dark);
-}
-
-.modal__bajada {
-  margin: 10px 0 0;
-  font-size: 14.5px;
-  line-height: 1.6;
-  color: var(--v5-on-dark-dim);
-}
-
-.modal__form { margin-top: clamp(18px, 2vw, 24px); }
-
-/* Empresa y teléfono comparten fila: son cortos y acortan el formulario. */
-.modal__fila {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
-.modal__fila .field + .field { margin-top: 0; }
-
-.modal__form select.field__input {
-  /* La flecha nativa desaparece sobre fondo oscuro en algunos navegadores. */
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C4D2DA' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-  padding-right: 40px;
-}
-
-.modal__form textarea.field__input { resize: vertical; min-height: 78px; }
-
-/* El pie se queda pegado al fondo de la caja mientras el formulario se
-   desplaza: con siete campos el botón caía fuera de la ventana y no se veía.
-   Los márgenes negativos lo hacen sangrar hasta los bordes para que el fondo
-   tape el texto que pasa por debajo. */
-.modal__pie {
-  position: sticky;
-  bottom: calc(var(--pad) * -1);
-  margin: 18px calc(var(--pad) * -1) calc(var(--pad) * -1);
-  padding: 14px var(--pad) var(--pad);
-  background: linear-gradient(to top, var(--v5-navy) 76%, rgba(11, 30, 47, 0));
-}
-
-.modal__enviar {
-  width: 100%;
-  padding: 14px;
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--v5-navy);
-  background: var(--v5-yellow);
-  border: 0;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background 0.18s ease;
-}
-
-.modal__enviar:hover { background: var(--v5-yellow-hover); }
-
-.modal__msg {
-  margin: 14px 0 0;
-  min-height: 1.2em;
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--v5-teal-light);
-}
-
-@media (max-width: 460px) {
-  /* Apilados, la separación la da el row-gap. El margin-top se sumaba al
-     gap y dejaba 30px donde el resto del formulario usa 16. */
-  .modal__fila { grid-template-columns: 1fr; row-gap: 16px; }
 }
 
 

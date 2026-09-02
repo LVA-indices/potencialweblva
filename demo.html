@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Agenda una demo de 30 minutos con LVA Índices, sobre tu propia cartera y con tus casos reales.">
+    <title>Agenda tu demo — LVA Índices</title>
+    <link rel="icon" type="image/svg+xml" href="assets/iso_lva.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="assets/brand/tokens.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="top top--plain">
+    <nav class="nav" aria-label="Principal">
+        <a class="nav__brand" href="index.html#" aria-label="LVA Índices — inicio">
+            <img class="nav__logo" src="assets/brand/logos/lva-logo-color-on-dark.svg" alt="LVA Índices">
+        </a>
+
+        <button type="button" class="nav__toggle" id="nav-toggle"
+                aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-collapse">
+            <span></span><span></span><span></span>
+        </button>
+
+        <!-- En escritorio es display:contents, así que logo, enlaces y acciones
+             siguen siendo hermanos del mismo flex. Bajo 1024px se convierte en
+             el panel desplegable. No se duplica ni un enlace. -->
+        <div class="nav__collapse" id="nav-collapse">
+            <ul class="nav__links">
+                <li><a href="index.html#soluciones">Soluciones</a></li>
+                <li><a href="index.html#datos">Datos</a></li>
+                <li><a href="index.html#premios">Premios</a></li>
+                <li><a href="index.html#nosotros">Nosotros</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+            <div class="nav__actions">
+                <a class="btn-demo" href="demo.html" aria-current="page">Agenda tu demo</a>
+                <a class="nav__access" href="acceso.html">Acceso clientes</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="demo">
+        <div class="demo__grid wrap">
+
+            <div class="demo__intro">
+                <div class="eyebrow">AGENDA TU DEMO</div>
+                <h1 class="demo__titulo">Treinta minutos, sobre tu propia cartera.</h1>
+                <p class="demo__bajada">No una presentación genérica: trabajamos sobre tus datos y tus casos reales, para que veas exactamente qué cambia en tu operación.</p>
+
+                <ul class="demo__lista">
+                    <li>Te responde alguien que conoce la industria, no un ejecutivo de cuenta.</li>
+                    <li>Sin compromiso ni instalación previa.</li>
+                    <li>Te contactamos dentro del día hábil siguiente.</li>
+                </ul>
+
+                <div class="demo__contacto">
+                    <span>¿Prefieres escribirnos directamente?</span>
+                    <a href="mailto:comercial@lvaindices.com?subject=Solicitud%20de%20demo">comercial@lvaindices.com</a>
+                </div>
+            </div>
+
+            <form class="demo__form" id="form-demo" novalidate>
+                <div class="field">
+                    <label class="field__label" for="d-nombre">Nombre completo *</label>
+                    <input class="field__input" type="text" id="d-nombre" name="name" autocomplete="name" required>
+                </div>
+
+                <div class="field">
+                    <label class="field__label" for="d-email">Email corporativo *</label>
+                    <input class="field__input" type="email" id="d-email" name="email" autocomplete="email" required>
+                </div>
+
+                <div class="demo__fila">
+                    <div class="field">
+                        <label class="field__label" for="d-empresa">Empresa *</label>
+                        <input class="field__input" type="text" id="d-empresa" name="company" autocomplete="organization" required>
+                    </div>
+                    <div class="field">
+                        <label class="field__label" for="d-tel">Teléfono</label>
+                        <input class="field__input" type="tel" id="d-tel" name="phone" autocomplete="tel">
+                    </div>
+                </div>
+
+                <div class="demo__fila">
+                    <div class="field">
+                        <label class="field__label" for="d-pais">País *</label>
+                        <select class="field__input" id="d-pais" name="country" required>
+                            <option value="">Selecciona tu país</option>
+                            <option value="Chile">Chile</option>
+                            <option value="Colombia">Colombia</option>
+                            <option value="México">México</option>
+                            <option value="Perú">Perú</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label class="field__label" for="d-tipo">Tipo de organización *</label>
+                        <select class="field__input" id="d-tipo" name="clientType" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="AGF">Gestora de Activos (AGF)</option>
+                            <option value="Distribuidora">Distribuidora / Agencia</option>
+                            <option value="AFP">AFP / Pensiones</option>
+                            <option value="Asset Manager Intl">Asset Manager Internacional</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="field__label" for="d-mensaje">Mensaje *</label>
+                    <textarea class="field__input" id="d-mensaje" name="message" rows="4"
+                              placeholder="Cuéntanos cómo podemos ayudarte..." required></textarea>
+                </div>
+
+                <button type="submit" class="demo__enviar">Enviar solicitud</button>
+                <p class="demo__msg" id="demo-msg" role="status" aria-live="polite"></p>
+            </form>
+
+        </div>
+    </section>
+</div>
+
+<footer class="footer">
+    <div class="wrap">
+        <div class="footer__grid">
+            <img class="footer__logo" src="assets/brand/logos/lva-logo-color-on-dark.svg" alt="LVA Índices">
+            <div>
+                <div class="footer__h">SOLUCIONES</div>
+                <div class="footer__items">
+                    <a href="index.html#soluciones">Distribución</a>
+                    <a href="index.html#soluciones">Riesgo</a>
+                    <a href="index.html#soluciones">Inversión &amp; Mercado</a>
+                    <a href="index.html#soluciones">Compliance</a>
+                </div>
+            </div>
+            <div>
+                <div class="footer__h">EMPRESA</div>
+                <div class="footer__items">
+                    <a href="index.html#nosotros">Nosotros</a>
+                    <a href="index.html#premios">Premios</a>
+                </div>
+            </div>
+            <div>
+                <div class="footer__h">CONTACTO</div>
+                <div class="footer__items">
+                    <a href="mailto:comercial@lvaindices.com">comercial@lvaindices.com</a>
+                    <a href="mailto:soporte@lvaindices.com">soporte@lvaindices.com</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <span>© 2026 LVA Índices. Santiago de Chile.</span>
+            <a href="https://www.linkedin.com/company/lva-indices" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+    </div>
+</footer>
+
+<script src="assets/brand/field.js"></script>
+</body>
+</html>

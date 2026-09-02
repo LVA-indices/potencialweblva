@@ -82,6 +82,31 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### "Agenda tu demo" pasa de modal a página propia
+
+Criterio de Andrea: **el modal se siente efímero** para agendar una reunión
+comercial. Se sustituye por `demo.html`.
+
+Lo que gana al ser página y no ventana: tiene dirección propia que compartir o
+enlazar desde una campaña, no se pierde al recargar, y hay sitio para el
+argumento **junto** al formulario en vez de solo encima.
+
+La página repite el mensaje de los 30 minutos sobre la propia cartera, añade
+tres apoyos y ofrece **comercial@lvaindices.com** como alternativa para quien
+prefiera escribir en vez de rellenar.
+
+Los cinco disparadores del sitio —los dos de la portada, el del blog, el del
+post y el de la plantilla del editor— apuntan ahora ahí. Con esto desaparece
+también el apaño del `?demo`, que existía solo porque el modal vivía en una
+sola página.
+
+Eliminado el modal por completo: marcado, 136 líneas de CSS y su JavaScript.
+
+*Tropiezo:* el script que quitaba el CSS del modal calculó el corte al revés
+—el bloque a borrar estaba después del de referencia— y **duplicó 700 líneas**
+de hoja. Se detectó al comprobar el orden de los bloques, se restauró con
+`git checkout` y se rehízo verificando que el corte fuera hacia adelante.
+
 ### Fuera el sitio antiguo
 
 La cabecera del blog queda en **"Blog"** con la bajada **"Noticias y novedades
