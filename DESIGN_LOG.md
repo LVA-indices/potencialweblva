@@ -105,6 +105,12 @@ Detalles que importan:
 - `noindex`, sin enlaces desde el sitio y **excluido del despliegue**: vive solo
   en el repo y en local.
 
+El editor no pide lo que puede deducir: **no hay campo para el nombre del
+archivo** —se deriva del título y se muestra la ruta resultante como dato— y la
+**fecha llega puesta con la de hoy**, editable. Los minutos de lectura ya se
+calculaban solos. Quedan cinco campos que escribir: título, resumen, autor,
+etiqueta y el texto.
+
 *Tropiezo:* la plantilla se embebe como cadena JS y contiene un `</script>`,
 que corta el bloque de JavaScript al parsear el HTML. La vista previa salía en
 blanco. Se escapa como `<\/script>`.

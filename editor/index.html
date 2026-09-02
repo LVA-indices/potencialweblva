@@ -80,6 +80,7 @@
 
       <label for="titulo">Título *</label>
       <input type="text" id="titulo" placeholder="Tenemos más tiempo, y ese tiempo es más valioso">
+      <p class="pista" id="pistaRuta"></p>
 
       <label for="resumen">Resumen * <span class="pista" style="display:inline">— sale en el listado y en Google</span></label>
       <textarea id="resumen" rows="2" placeholder="Una o dos frases que resuman el post."></textarea>
@@ -90,7 +91,7 @@
           <input type="text" id="autor" placeholder="Mati — Jefe de Ingeniería, LVA Índices">
         </div>
         <div>
-          <label for="fecha">Fecha *</label>
+          <label for="fecha">Fecha <span class="pista" style="display:inline">— hoy</span></label>
           <input type="text" id="fecha" placeholder="14 abril 2026">
         </div>
       </div>
@@ -101,13 +102,10 @@
           <input type="text" id="etiqueta" placeholder="Ingeniería">
         </div>
         <div>
-          <label for="archivo">Nombre del archivo *</label>
-          <input type="text" id="archivo" placeholder="tenemos-mas-tiempo">
+          <label for="lectura">Minutos de lectura <span class="pista" style="display:inline">— se calcula solo</span></label>
+          <input type="number" id="lectura" min="1" value="1">
         </div>
       </div>
-
-      <label for="lectura">Minutos de lectura <span class="pista" style="display:inline">— se calcula solo</span></label>
-      <input type="number" id="lectura" min="1" value="1">
     </div>
 
     <div class="tarjeta" style="margin-top:20px">
@@ -190,6 +188,18 @@ const PLANTILLA = "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n    <meta charse
 const $ = s => document.querySelector(s);
 const cuerpo = $('#cuerpo');
 
+/* Dos datos que no tiene sentido pedir: la direccion del post se deriva del
+   titulo -no hay campo- y la fecha llega puesta con la de hoy, editable. */
+const aRuta = t => String(t).toLowerCase().normalize('NFD')
+  .replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-')
+  .replace(/^-|-$/g, '').slice(0, 60);
+
+const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio',
+               'agosto','septiembre','octubre','noviembre','diciembre'];
+const hoy = () => { const d = new Date();
+  return d.getDate() + ' ' + MESES[d.getMonth()] + ' ' + d.getFullYear(); };
+$('#fecha').value = hoy();
+
 /* ---------- barra de formato ----------
    Se usa execCommand: está marcado como obsoleto pero funciona en todos los
    navegadores y no hay sustituto equivalente. Es una herramienta interna, no
@@ -232,9 +242,7 @@ cuerpo.addEventListener('paste', e => {
 
 /* ---------- cabecera ---------- */
 let imagenDato = null, videoDato = null;
-const nombreArchivo = () => ($('#archivo').value.trim() || 'post')
-  .toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-  .replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const nombreArchivo = () => aRuta($('#titulo').value.trim()) || 'post';
 
 $('#tipoCab').addEventListener('change', () => {
   const t = $('#tipoCab').value;
@@ -335,6 +343,7 @@ function actualiza() {
   clearTimeout(temporizador);
   temporizador = setTimeout(() => {
     calculaLectura();
+    $('#pistaRuta').textContent = 'Quedará en blog/' + nombreArchivo() + '.html';
     const doc = $('#previa').contentDocument;
     doc.open(); doc.write(construye(true)); doc.close();
     guardaBorrador();
@@ -359,7 +368,6 @@ $('#bDescargar').addEventListener('click', () => {
   const faltan = [];
   if (!$('#titulo').value.trim())  faltan.push('el título');
   if (!$('#resumen').value.trim()) faltan.push('el resumen');
-  if (!$('#archivo').value.trim()) faltan.push('el nombre del archivo');
   if (faltan.length) { avisa('Falta ' + faltan.join(', ') + '.'); return; }
   const base = nombreArchivo();
   baja(construye(false), base + '.html', 'text/html');
@@ -403,7 +411,7 @@ function guardaBorrador() {
   try {
     localStorage.setItem(CLAVE, JSON.stringify({
       titulo:$('#titulo').value, resumen:$('#resumen').value, autor:$('#autor').value,
-      fecha:$('#fecha').value, etiqueta:$('#etiqueta').value, archivo:$('#archivo').value,
+      fecha:$('#fecha').value, etiqueta:$('#etiqueta').value,
       tipoCab:$('#tipoCab').value, yt:$('#yt').value, cuerpo:cuerpo.innerHTML
     }));
   } catch (e) {}
@@ -414,7 +422,7 @@ $('#bGuardar').addEventListener('click', () => { guardaBorrador(); avisa('Borrad
   try {
     const b = JSON.parse(localStorage.getItem(CLAVE) || 'null');
     if (!b) { actualiza(); return; }
-    for (const k of ['titulo','resumen','autor','fecha','etiqueta','archivo','tipoCab','yt'])
+    for (const k of ['titulo','resumen','autor','fecha','etiqueta','tipoCab','yt'])
       if (b[k] && $('#' + k)) $('#' + k).value = b[k];
     if (b.cuerpo) cuerpo.innerHTML = b.cuerpo;
     $('#tipoCab').dispatchEvent(new Event('change'));
