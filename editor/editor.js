@@ -143,6 +143,34 @@
     const d = document.documentElement.cloneNode(true);
     d.querySelectorAll('.adm,.panel,.flot,.aviso,.zona__botones,.zona__vacia,#fImagen,#fVideo,script,style')
       .forEach(e => e.remove());
+
+    /* Todo lo que no puso el editor. Al alojarlo en Netlify, su insignia y sus
+       meta acaban en el DOM, y las extensiones del navegador inyectan iframes y
+       nodos sueltos: sin esto se cuelan en el archivo exportado. La primera
+       exportacion real pesaba 22KB, de los que 13 eran basura de este tipo. */
+    d.querySelectorAll('iframe:not(.post__media iframe), meta[name="hosting-provider"],' +
+                       'meta[name="netlify-deploy"], input[type="file"], [data-nl-ready],' +
+                       '[id^="nl-"], [class^="nl-"]').forEach(e => e.remove());
+    d.querySelectorAll('body > *').forEach(e => {
+      if ([...e.attributes].some(a => /^data-v-[0-9a-f]{6,}$/.test(a.name))) e.remove();
+    });
+    // Comentarios inyectados por el host
+    const paseo = document.createTreeWalker(d, NodeFilter.SHOW_COMMENT);
+    const fuera = [];
+    while (paseo.nextNode()) if (/netlify/i.test(paseo.currentNode.nodeValue)) fuera.push(paseo.currentNode);
+    fuera.forEach(c => c.remove());
+
+    /* Netlify reescribe los enlaces a rutas absolutas (/blog en vez de
+       ../blog.html). En GitHub Pages el sitio cuelga de /potencialweblva/, asi
+       que una ruta absoluta apuntaria fuera. Se devuelven a relativas. */
+    d.querySelectorAll('a[href^="/"]').forEach(a => {
+      const h = a.getAttribute('href');
+      if (h.startsWith('//')) return;
+      a.setAttribute('href',
+        h === '/' ? '../index.html'
+        : h.startsWith('/#') ? '../index.html' + h.slice(1)
+        : '../' + h.slice(1).replace(/^(blog|acceso)$/, '$1.html'));
+    });
     d.querySelectorAll('[contenteditable]').forEach(e => {
       e.removeAttribute('contenteditable'); e.removeAttribute('data-vacio');
     });

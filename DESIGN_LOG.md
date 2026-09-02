@@ -82,6 +82,31 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Primer post publicado, y una lección del editor en Netlify
+
+Se publica "Tenemos más tiempo, y ese tiempo es más valioso", generado con el
+editor. El listado del blog **apunta ahora a esta versión** en vez de a
+`ejemplo-articulo.html`: es el mismo artículo, así que duplicarlo habría dejado
+el blog listando dos veces lo mismo, una con cada diseño.
+
+**El archivo exportado venía contaminado.** Al alojar el editor en Netlify, la
+exportación por clonado del DOM se llevó todo lo que el host y el navegador
+inyectan en la página:
+
+- los `meta` y el comentario de Netlify,
+- su insignia "Powered by Netlify" entera, un `iframe` con su CSS y su JS,
+- un `iframe` y varios nodos de una extensión del navegador,
+- y los enlaces reescritos a rutas **absolutas** (`/blog` en vez de
+  `../blog.html`), que en GitHub Pages apuntarían fuera del sitio, porque allí
+  cuelga de `/potencialweblva/`.
+
+De 22.283 bytes, **13.040 eran basura**. Se limpió el archivo y se blindó la
+exportación del editor para que descarte todo lo que no puso él y devuelva los
+enlaces a relativos.
+
+Es el precio de publicar el editor: en local no pasaba. Conviene recordarlo si
+algún día se aloja en otro sitio que también inyecte cosas.
+
 ### El editor se publica en la vista previa
 
 Se necesitaba poder enseñar el editor, no solo el sitio. Se sube a la vista
