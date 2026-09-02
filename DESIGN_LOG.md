@@ -82,6 +82,32 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Auditoría de las 18 tarjetas contra el brief
+
+Se compararon una a una las tarjetas del sitio con las del brief. **No hay
+contenido inventado**: las 18 trazan a una tarjeta del brief y los cuerpos son
+condensaciones del original, sin cifras ni afirmaciones nuevas. Cuatro son
+literales.
+
+**Faltaba una tarjeta entera.** El brief tiene 19 y el sitio tenía 18: se había
+perdido `[PLATAFORMA INTEGRAL] Tu equipo comercial con toda la información`, de
+Distribución. Recuperada en su posición del brief, la segunda. Ahora los cuatro
+dominios quedan en 5 / 5 / 5 / 4.
+
+Dos matices menores, no inventos pero sí añadidos: "sin producción manual" en la
+tarjeta de Marketing, y "local" en la de Carteras complejas —el brief dice "20
+años de experiencia de LVA"—.
+
+De paso se normalizó la indentación de las 18 tarjetas, que había quedado
+irregular al generar la sección con un script.
+
+### "Tu camino con LVA" y los pilares
+
+- Los pasos cambian su línea horizontal superior por el **separador vertical**
+  de Soluciones. El número ya ocupaba el `::before`, así que la línea va en
+  `::after`. Se apaga bajo 900px.
+- Los títulos turquesa de los pilares de Nosotros pasan de 13,5 a **16,5px**.
+
 ### Rediseño de Soluciones: separadores y una sola bajada por dominio
 
 Según maqueta de Andrea. Tres cambios:

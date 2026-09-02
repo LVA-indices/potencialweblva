@@ -788,7 +788,7 @@ button:focus-visible,
 }
 
 .pillar { padding-top: 16px; border-top: 1px solid var(--v5-rule-dark); }
-.pillar__k { font-size: 13.5px; font-weight: 700; color: var(--v5-teal-soft); }
+.pillar__k { font-size: 16.5px; font-weight: 700; letter-spacing: -0.008em; color: var(--v5-teal-soft); }
 .pillar__v { margin-top: 9px; font-size: 13.5px; line-height: 1.6; color: var(--v5-on-dark-dim); }
 
 /* Cuarta columna: la única con caja. Es el cierre del arco de la sección
@@ -879,10 +879,29 @@ button:focus-visible,
   counter-reset: paso;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(28px, 3.2vw, 48px);
+  /* Igual que en Soluciones: el gap se guarda para colocar el separador en su
+     punto medio. */
+  --sep: clamp(28px, 3.2vw, 48px);
+  gap: var(--sep);
 }
 
-.step { counter-increment: paso; padding-top: 18px; border-top: 1px solid var(--v5-rule-dark); }
+/* Sin línea horizontal encima: la separación entre pasos es vertical, como en
+   Soluciones. El ::before ya lo ocupa el número, así que la línea va en ::after. */
+.step { counter-increment: paso; position: relative; }
+
+.step + .step::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--sep) / -2);
+  width: 1px;
+  background: var(--v5-rule-dark);
+}
+
+@media (max-width: 900px) {
+  .step + .step::after { display: none; }
+}
 
 .step::before {
   content: counter(paso, decimal-leading-zero);
