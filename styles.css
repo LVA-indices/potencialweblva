@@ -450,13 +450,11 @@ button:focus-visible,
   .panel__grid { row-gap: 0; }
 
   .product {
-    /* Tope de ancho. En las áreas de cuatro la columna da 279px y los títulos
-       se estiraban en una sola línea larga: medidos, el peor llegaba a 243px.
-       A 215 rompen los cuatro que se pasaban y siguen en una línea solo las
-       frases cortas de verdad (193px hacia abajo). Coincide además con el
-       ancho que ya tenían las áreas de cinco. */
+    /* Tope de ancho: en las áreas de cuatro la columna da 279px, y a esa medida
+       los títulos se estiran. 262 los recorta sin dejar la tarjeta estrecha.
+       En las áreas de cinco la columna ya mide 216, así que el tope no actúa. */
     width: 100%;
-    max-width: 215px;
+    max-width: 262px;
     display: grid;
     grid-template-rows: subgrid;
     grid-row: span 3;

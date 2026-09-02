@@ -76,6 +76,20 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Ancho de tarjeta: 262px
+
+La tarjeta no llena su columna: lleva un tope de ancho con
+`justify-items: start`, y el sobrante pasa a ser separación.
+
+Se probaron dos valores antes de acertar. **215px** rompía todos los títulos
+largos pero dejaba las columnas estrechas. **262px** es el equilibrio: recorta
+la columna de 279 sin apretar la tarjeta, y da 58px de separación. En las áreas
+de cinco la columna ya mide 216, así que el tope no llega a actuar.
+
+**Lo que queda sin resolver por CSS:** a 262px, títulos como "Folletos
+informativos automáticos" (243px medidos) vuelven a caber en una línea. Romper
+esos sin estrechar la tarjeta exige acortar el texto, no tocar el ancho.
+
 ### Tarjetas más angostas para que los títulos rompan
 
 Se revierte lo de las cinco columnas fijas —el hueco al final no convencía— y
