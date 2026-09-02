@@ -82,6 +82,25 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Aire en Soluciones
+
+La sección se sentía comprimida. Lo más apretado no eran los bloques grandes
+sino el interior de la tarjeta: **7px entre etiqueta y título, 6 entre título y
+párrafo**. Como el título ya comparte cuerpo e interlínea con el texto —solo se
+distingue por la negrita—, sin aire propio los tres se leían como un bloque.
+
+| | Antes | Ahora |
+|---|---|---|
+| Etiqueta → título | 7px | **13px** |
+| Título → párrafo | 6px | **14px** |
+| Menú → bajada | 50px | **62px** |
+| Bajada → tarjetas | 50px | **62px** |
+| Interlínea de la bajada | 1,38 | **1,45** |
+| Respiro de la sección | 88 / 132px | **100 / 144px** |
+
+Los dos huecos grandes se mantienen simétricos, como se había pedido antes. El
+salto entre pestañas sigue en cero y los cuerpos siguen alineados.
+
 ### El modal de demo: botón anclado y campos sobrios
 
 **El botón quedaba fuera de la ventana.** Medido: el formulario ocupa 794px en

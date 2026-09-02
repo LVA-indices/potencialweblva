@@ -313,7 +313,7 @@ button:focus-visible,
    --------------------------------------------------------------------------- */
 .solutions {
   background: linear-gradient(#FFFFFF 0%, #FFFFFF 62%, var(--v5-paper-edge) 100%);
-  padding: clamp(56px, 6.4vw, 88px) var(--v5-pad-content) clamp(88px, 9.6vw, 132px);
+  padding: clamp(64px, 7.2vw, 100px) var(--v5-pad-content) clamp(96px, 10.4vw, 144px);
 }
 
 .eyebrow {
@@ -399,7 +399,7 @@ button:focus-visible,
    scrolleando, así que reservar la altura mayor solo dejaría un hueco. */
 /* Mismo valor que el margen de .panel__grid: el aire sobre el título y el
    que hay bajo la bajada quedan iguales. */
-.panels { margin-top: clamp(32px, 3.6vw, 50px); }
+.panels { margin-top: clamp(38px, 4.4vw, 62px); }
 
 .panel[hidden] { display: none; }
 
@@ -436,13 +436,13 @@ button:focus-visible,
   max-width: 46ch;
   font-size: clamp(19px, 1.9vw, 26px);
   font-weight: 500;
-  line-height: 1.38;
+  line-height: 1.45;
   letter-spacing: -0.012em;
   color: var(--v5-on-light);
 }
 
 .panel__grid {
-  margin-top: clamp(32px, 3.6vw, 50px);
+  margin-top: clamp(38px, 4.4vw, 62px);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   /* El gap se guarda en una variable porque la línea separadora se coloca en
@@ -507,7 +507,9 @@ button:focus-visible,
    plana. Con el color de marca aparecen como acento repetido. */
 .product__tag { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; color: var(--v5-teal-deep); }
 .product__title {
-  margin-top: 7px;
+  /* 13px y no 7: el título comparte cuerpo e interlínea con el párrafo, así
+     que sin aire propio los tres bloques se leían como uno solo. */
+  margin-top: 13px;
   font-size: 15px;
   font-weight: 700;
   /* Misma interlínea que el párrafo: al mismo cuerpo, un 1.36 contra el 1.65
@@ -518,7 +520,7 @@ button:focus-visible,
   /* Reparte las dos líneas en vez de dejar una palabra suelta abajo. */
   text-wrap: balance;
 }
-.product__body { margin-top: 6px; font-size: 15px; line-height: 1.65; color: var(--v5-on-light-body); }
+.product__body { margin-top: 14px; font-size: 15px; line-height: 1.65; color: var(--v5-on-light-body); }
 
 .reports { padding-top: 14px; border-top: 1px solid var(--v5-rule-light); }
 /* Lista, no píldoras: no llevan a ninguna parte, así que no deben parecer
