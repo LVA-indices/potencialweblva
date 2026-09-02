@@ -76,6 +76,41 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Rediseño de Soluciones: separadores y una sola bajada por dominio
+
+Según maqueta de Andrea. Tres cambios:
+
+**1. Fuera la promesa.** Cada dominio tenía un titular ("Tu equipo comercial
+potenciado") más una bajada pequeña. Ahora hay **un solo bloque de texto**, con
+el peso visual que tenía el titular: 26px, navy, y un `max-width: 46ch` que lo
+mantiene en dos líneas. Sin ese tope se estiraría en una sola línea larguísima.
+
+**2. Separadores verticales entre tarjetas.** Van en un pseudo-elemento colocado
+en el centro del hueco, **no como borde de la tarjeta**: así no le comen ancho al
+texto y la línea queda equidistante de las dos columnas que separa. Se apagan
+bajo 900px, donde las tarjetas se apilan. La tarjeta vuelve a llenar su columna
+—277px con cuatro, 212 con cinco— porque ahora la separación la marca la línea y
+no el aire.
+
+**3. Texto del brief.** Se recuperaron las bajadas de los cuatro dominios del
+brief original, ajustadas para caber en dos líneas:
+
+| Dominio | Bajada |
+|---|---|
+| Distribución | Somos los proveedores de servicios financieros más grandes de LATAM. Más de 500 asesores nos usan a diario. |
+| Riesgo | Una nueva forma de entender tu riesgo. +3.000 reportes, 70+ fondos y +6.000 millones gestionados. |
+| Inversión | Más de 11.000 instrumentos de deuda valorizados cada día, con metodología auditada y reconocida por reguladores. |
+| Compliance | Más de 90% de adopción del mercado en fichas regulatorias, con un solo sistema para cuatro marcos regulatorios. |
+
+Dos venían largas en el brief y se recortaron; las de Inversión y Compliance
+venían de una sola frase corta y se completaron con material del propio brief
+—la metodología auditada sale de su tarjeta de pricing, y los cuatro marcos, de
+la de distribución internacional—.
+
+El brief se recuperó de la transcripción de la sesión, porque no está versionado
+en el repo. **Convendría guardarlo en `docs/`**: es la fuente de la que sale todo
+el copy y hoy depende de un historial de chat.
+
 ### La bajada de Riesgo se parte en dos líneas
 
 Corte a propósito entre la promesa y las cifras:

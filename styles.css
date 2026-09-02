@@ -418,29 +418,53 @@ button:focus-visible,
   .corte-ancho { display: inline; }
 }
 
+/* Única línea de texto del dominio: absorbe el papel que tenía la promesa.
+   El max-width la mantiene en dos líneas; sin él se estiraría a una sola,
+   larguísima, en pantallas anchas. */
 .panel__intro {
-  margin: 12px 0 0;
-  max-width: 780px;
-  font-size: 15px;
-  line-height: 1.7;
-  color: var(--v5-on-light-body);
+  margin: 0;
+  max-width: 46ch;
+  font-size: clamp(19px, 1.9vw, 26px);
+  font-weight: 500;
+  line-height: 1.38;
+  letter-spacing: -0.012em;
+  color: var(--v5-on-light);
 }
 
 .panel__grid {
   margin-top: clamp(32px, 3.6vw, 50px);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: clamp(24px, 2.8vw, 40px);
+  /* El gap se guarda en una variable porque la línea separadora se coloca en
+     su punto medio. */
+  --sep: clamp(24px, 3.1vw, 44px);
+  gap: var(--sep);
   align-items: start;
-  /* Las tarjetas se alinean a la izquierda de su columna y no la llenan: el
-     sobrante pasa a ser separación. Así el título rompe antes de línea en las
-     áreas de cuatro, donde la columna daba de sí y las frases se estiraban. */
-  justify-items: start;
 }
 
 /* Cinco tarjetas en cinco columnas: con cuatro, la quinta rompía a una segunda
    fila ella sola. El :where() deja la especificidad en 0,1,0 para que los
    cortes de móvil puedan reescribirlo. */
+/* Separador vertical entre tarjetas. Va en un pseudo-elemento colocado en el
+   centro del hueco, no como borde de la tarjeta: así no le come ancho al texto
+   y la línea queda equidistante de las dos columnas que separa. */
+.product { position: relative; }
+
+.product + .product::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--sep) / -2);
+  width: 1px;
+  background: var(--v5-rule-light);
+}
+
+@media (max-width: 900px) {
+  /* Apiladas no hay nada que separar en horizontal. */
+  .product + .product::before { display: none; }
+}
+
 .panel__grid:where(:has(> .product:nth-child(5))) {
   grid-template-columns: repeat(5, 1fr);
 }
@@ -458,11 +482,6 @@ button:focus-visible,
   .panel__grid { row-gap: 0; }
 
   .product {
-    /* Tope de ancho: en las áreas de cuatro la columna da 279px, y a esa medida
-       los títulos se estiran. 262 los recorta sin dejar la tarjeta estrecha.
-       En las áreas de cinco la columna ya mide 216, así que el tope no actúa. */
-    width: 100%;
-    max-width: 262px;
     display: grid;
     grid-template-rows: subgrid;
     grid-row: span 3;
