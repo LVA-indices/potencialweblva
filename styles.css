@@ -456,7 +456,10 @@ button:focus-visible,
   margin-top: 7px;
   font-size: 15px;
   font-weight: 700;
-  line-height: 1.36;
+  /* Misma interlínea que el párrafo: al mismo cuerpo, un 1.36 contra el 1.65
+     del texto hacía que el título se leyera más pequeño de lo que es. La
+     jerarquía la marca la negrita, no el tamaño. */
+  line-height: 1.65;
   color: var(--v5-on-light);
   /* Reparte las dos líneas en vez de dejar una palabra suelta abajo. */
   text-wrap: balance;

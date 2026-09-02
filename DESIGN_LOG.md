@@ -76,6 +76,15 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### El título de tarjeta y su párrafo comparten cuerpo e interlínea
+
+El título ya estaba en 15px, igual que el párrafo, y en negrita. Lo que lo hacía
+**parecer** más pequeño era la interlínea: 1,36 contra el 1,65 del texto, o sea
+20,4px contra 24,75. A igual cuerpo, un interlineado más apretado se lee como
+un tamaño menor.
+
+Se iguala a 1,65. La jerarquía la marca la negrita, no el tamaño.
+
 ### Tarjetas: los párrafos dejan de escalonarse
 
 Con títulos de una o dos líneas, cada párrafo arrancaba a distinta altura y la
