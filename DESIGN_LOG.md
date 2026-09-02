@@ -76,6 +76,19 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Ancho de tarjeta constante entre áreas
+
+Antes la grilla usaba cuatro o cinco columnas según cuántas tarjetas tuviera el
+área, así que la tarjeta cambiaba de ancho —280px contra 216— al saltar de
+pestaña.
+
+Ahora son **cinco columnas siempre**. Las áreas de cuatro dejan un hueco al
+final, que es preferible a que el contenido se reacomode en cada clic.
+Verificado: **216px en las cuatro áreas**, y el salto de altura sigue en cero.
+
+Se elimina la regla condicional con `:has(> .product:nth-child(5))`, que deja de
+tener sentido.
+
 ### El subgrid abría las tarjetas por dentro
 
 Efecto secundario del cambio anterior: el `row-gap` de `.panel__grid` se aplica

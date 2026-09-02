@@ -421,7 +421,10 @@ button:focus-visible,
 .panel__grid {
   margin-top: clamp(32px, 3.6vw, 50px);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* Cinco columnas siempre, haya cuatro tarjetas o cinco: así la tarjeta mide
+     lo mismo en todas las áreas. Con cuatro queda un hueco al final, que es
+     preferible a que cambien de ancho al saltar de pestaña. */
+  grid-template-columns: repeat(5, 1fr);
   gap: clamp(24px, 2.8vw, 40px);
   align-items: start;
 }
@@ -443,14 +446,6 @@ button:focus-visible,
     grid-template-rows: subgrid;
     grid-row: span 3;
   }
-}
-
-/* Cinco tarjetas caben en cinco columnas. Con cuatro, la quinta rompía a una
-   segunda fila ella sola y el panel crecía 199px respecto de los de cuatro.
-   El :where() deja la especificidad en 0,1,0 para que los cortes de abajo
-   puedan reescribirlo. */
-.panel__grid:where(:has(> .product:nth-child(5))) {
-  grid-template-columns: repeat(5, 1fr);
 }
 
 
