@@ -410,6 +410,14 @@ button:focus-visible,
   color: var(--v5-on-light);
 }
 
+/* Corte de línea a propósito, solo donde hay ancho para sostenerlo. Apilado
+   dejaría una línea suelta de dos palabras. */
+.corte-ancho { display: none; }
+
+@media (min-width: 901px) {
+  .corte-ancho { display: inline; }
+}
+
 .panel__intro {
   margin: 12px 0 0;
   max-width: 780px;

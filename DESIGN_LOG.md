@@ -76,6 +76,21 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### La bajada de Riesgo se parte en dos líneas
+
+Corte a propósito entre la promesa y las cifras:
+
+> Análisis pre-trade y métricas on the fly, integrados a tu flujo existente.
+> **+3.000** reportes mensuales, 70+ fondos administrados y +6.000 millones
+> gestionados.
+
+Se aprovecha para unificar "Más de 3.000" en **"+3.000"**, coherente con el
+"70+" y el "+6.000" de la misma frase.
+
+El `<br class="corte-ancho">` solo actúa de 901px hacia arriba. Apilado, un
+corte fijo dejaría una línea suelta de dos palabras, así que ahí el texto fluye
+solo. Verificado: 2 líneas a 1440, corte desactivado a 900 y 390.
+
 ### Ancho de tarjeta: 262px
 
 La tarjeta no llena su columna: lleva un tope de ancho con
