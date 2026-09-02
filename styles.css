@@ -1137,6 +1137,131 @@ button:focus-visible,
 
 
 /* ---------------------------------------------------------------------------
+   Post del blog — diseño V5
+   ---------------------------------------------------------------------------
+   Reemplaza al layout heredado de styles-legacy.css. La cabecera es el mismo
+   bloque navy del sitio; el cuerpo va sobre papel, con medida corta: 68
+   caracteres por línea es el rango cómodo para leer seguido, y por eso el
+   ancho no sigue al de las secciones comerciales. */
+.post__hero {
+  padding: clamp(56px, 6.4vw, 88px) var(--v5-pad-content) clamp(40px, 4.4vw, 60px);
+}
+
+.post__vuelta {
+  display: inline-block;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--v5-teal-navy);
+}
+
+.post__titulo {
+  margin: clamp(18px, 2vw, 26px) 0 0;
+  max-width: 15ch;
+  min-width: 0;
+  font-size: clamp(30px, 3.9vw, 54px);
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: -0.018em;
+  color: var(--v5-on-dark);
+  text-wrap: balance;
+}
+
+.post__meta {
+  margin-top: clamp(20px, 2.2vw, 28px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  font-size: 13px;
+  color: var(--v5-on-dark-dim);
+}
+
+.post__meta i { font-style: normal; }
+.post__meta span { width: 3px; height: 3px; border-radius: 999px; background: currentColor; opacity: 0.55; }
+
+/* La imagen o el video montan a caballo entre el navy y el papel. */
+.post__media {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 var(--v5-pad-content);
+  transform: translateY(clamp(28px, 3.4vw, 48px));
+}
+
+.post__media img,
+.post__media video,
+.post__media iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: 0;
+  border-radius: 14px;
+  background: var(--v5-navy-mid);
+}
+
+.post__cuerpo {
+  background: var(--v5-paper);
+  padding: clamp(72px, 8vw, 116px) var(--v5-pad-content) clamp(72px, 8vw, 104px);
+}
+
+.post__texto {
+  max-width: 680px;
+  margin: 0 auto;
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--v5-on-light-alt);
+}
+
+.post__texto > * { margin: 0 0 1.15em; }
+.post__texto > *:last-child { margin-bottom: 0; }
+
+.post__texto h2 {
+  margin: 1.9em 0 0.5em;
+  font-size: clamp(22px, 2.1vw, 28px);
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: -0.012em;
+  color: var(--v5-on-light);
+}
+
+.post__texto h3 {
+  margin: 1.7em 0 0.4em;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--v5-on-light);
+}
+
+.post__texto strong { color: var(--v5-on-light); font-weight: 700; }
+.post__texto a { color: var(--v5-teal-deep); text-decoration: underline; text-underline-offset: 3px; }
+.post__texto ul, .post__texto ol { padding-left: 1.3em; }
+.post__texto li { margin-bottom: 0.5em; }
+
+/* Frase destacada: sale de la medida hacia la izquierda para que se lea como
+   un alto en el texto y no como una cita más. */
+.post__texto blockquote {
+  margin: 1.9em 0;
+  padding-left: clamp(18px, 2.4vw, 28px);
+  border-left: 2px solid var(--v5-teal);
+  font-size: clamp(20px, 2vw, 25px);
+  font-weight: 500;
+  line-height: 1.42;
+  letter-spacing: -0.01em;
+  color: var(--v5-on-light);
+}
+
+.post__texto img { width: 100%; border-radius: 12px; }
+
+.post__texto figure { margin: 1.9em 0; }
+.post__texto figcaption {
+  margin-top: 10px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--v5-on-light-tag);
+}
+
+
+/* ---------------------------------------------------------------------------
    Modal de "Agenda tu demo"
    ---------------------------------------------------------------------------
    Recupera el formulario que existía antes de la V5. Va en navy y reutiliza

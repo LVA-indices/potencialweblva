@@ -5,430 +5,200 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Editor de posts — Blog LVA</title>
+<link rel="icon" type="image/svg+xml" href="../assets/iso_lva.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/brand/tokens.css">
+<link rel="stylesheet" href="../styles.css">
 <style>
-  *{box-sizing:border-box}
-  :root{--navy:#0B1E2F;--teal:#2FC3E3;--teald:#056E80;--amar:#FFD816;
-        --tinta:#1F1F21;--gris:#6D6E71;--linea:#E4E5E7;--papel:#F8F9FA}
-  body{margin:0;background:var(--papel);color:var(--tinta);
-       font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-  header{background:var(--navy);color:#fff;padding:18px 28px;display:flex;
-         align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-  header h1{margin:0;font-size:17px;font-weight:700}
-  header .nota{font-size:12.5px;color:#9FB2BC}
-  .lienzo{max-width:1500px;margin:0 auto;padding:26px;display:grid;
-          grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px;align-items:start}
-  @media (max-width:1080px){.lienzo{grid-template-columns:1fr}}
-  .tarjeta{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:22px}
-  .tarjeta h2{margin:0 0 16px;font-size:14px;font-weight:700;letter-spacing:.08em;
-              text-transform:uppercase;color:var(--teald)}
-  label{display:block;font-size:12.5px;font-weight:500;color:var(--gris);margin:14px 0 6px}
-  input[type=text],input[type=number],textarea,select{
-    width:100%;padding:11px 13px;font:inherit;font-size:15px;color:var(--tinta);
-    background:#fff;border:1px solid var(--linea);border-radius:9px;outline:none}
-  input:focus,textarea:focus,select:focus{border-color:var(--teal);
-    box-shadow:0 0 0 3px rgba(47,195,227,.18)}
-  .dos{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media (max-width:520px){.dos{grid-template-columns:1fr}}
-  .barra{display:flex;flex-wrap:wrap;gap:6px;padding:9px;background:var(--papel);
-         border:1px solid var(--linea);border-bottom:0;border-radius:9px 9px 0 0}
-  .barra button{font:inherit;font-size:13px;padding:6px 11px;background:#fff;
-    border:1px solid var(--linea);border-radius:7px;cursor:pointer;color:var(--tinta)}
-  .barra button:hover{border-color:var(--teal);color:var(--teald)}
-  .barra .sep{width:1px;background:var(--linea);margin:2px 4px}
-  #cuerpo{min-height:340px;max-height:60vh;overflow-y:auto;padding:18px;background:#fff;
-    border:1px solid var(--linea);border-radius:0 0 9px 9px;outline:none;
-    font-size:16.5px;line-height:1.75}
-  #cuerpo:focus{border-color:var(--teal)}
-  #cuerpo h2{font-size:23px;line-height:1.3;margin:26px 0 10px}
-  #cuerpo h3{font-size:19px;line-height:1.35;margin:22px 0 8px}
-  #cuerpo blockquote{margin:22px 0;padding:4px 0 4px 18px;border-left:3px solid var(--teal);
-    font-size:19px;line-height:1.5;color:var(--navy);font-weight:500}
-  #cuerpo a{color:var(--teald)}
-  #cuerpo img{max-width:100%;border-radius:8px}
-  .pista{font-size:12px;color:var(--gris);line-height:1.5;margin:8px 0 0}
-  .acciones{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
-  .btn{font:inherit;font-size:14.5px;font-weight:700;padding:12px 18px;border:0;
-       border-radius:9px;cursor:pointer}
-  .btn--p{background:var(--amar);color:var(--navy)}
-  .btn--s{background:#fff;color:var(--tinta);border:1px solid var(--linea)}
-  .btn:disabled{opacity:.45;cursor:not-allowed}
-  .aviso{margin-top:14px;padding:12px 14px;border-radius:9px;font-size:13.5px;
-         line-height:1.55;background:#FFF8DC;border:1px solid #F0DFA0;display:none}
-  .aviso.ver{display:block}
-  .previa{width:100%;height:78vh;border:1px solid var(--linea);border-radius:10px;background:#fff}
-  .miniatura{margin-top:10px;max-width:100%;max-height:170px;border-radius:8px;display:none}
-  .pasos{margin:14px 0 0;padding-left:20px;font-size:13px;line-height:1.7;color:var(--gris)}
-  code{background:var(--papel);border:1px solid var(--linea);border-radius:5px;
-       padding:1px 5px;font-size:12.5px}
+/* Todo lo de este bloque es del editor y desaparece al exportar. */
+body { padding-top: 54px; }
+
+.adm{position:fixed;top:0;left:0;right:0;z-index:200;height:54px;display:flex;
+     align-items:center;gap:10px;padding:0 16px;background:#08131F;
+     border-bottom:1px solid rgba(255,255,255,.10);color:#fff;
+     font-family:'DM Sans',system-ui,sans-serif}
+.adm__marca{font-size:13px;font-weight:700;margin-right:auto;white-space:nowrap}
+.adm__marca em{font-style:normal;font-weight:400;color:#7B939F;margin-left:10px}
+.adm button{font:inherit;font-size:13px;font-weight:600;padding:8px 14px;border:0;
+  border-radius:8px;cursor:pointer;background:rgba(255,255,255,.10);color:#fff;white-space:nowrap}
+.adm button:hover{background:rgba(255,255,255,.18)}
+.adm button.pri{background:#FFD816;color:#0B1E2F}
+.adm button.pri:hover{background:#F0C400}
+
+.panel{position:fixed;top:54px;right:16px;z-index:200;width:min(340px,calc(100vw - 32px));
+  padding:18px;border-radius:12px;background:#fff;color:#1F1F21;
+  box-shadow:0 18px 44px rgba(0,0,0,.28);font-family:'DM Sans',system-ui,sans-serif}
+.panel[hidden]{display:none}
+.panel h3{margin:0 0 4px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#056E80}
+.panel label{display:block;font-size:12px;color:#6D6E71;margin:14px 0 5px}
+.panel input,.panel textarea{width:100%;padding:9px 11px;font:inherit;font-size:14px;
+  border:1px solid #E4E5E7;border-radius:8px;outline:none}
+.panel input:focus,.panel textarea:focus{border-color:#2FC3E3;box-shadow:0 0 0 3px rgba(47,195,227,.18)}
+.panel .cuenta{font-size:11.5px;color:#6D6E71;margin-top:5px}
+.panel .cuenta.mal{color:#D0342C}
+
+/* Barra flotante de formato, al estilo de Squarespace: aparece sobre lo que seleccionas. */
+.flot{position:absolute;z-index:210;display:none;gap:2px;padding:5px;border-radius:10px;
+  background:#0B1E2F;box-shadow:0 10px 30px rgba(0,0,0,.34);font-family:'DM Sans',system-ui,sans-serif}
+.flot.ver{display:flex}
+.flot button{font:inherit;font-size:13px;padding:7px 10px;border:0;border-radius:6px;
+  background:none;color:#C4D2DA;cursor:pointer;white-space:nowrap}
+.flot button:hover{background:rgba(255,255,255,.12);color:#fff}
+.flot .sp{width:1px;background:rgba(255,255,255,.16);margin:4px 3px}
+
+[contenteditable]:focus{outline:2px solid rgba(47,195,227,.55);outline-offset:6px;border-radius:3px}
+[contenteditable]:empty:before{content:attr(data-vacio);opacity:.45}
+
+.zona{position:relative}
+.zona__botones{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  gap:8px;border:2px dashed rgba(47,195,227,.5);border-radius:14px;background:rgba(11,30,47,.35);
+  font-family:'DM Sans',system-ui,sans-serif}
+.zona.tiene .zona__botones{opacity:0;pointer-events:none}
+.zona:hover .zona__botones{opacity:1;pointer-events:auto}
+.zona__botones button{font:inherit;font-size:13px;font-weight:600;padding:9px 14px;border:0;
+  border-radius:8px;background:#fff;color:#0B1E2F;cursor:pointer}
+.zona__vacia{min-height:clamp(200px,26vw,380px);border-radius:14px;background:rgba(11,30,47,.25)}
+
+.aviso{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:220;
+  padding:12px 18px;border-radius:10px;background:#0B1E2F;color:#fff;font-size:13.5px;
+  font-family:'DM Sans',system-ui,sans-serif;box-shadow:0 12px 34px rgba(0,0,0,.34);display:none}
+.aviso.ver{display:block}
 </style>
 </head>
 <body>
 
-<header>
-  <h1>Editor de posts — Blog LVA</h1>
-  <span class="nota">Herramienta local. No se publica ni se enlaza desde el sitio.</span>
-</header>
-
-<div class="lienzo">
-
-  <div>
-    <div class="tarjeta">
-      <h2>Datos del post</h2>
-
-      <label for="titulo">Título *</label>
-      <input type="text" id="titulo" placeholder="Tenemos más tiempo, y ese tiempo es más valioso">
-      <p class="pista" id="pistaRuta"></p>
-
-      <label for="resumen">Resumen * <span class="pista" style="display:inline">— sale en el listado y en Google</span></label>
-      <textarea id="resumen" rows="2" placeholder="Una o dos frases que resuman el post."></textarea>
-
-      <div class="dos">
-        <div>
-          <label for="autor">Autor *</label>
-          <input type="text" id="autor" placeholder="Mati — Jefe de Ingeniería, LVA Índices">
-        </div>
-        <div>
-          <label for="fecha">Fecha <span class="pista" style="display:inline">— hoy</span></label>
-          <input type="text" id="fecha" placeholder="14 abril 2026">
-        </div>
-      </div>
-
-      <div class="dos">
-        <div>
-          <label for="etiqueta">Etiqueta</label>
-          <input type="text" id="etiqueta" placeholder="Ingeniería">
-        </div>
-        <div>
-          <label for="lectura">Minutos de lectura <span class="pista" style="display:inline">— se calcula solo</span></label>
-          <input type="number" id="lectura" min="1" value="1">
-        </div>
-      </div>
-    </div>
-
-    <div class="tarjeta" style="margin-top:20px">
-      <h2>Cabecera</h2>
-
-      <label for="tipoCab">Qué va arriba del post</label>
-      <select id="tipoCab">
-        <option value="imagen">Una imagen</option>
-        <option value="youtube">Un video de YouTube</option>
-        <option value="video">Un video propio (archivo)</option>
-        <option value="nada">Nada</option>
-      </select>
-
-      <div id="campoImagen">
-        <label for="imagen">Archivo de imagen</label>
-        <input type="file" id="imagen" accept="image/*">
-        <img class="miniatura" id="miniatura" alt="">
-        <p class="pista" id="pistaImagen"></p>
-      </div>
-
-      <div id="campoYT" style="display:none">
-        <label for="yt">Enlace de YouTube</label>
-        <input type="text" id="yt" placeholder="https://www.youtube.com/watch?v=...">
-        <p class="pista">Pega el enlace normal; lo convierto en video incrustado.</p>
-      </div>
-
-      <div id="campoVideo" style="display:none">
-        <label for="video">Archivo de video</label>
-        <input type="file" id="video" accept="video/*">
-        <p class="pista" id="pistaVideo"></p>
-      </div>
-    </div>
-
-    <div class="tarjeta" style="margin-top:20px">
-      <h2>Texto del post</h2>
-      <div class="barra">
-        <button type="button" data-cmd="bold"><b>B</b></button>
-        <button type="button" data-cmd="italic"><i>I</i></button>
-        <button type="button" id="bEnlace">Enlace</button>
-        <span class="sep"></span>
-        <button type="button" data-bloque="h2">Título</button>
-        <button type="button" data-bloque="h3">Subtítulo</button>
-        <button type="button" data-bloque="p">Párrafo</button>
-        <span class="sep"></span>
-        <button type="button" data-cmd="insertUnorderedList">Lista</button>
-        <button type="button" data-bloque="blockquote">Frase destacada</button>
-        <span class="sep"></span>
-        <button type="button" data-cmd="removeFormat">Limpiar</button>
-      </div>
-      <div id="cuerpo" contenteditable="true"><p>Escribe aquí el post.</p></div>
-      <p class="pista">Puedes pegar texto desde Word o Google Docs: se limpia el formato raro y se
-        conservan negritas, cursivas y enlaces.</p>
-
-      <div class="acciones">
-        <button type="button" class="btn btn--p" id="bDescargar">Descargar el post</button>
-        <button type="button" class="btn btn--s" id="bTarjeta">Copiar tarjeta del listado</button>
-        <button type="button" class="btn btn--s" id="bGuardar">Guardar borrador</button>
-      </div>
-      <div class="aviso" id="aviso"></div>
-
-      <ol class="pasos">
-        <li>Descarga el post: te bajará <code>&lt;nombre&gt;.html</code>.</li>
-        <li>Si pusiste imagen o video, también se descarga con el nombre correcto.</li>
-        <li>Pásame los dos archivos, o déjalos en <code>blog/</code> y <code>blog/images/</code>.</li>
-        <li>Copia la tarjeta del listado y pégala en <code>blog.html</code>.</li>
-      </ol>
-    </div>
-  </div>
-
-  <div class="tarjeta">
-    <h2>Vista previa</h2>
-    <iframe class="previa" id="previa" title="Vista previa del post"></iframe>
-  </div>
-
+<div class="adm">
+  <span class="adm__marca">Editor de posts<em id="ruta"></em></span>
+  <button type="button" id="bAjustes">Ajustes</button>
+  <button type="button" id="bTarjeta">Copiar tarjeta</button>
+  <button type="button" class="pri" id="bDescargar">Descargar post</button>
 </div>
 
-<script>
-const PLANTILLA = "<!DOCTYPE html>\n<html lang=\"es\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <meta name=\"description\" content=\"{{RESUMEN}}\">\n    <title>{{TITULO}} - Blog - LVA \u00cdndices</title>\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"../assets/iso_lva.svg\">\n    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n    <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n    <link href=\"https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto+Mono:wght@400..600&display=swap\" rel=\"stylesheet\">\n    <link rel=\"stylesheet\" href=\"../assets/brand/tokens.css\">\n    <link rel=\"stylesheet\" href=\"../styles-legacy.css\">\n</head>\n<body>\n    <!-- Navigation -->\n    <nav class=\"navbar\">\n        <div class=\"container\">\n            <a href=\"../index.html\" class=\"nav-brand\">\n                <img src=\"../assets/logo_lva.svg\" alt=\"LVA \u00cdndices\" class=\"nav-logo\">\n            </a>\n            <ul class=\"nav-menu\">\n                <li><a href=\"../index.html#soluciones\">Soluciones</a></li>\n                <li><a href=\"../index.html#clientes\">Clientes</a></li>\n                <li><a href=\"../index.html#nosotros\">Nosotros</a></li>\n                <li><a href=\"../blog.html\" class=\"active\">Blog</a></li>\n                <li><a href=\"#\" class=\"open-contact-modal\" id=\"btn-contacto\">Agenda tu Demo</a></li>\n                <li><a href=\"https://www.lvaindices.com/login3/loginwebLVA.asp?KeepThis=true&TB_iframe=true&height=300&width=320\" class=\"btn-primary-nav\" target=\"_blank\">Acceso Clientes</a></li>\n            </ul>\n            <div class=\"hamburger\" aria-label=\"Men\u00fa\" role=\"button\" tabindex=\"0\">\n                <span></span>\n                <span></span>\n                <span></span>\n            </div>\n        </div>\n    </nav>\n\n    <!-- Article Hero -->\n    <section class=\"article-hero\">\n        <div class=\"container\">\n            <a href=\"../blog.html\" class=\"article-back\">&larr; Volver al Blog</a>\n            <h1>{{TITULO}}</h1>\n            <div class=\"article-meta\">\n                <span>{{FECHA}}</span>\n                <span class=\"separator\"></span>\n                <span>{{AUTOR}}</span>\n                <span class=\"separator\"></span>\n                <span>{{LECTURA}} min de lectura</span>\n            </div>\n        </div>\n    </section>\n\n    <!-- Article Body -->\n    <section class=\"article-body\">\n        <div class=\"article-content\">\n{{CUERPO}}\n        </div>\n    </section>\n\n    <!-- Footer -->\n    <footer class=\"footer\">\n        <div class=\"container\">\n            <div class=\"footer-content\">\n                <div class=\"footer-brand\">\n                    <img src=\"../assets/logo_lva.svg\" alt=\"LVA \u00cdndices\" class=\"footer-logo\">\n                    <p>Tecnolog\u00eda financiera para gestoras de activos en Latinoam\u00e9rica</p>\n                    <p class=\"footer-morningstar\">Primer partner de Morningstar en Latinoam\u00e9rica</p>\n                </div>\n                <div class=\"footer-links\">\n                    <div class=\"footer-column\">\n                        <h4>Soluciones</h4>\n                        <ul>\n                            <li><a href=\"../index.html#soluciones\">Gestoras de Activos</a></li>\n                            <li><a href=\"../index.html#soluciones\">Distribuidoras</a></li>\n                            <li><a href=\"../index.html#soluciones\">AFP / Pensiones</a></li>\n                            <li><a href=\"../index.html#soluciones\">Asset Managers Intl.</a></li>\n                        </ul>\n                    </div>\n                    <div class=\"footer-column\">\n                        <h4>Empresa</h4>\n                        <ul>\n                            <li><a href=\"../index.html#nosotros\">Nosotros</a></li>\n                            <li><a href=\"../index.html#clientes\">Clientes</a></li>\n                            <li><a href=\"../blog.html\">Blog</a></li>\n                            <li><a href=\"../index.html#contacto\">Contacto</a></li>\n                        </ul>\n                    </div>\n                    <div class=\"footer-column\">\n                        <h4>Cobertura</h4>\n                        <ul>\n                            <li>Chile</li>\n                            <li>Colombia</li>\n                            <li>M\u00e9xico</li>\n                            <li>Per\u00fa</li>\n                        </ul>\n                    </div>\n                </div>\n            </div>\n            <div class=\"footer-bottom\">\n                <p>&copy; 2026 LVA \u00cdndices. Todos los derechos reservados.</p>\n                <div class=\"footer-social\">\n                    <a href=\"https://www.linkedin.com/company/lva-indices\" target=\"_blank\" rel=\"noopener\" aria-label=\"LinkedIn\">\n                        <svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z\"/></svg>\n                    </a>\n                </div>\n            </div>\n        </div>\n    </footer>\n\n    <!-- Contact Modal -->\n    <div id=\"contactModal\" class=\"modal\">\n        <div class=\"modal-content\">\n            <div class=\"modal-header\">\n                <h2>Cont\u00e1ctanos</h2>\n                <button class=\"modal-close\" aria-label=\"Cerrar\">&times;</button>\n            </div>\n            <div class=\"modal-body\">\n                <p class=\"modal-intro\">Completa el formulario y nos pondremos en contacto contigo a la brevedad.</p>\n                <form id=\"contactForm\" action=\"https://api.web3forms.com/submit\" method=\"POST\">\n                    <input type=\"hidden\" name=\"access_key\" value=\"YOUR_ACCESS_KEY_HERE\">\n                    <input type=\"hidden\" name=\"subject\" value=\"Nueva solicitud de contacto - LVA \u00cdndices\">\n                    <input type=\"hidden\" name=\"from_name\" value=\"LVA \u00cdndices Website\">\n                    <div class=\"form-group\">\n                        <label for=\"name\">Nombre completo *</label>\n                        <input type=\"text\" id=\"name\" name=\"name\" required>\n                    </div>\n                    <div class=\"form-group\">\n                        <label for=\"email\">Email corporativo *</label>\n                        <input type=\"email\" id=\"email\" name=\"email\" required>\n                    </div>\n                    <div class=\"form-group\">\n                        <label for=\"company\">Empresa *</label>\n                        <input type=\"text\" id=\"company\" name=\"company\" required>\n                    </div>\n                    <div class=\"form-group\">\n                        <label for=\"phone\">Tel\u00e9fono</label>\n                        <input type=\"tel\" id=\"phone\" name=\"phone\">\n                    </div>\n                    <div class=\"form-group\">\n                        <label for=\"country\">Pa\u00eds *</label>\n                        <select id=\"country\" name=\"country\" required>\n                            <option value=\"\">Selecciona tu pa\u00eds</option>\n                            <option value=\"Chile\">Chile</option>\n                            <option value=\"Colombia\">Colombia</option>\n                            <option value=\"M\u00e9xico\">M\u00e9xico</option>\n                            <option value=\"Per\u00fa\">Per\u00fa</option>\n                            <option value=\"Otro\">Otro</option>\n                        </select>\n                    </div>\n                    <div class=\"form-group\">\n                        <label for=\"clientType\">Tipo de organizaci\u00f3n *</label>\n                        <select id=\"clientType\" name=\"clientType\" required>\n                            <option value=\"\">Selecciona una opci\u00f3n</option>\n                            <option value=\"AGF\">Gestora de Activos (AGF)</option>\n                            <option value=\"Distribuidora\">Distribuidora / Agencia</option>\n                            <option value=\"AFP\">AFP / Pensiones</option>\n                            <option value=\"Asset Manager Intl\">Asset Manager Internacional</option>\n                            <option value=\"Otro\">Otro</option>\n                        </select>\n                    </div>\n                    <div class=\"form-group\">\n                        <label for=\"message\">Mensaje *</label>\n                        <textarea id=\"message\" name=\"message\" rows=\"4\" required placeholder=\"Cu\u00e9ntanos c\u00f3mo podemos ayudarte...\"></textarea>\n                    </div>\n                    <div class=\"form-actions\">\n                        <button type=\"submit\" class=\"btn-primary btn-form-submit\">Enviar Solicitud</button>\n                    </div>\n                </form>\n                <div id=\"formSuccess\" class=\"form-message success\" style=\"display: none;\">\n                    <svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\n                        <path d=\"M22 11.08V12a10 10 0 1 1-5.93-9.14\"></path>\n                        <polyline points=\"22 4 12 14.01 9 11.01\"></polyline>\n                    </svg>\n                    <p><strong>\u00a1Gracias por contactarnos!</strong><br>Hemos recibido tu solicitud y nos pondremos en contacto pronto.</p>\n                </div>\n                <div id=\"formError\" class=\"form-message error\" style=\"display: none;\">\n                    <p><strong>Hubo un error al enviar el formulario.</strong><br>Por favor intenta nuevamente o escr\u00edbenos a <a href=\"mailto:contacto@lvaindices.com\">contacto@lvaindices.com</a></p>\n                </div>\n            </div>\n        </div>\n    </div>\n\n    <script src=\"../script.js\"><\/script>\n</body>\n</html>\n";
+<div class="panel" id="panel" hidden>
+  <h3>Ajustes del post</h3>
+  <label for="resumen">Resumen para Google</label>
+  <textarea id="resumen" rows="3" placeholder="Una o dos frases. Es lo que se lee en el buscador y en el listado."></textarea>
+  <div class="cuenta" id="cuenta">0 / 155</div>
+  <label for="etiqueta">Etiqueta</label>
+  <input type="text" id="etiqueta" placeholder="Ingeniería">
+</div>
 
-const $ = s => document.querySelector(s);
-const cuerpo = $('#cuerpo');
+<div class="flot" id="flot">
+  <button type="button" data-cmd="bold"><b>B</b></button>
+  <button type="button" data-cmd="italic"><i>I</i></button>
+  <button type="button" id="bEnlace">Enlace</button>
+  <span class="sp"></span>
+  <button type="button" data-bloque="h2">Título</button>
+  <button type="button" data-bloque="h3">Subtítulo</button>
+  <button type="button" data-bloque="p">Párrafo</button>
+  <span class="sp"></span>
+  <button type="button" data-cmd="insertUnorderedList">Lista</button>
+  <button type="button" data-bloque="blockquote">Destacar</button>
+  <span class="sp"></span>
+  <button type="button" data-cmd="removeFormat">Limpiar</button>
+</div>
 
-/* Dos datos que no tiene sentido pedir: la direccion del post se deriva del
-   titulo -no hay campo- y la fecha llega puesta con la de hoy, editable. */
-const aRuta = t => String(t).toLowerCase().normalize('NFD')
-  .replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-')
-  .replace(/^-|-$/g, '').slice(0, 60);
+<div class="aviso" id="aviso"></div>
 
-const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio',
-               'agosto','septiembre','octubre','noviembre','diciembre'];
-const hoy = () => { const d = new Date();
-  return d.getDate() + ' ' + MESES[d.getMonth()] + ' ' + d.getFullYear(); };
-$('#fecha').value = hoy();
+<div class="top">
+    <nav class="nav" aria-label="Principal">
+        <a class="nav__brand" href="../index.html" aria-label="LVA Índices — inicio">
+            <img class="nav__logo" src="../assets/brand/logos/lva-logo-color-on-dark.svg" alt="LVA Índices">
+        </a>
 
-/* ---------- barra de formato ----------
-   Se usa execCommand: está marcado como obsoleto pero funciona en todos los
-   navegadores y no hay sustituto equivalente. Es una herramienta interna, no
-   código del sitio publicado. */
-document.querySelectorAll('[data-cmd]').forEach(b => {
-  b.addEventListener('mousedown', e => e.preventDefault());
-  b.addEventListener('click', () => { document.execCommand(b.dataset.cmd, false, null); actualiza(); });
-});
-document.querySelectorAll('[data-bloque]').forEach(b => {
-  b.addEventListener('mousedown', e => e.preventDefault());
-  b.addEventListener('click', () => {
-    document.execCommand('formatBlock', false, b.dataset.bloque);
-    actualiza();
-  });
-});
-$('#bEnlace').addEventListener('mousedown', e => e.preventDefault());
-$('#bEnlace').addEventListener('click', () => {
-  const url = prompt('¿A qué dirección lleva el enlace?', 'https://');
-  if (url) document.execCommand('createLink', false, url);
-  actualiza();
-});
+        <button type="button" class="nav__toggle" id="nav-toggle"
+                aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-collapse">
+            <span></span><span></span><span></span>
+        </button>
 
-/* Pegado limpio: Word y Docs traen estilos y etiquetas que ensucian el HTML. */
-cuerpo.addEventListener('paste', e => {
-  e.preventDefault();
-  const html = e.clipboardData.getData('text/html');
-  const texto = e.clipboardData.getData('text/plain');
-  if (!html) { document.execCommand('insertText', false, texto); return; }
-  const tmp = document.createElement('div');
-  tmp.innerHTML = html;
-  tmp.querySelectorAll('*').forEach(el => {
-    if (!['P','BR','STRONG','B','EM','I','A','UL','OL','LI','H2','H3','BLOCKQUOTE'].includes(el.tagName)) {
-      el.replaceWith(...el.childNodes);
-    } else {
-      [...el.attributes].forEach(a => { if (a.name !== 'href') el.removeAttribute(a.name); });
-    }
-  });
-  document.execCommand('insertHTML', false, tmp.innerHTML);
-});
+        <!-- En escritorio es display:contents, así que logo, enlaces y acciones
+             siguen siendo hermanos del mismo flex. Bajo 1024px se convierte en
+             el panel desplegable. No se duplica ni un enlace. -->
+        <div class="nav__collapse" id="nav-collapse">
+            <ul class="nav__links">
+                <li><a href="../index.html#soluciones">Soluciones</a></li>
+                <li><a href="../index.html#datos">Datos</a></li>
+                <li><a href="../index.html#premios">Premios</a></li>
+                <li><a href="../index.html#nosotros">Nosotros</a></li>
+                <li><a href="../blog.html">Blog</a></li>
+            </ul>
+            <div class="nav__actions">
+                <button type="button" class="btn-demo" data-abre="modal-demo">Agenda tu demo</button>
+                <a class="nav__access" href="../acceso.html">Acceso clientes</a>
+            </div>
+        </div>
+    </nav>
 
-/* ---------- cabecera ---------- */
-let imagenDato = null, videoDato = null;
-const nombreArchivo = () => aRuta($('#titulo').value.trim()) || 'post';
+    <section class="post__hero">
+        <a class="post__vuelta" href="../blog.html">&larr; Volver al blog</a>
+        <h1 class="post__titulo" contenteditable data-vacio="Título del post">Tenemos más tiempo, y ese tiempo es más valioso</h1>
+        <div class="post__meta">
+            <i contenteditable data-campo="fecha">2 septiembre 2026</i>
+            <span></span>
+            <i contenteditable data-campo="autor" data-vacio="Autor">Mati — Jefe de Ingeniería, LVA Índices</i>
+            <span></span>
+            <i data-campo="lectura">1 min de lectura</i>
+        </div>
+    </section>
 
-$('#tipoCab').addEventListener('change', () => {
-  const t = $('#tipoCab').value;
-  $('#campoImagen').style.display = t === 'imagen' ? '' : 'none';
-  $('#campoYT').style.display     = t === 'youtube' ? '' : 'none';
-  $('#campoVideo').style.display  = t === 'video' ? '' : 'none';
-  actualiza();
-});
+    <div class="post__media zona" id="zona">
+        <div class="zona__vacia" id="zonaVacia"></div>
+        <div class="zona__botones">
+            <button type="button" id="bImagen">Subir imagen</button>
+            <button type="button" id="bVideo">Subir video</button>
+            <button type="button" id="bYT">Enlace de YouTube</button>
+            <button type="button" id="bQuitar">Quitar</button>
+        </div>
+    </div>
+</div>
 
-$('#imagen').addEventListener('change', e => {
-  const f = e.target.files[0]; if (!f) return;
-  const ext = (f.name.split('.').pop() || 'jpg').toLowerCase();
-  const lector = new FileReader();
-  lector.onload = () => {
-    imagenDato = { url: lector.result, ext, blob: f };
-    $('#miniatura').src = lector.result; $('#miniatura').style.display = 'block';
-    $('#pistaImagen').textContent = 'Se guardará como images/' + nombreArchivo() + '.' + ext;
-    actualiza();
-  };
-  lector.readAsDataURL(f);
-});
+<section class="post__cuerpo">
+    <div class="post__texto" id="texto" contenteditable data-vacio="Escribe aquí el post.">
+        <p>Escribe aquí el post. Selecciona cualquier texto para darle formato.</p>
+    </div>
+</section>
 
-$('#video').addEventListener('change', e => {
-  const f = e.target.files[0]; if (!f) return;
-  const ext = (f.name.split('.').pop() || 'mp4').toLowerCase();
-  videoDato = { ext, blob: f };
-  $('#pistaVideo').textContent = 'Se guardará como images/' + nombreArchivo() + '.' + ext;
-  actualiza();
-});
+<footer class="footer">
+    <div class="wrap">
+        <div class="footer__grid">
+            <img class="footer__logo" src="../assets/brand/logos/lva-logo-color-on-dark.svg" alt="LVA Índices">
+            <div>
+                <div class="footer__h">SOLUCIONES</div>
+                <div class="footer__items">
+                    <a href="../index.html#soluciones">Distribución</a>
+                    <a href="../index.html#soluciones">Riesgo</a>
+                    <a href="../index.html#soluciones">Inversión &amp; Mercado</a>
+                    <a href="../index.html#soluciones">Compliance</a>
+                </div>
+            </div>
+            <div>
+                <div class="footer__h">EMPRESA</div>
+                <div class="footer__items">
+                    <a href="../index.html#nosotros">Nosotros</a>
+                    <a href="../index.html#premios">Premios</a>
+                </div>
+            </div>
+            <div>
+                <div class="footer__h">CONTACTO</div>
+                <div class="footer__items">
+                    <a href="mailto:comercial@lvaindices.com">comercial@lvaindices.com</a>
+                    <a href="mailto:soporte@lvaindices.com">soporte@lvaindices.com</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <span>© 2026 LVA Índices. Santiago de Chile.</span>
+            <a href="https://www.linkedin.com/company/lva-indices" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+    </div>
+</footer>
 
-$('#yt').addEventListener('input', actualiza);
+<input type="file" id="fImagen" accept="image/*" hidden>
+<input type="file" id="fVideo" accept="video/*" hidden>
 
-const idYouTube = u => {
-  const m = String(u).match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{6,})/);
-  return m ? m[1] : '';
-};
-
-function cabeceraHTML(paraPrevia) {
-  const t = $('#tipoCab').value, base = nombreArchivo();
-  if (t === 'imagen' && imagenDato) {
-    const src = paraPrevia ? imagenDato.url : 'images/' + base + '.' + imagenDato.ext;
-    return '<figure>\n                <img src="' + src + '" alt="' + esc($('#titulo').value) + '">\n            </figure>';
-  }
-  if (t === 'youtube') {
-    const id = idYouTube($('#yt').value);
-    if (!id) return '';
-    return '<figure class="video">\n                <iframe src="https://www.youtube-nocookie.com/embed/' + id +
-           '" title="' + esc($('#titulo').value) + '" loading="lazy" allowfullscreen ' +
-           'style="width:100%;aspect-ratio:16/9;border:0;border-radius:8px"></iframe>\n            </figure>';
-  }
-  if (t === 'video' && videoDato) {
-    const src = paraPrevia ? URL.createObjectURL(videoDato.blob) : 'images/' + base + '.' + videoDato.ext;
-    return '<figure>\n                <video src="' + src + '" controls playsinline ' +
-           'style="width:100%;border-radius:8px"></video>\n            </figure>';
-  }
-  return '';
-}
-
-const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')
-  .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-
-/* ---------- armado del archivo ---------- */
-function limpiaCuerpo() {
-  const d = document.createElement('div');
-  d.innerHTML = cuerpo.innerHTML;
-  d.querySelectorAll('[style]').forEach(el => el.removeAttribute('style'));
-  d.querySelectorAll('font').forEach(el => el.replaceWith(...el.childNodes));
-  d.querySelectorAll('div').forEach(el => {
-    const p = document.createElement('p'); p.append(...el.childNodes); el.replaceWith(p);
-  });
-  d.querySelectorAll('b').forEach(el => { const s=document.createElement('strong'); s.append(...el.childNodes); el.replaceWith(s); });
-  d.querySelectorAll('i').forEach(el => { const s=document.createElement('em'); s.append(...el.childNodes); el.replaceWith(s); });
-  return [...d.children].map(el => '            ' + el.outerHTML).join('\n\n');
-}
-
-function construye(paraPrevia) {
-  const cab = cabeceraHTML(paraPrevia);
-  const texto = limpiaCuerpo();
-  let html = PLANTILLA
-    .replaceAll('{{TITULO}}',  esc($('#titulo').value || 'Título del post'))
-    .replaceAll('{{RESUMEN}}', esc($('#resumen').value))
-    .replaceAll('{{AUTOR}}',   esc($('#autor').value || 'LVA Índices'))
-    .replaceAll('{{FECHA}}',   esc($('#fecha').value || ''))
-    .replaceAll('{{LECTURA}}', $('#lectura').value || '1')
-    .replaceAll('{{CUERPO}}',  (cab ? '            ' + cab + '\n\n' : '') + texto);
-  if (paraPrevia) html = html.replace(/(href|src)="\.\.\//g, '$1="../');
-  return html;
-}
-
-/* Minutos de lectura: 200 palabras por minuto, el estándar habitual. */
-function calculaLectura() {
-  const n = cuerpo.innerText.trim().split(/\s+/).filter(Boolean).length;
-  $('#lectura').value = Math.max(1, Math.round(n / 200));
-}
-
-let temporizador;
-function actualiza() {
-  clearTimeout(temporizador);
-  temporizador = setTimeout(() => {
-    calculaLectura();
-    $('#pistaRuta').textContent = 'Quedará en blog/' + nombreArchivo() + '.html';
-    const doc = $('#previa').contentDocument;
-    doc.open(); doc.write(construye(true)); doc.close();
-    guardaBorrador();
-  }, 250);
-}
-
-['input','keyup','change'].forEach(ev => {
-  document.addEventListener(ev, e => {
-    if (e.target.closest('.tarjeta')) actualiza();
-  });
-});
-
-/* ---------- descargas ---------- */
-const baja = (contenido, nombre, tipo) => {
-  const a = document.createElement('a');
-  a.href = contenido instanceof Blob ? URL.createObjectURL(contenido)
-         : 'data:' + tipo + ';charset=utf-8,' + encodeURIComponent(contenido);
-  a.download = nombre; a.click();
-};
-
-$('#bDescargar').addEventListener('click', () => {
-  const faltan = [];
-  if (!$('#titulo').value.trim())  faltan.push('el título');
-  if (!$('#resumen').value.trim()) faltan.push('el resumen');
-  if (faltan.length) { avisa('Falta ' + faltan.join(', ') + '.'); return; }
-  const base = nombreArchivo();
-  baja(construye(false), base + '.html', 'text/html');
-  if ($('#tipoCab').value === 'imagen' && imagenDato)
-    setTimeout(() => baja(imagenDato.blob, base + '.' + imagenDato.ext), 400);
-  if ($('#tipoCab').value === 'video' && videoDato)
-    setTimeout(() => baja(videoDato.blob, base + '.' + videoDato.ext), 400);
-  avisa('Descargado. El HTML va en blog/ y la imagen o el video en blog/images/.');
-});
-
-$('#bTarjeta').addEventListener('click', async () => {
-  const base = nombreArchivo();
-  const img = imagenDato ? 'images/' + base + '.' + imagenDato.ext : 'images/' + base + '.jpg';
-  const tarjeta =
-'            <a href="blog/' + base + '.html" class="blog-card">\n' +
-'                <div class="blog-card-image">\n' +
-'                    <img src="blog/' + img + '" alt="' + esc($('#titulo').value) + '">\n' +
-'                </div>\n' +
-'                <div class="blog-card-content">\n' +
-'                    <div class="blog-card-meta">\n' +
-'                        <span class="blog-card-date">' + esc($('#fecha').value) + '</span>\n' +
-'                        <span class="blog-card-tag">' + esc($('#etiqueta').value) + '</span>\n' +
-'                    </div>\n' +
-'                    <h3>' + esc($('#titulo').value) + '</h3>\n' +
-'                    <p>' + esc($('#resumen').value) + '</p>\n' +
-'                    <span class="blog-card-link">Leer más →</span>\n' +
-'                </div>\n' +
-'            </a>';
-  try { await navigator.clipboard.writeText(tarjeta); avisa('Tarjeta copiada. Pégala en blog.html, dentro de <div class="blog-grid">.'); }
-  catch (e) { baja(tarjeta, base + '-tarjeta.txt', 'text/plain'); avisa('No pude usar el portapapeles; te la descargué como .txt.'); }
-});
-
-function avisa(t) { const a = $('#aviso'); a.textContent = t; a.classList.add('ver');
-  setTimeout(() => a.classList.remove('ver'), 6000); }
-
-/* ---------- borrador ----------
-   Se guarda en el navegador para no perder el texto al cerrar por accidente.
-   La imagen no se guarda: ocuparía demasiado. */
-const CLAVE = 'lva-editor-borrador';
-function guardaBorrador() {
-  try {
-    localStorage.setItem(CLAVE, JSON.stringify({
-      titulo:$('#titulo').value, resumen:$('#resumen').value, autor:$('#autor').value,
-      fecha:$('#fecha').value, etiqueta:$('#etiqueta').value,
-      tipoCab:$('#tipoCab').value, yt:$('#yt').value, cuerpo:cuerpo.innerHTML
-    }));
-  } catch (e) {}
-}
-$('#bGuardar').addEventListener('click', () => { guardaBorrador(); avisa('Borrador guardado en este navegador.'); });
-
-(function recupera() {
-  try {
-    const b = JSON.parse(localStorage.getItem(CLAVE) || 'null');
-    if (!b) { actualiza(); return; }
-    for (const k of ['titulo','resumen','autor','fecha','etiqueta','tipoCab','yt'])
-      if (b[k] && $('#' + k)) $('#' + k).value = b[k];
-    if (b.cuerpo) cuerpo.innerHTML = b.cuerpo;
-    $('#tipoCab').dispatchEvent(new Event('change'));
-  } catch (e) {}
-  actualiza();
-})();
-</script>
+<script src="../assets/brand/field.js"></script>
+<script src="editor.js"></script>
 </body>
 </html>

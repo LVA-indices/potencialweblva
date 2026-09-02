@@ -1,0 +1,238 @@
+/* Editor WYSIWYG de posts del blog LVA.
+   La página que ves ES el post: se edita encima, con la hoja de estilos real
+   del sitio. Al exportar se clona el documento y se le quita todo lo del
+   editor, así que lo que ves es exactamente lo que se publica.
+   Herramienta interna: no se despliega ni se enlaza desde el sitio. */
+(() => {
+  const $ = s => document.querySelector(s);
+  const texto = $('#texto'), zona = $('#zona');
+  let media = null;              // { tipo, ext, blob, url } o { tipo:'youtube', id }
+
+  /* ---------- utilidades ---------- */
+  const aRuta = t => String(t).toLowerCase().normalize('NFD')
+    .replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '').slice(0, 60);
+
+  const titulo = () => $('.post__titulo').textContent.trim();
+  const base = () => aRuta(titulo()) || 'post';
+  const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  let temporizador;
+  const avisa = t => {
+    const a = $('#aviso'); a.textContent = t; a.classList.add('ver');
+    clearTimeout(temporizador); temporizador = setTimeout(() => a.classList.remove('ver'), 4500);
+  };
+
+  const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio',
+                 'agosto','septiembre','octubre','noviembre','diciembre'];
+  const hoy = () => { const d = new Date();
+    return d.getDate() + ' ' + MESES[d.getMonth()] + ' ' + d.getFullYear(); };
+  $('[data-campo="fecha"]').textContent = hoy();
+
+  /* ---------- barra flotante de formato ----------
+     Aparece sobre la selección, como en Squarespace. Se usa execCommand: está
+     marcado como obsoleto pero no hay sustituto equivalente y funciona en todo.
+     Es una herramienta interna, no código del sitio publicado. */
+  const flot = $('#flot');
+
+  const colocaBarra = () => {
+    const sel = window.getSelection();
+    if (!sel.rangeCount || sel.isCollapsed || !texto.contains(sel.anchorNode)) {
+      flot.classList.remove('ver'); return;
+    }
+    const r = sel.getRangeAt(0).getBoundingClientRect();
+    if (!r.width && !r.height) { flot.classList.remove('ver'); return; }
+    flot.classList.add('ver');
+    const x = r.left + r.width / 2 + scrollX - flot.offsetWidth / 2;
+    const y = r.top + scrollY - flot.offsetHeight - 10;
+    flot.style.left = Math.max(8, Math.min(x, scrollX + innerWidth - flot.offsetWidth - 8)) + 'px';
+    flot.style.top  = Math.max(scrollY + 60, y) + 'px';
+  };
+
+  document.addEventListener('selectionchange', colocaBarra);
+  addEventListener('scroll', () => flot.classList.contains('ver') && colocaBarra());
+
+  flot.addEventListener('mousedown', e => e.preventDefault());
+  flot.querySelectorAll('[data-cmd]').forEach(b =>
+    b.addEventListener('click', () => { document.execCommand(b.dataset.cmd, false, null); recalcula(); }));
+  flot.querySelectorAll('[data-bloque]').forEach(b =>
+    b.addEventListener('click', () => { document.execCommand('formatBlock', false, b.dataset.bloque); recalcula(); }));
+  $('#bEnlace').addEventListener('click', () => {
+    const url = prompt('¿A qué dirección lleva el enlace?', 'https://');
+    if (url) document.execCommand('createLink', false, url);
+  });
+
+  /* Pegar desde Word o Google Docs: conserva lo que es contenido y descarta
+     los estilos y etiquetas con que ensucian el portapapeles. */
+  texto.addEventListener('paste', e => {
+    e.preventDefault();
+    const html = e.clipboardData.getData('text/html');
+    const plano = e.clipboardData.getData('text/plain');
+    if (!html) { document.execCommand('insertText', false, plano); return; }
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    const permitidas = ['P','BR','STRONG','B','EM','I','A','UL','OL','LI','H2','H3','BLOCKQUOTE'];
+    tmp.querySelectorAll('*').forEach(el => {
+      if (!permitidas.includes(el.tagName)) el.replaceWith(...el.childNodes);
+      else [...el.attributes].forEach(a => { if (a.name !== 'href') el.removeAttribute(a.name); });
+    });
+    document.execCommand('insertHTML', false, tmp.innerHTML);
+  });
+
+  /* ---------- cabecera ---------- */
+  const pintaMedia = () => {
+    zona.querySelectorAll('img,video,iframe').forEach(e => e.remove());
+    const vacia = $('#zonaVacia');
+    if (!media) { vacia.style.display = ''; zona.classList.remove('tiene'); return; }
+    vacia.style.display = 'none';
+    zona.classList.add('tiene');
+    let el;
+    if (media.tipo === 'imagen') { el = document.createElement('img'); el.src = media.url; el.alt = titulo(); }
+    else if (media.tipo === 'video') { el = document.createElement('video'); el.src = media.url; el.controls = true; el.playsInline = true; }
+    else { el = document.createElement('iframe');
+           el.src = 'https://www.youtube-nocookie.com/embed/' + media.id;
+           el.title = titulo(); el.loading = 'lazy'; el.allowFullscreen = true; }
+    zona.insertBefore(el, zona.firstChild);
+  };
+
+  const leeArchivo = (input, tipo) => {
+    const f = input.files[0]; if (!f) return;
+    const ext = (f.name.split('.').pop() || (tipo === 'imagen' ? 'jpg' : 'mp4')).toLowerCase();
+    media = { tipo, ext, blob: f, url: URL.createObjectURL(f) };
+    pintaMedia();
+  };
+
+  $('#bImagen').addEventListener('click', () => $('#fImagen').click());
+  $('#bVideo').addEventListener('click', () => $('#fVideo').click());
+  $('#fImagen').addEventListener('change', e => leeArchivo(e.target, 'imagen'));
+  $('#fVideo').addEventListener('change', e => leeArchivo(e.target, 'video'));
+  $('#bQuitar').addEventListener('click', () => { media = null; pintaMedia(); });
+  $('#bYT').addEventListener('click', () => {
+    const u = prompt('Pega el enlace del video de YouTube', 'https://www.youtube.com/watch?v=');
+    if (!u) return;
+    const m = String(u).match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{6,})/);
+    if (!m) { avisa('No reconozco ese enlace de YouTube.'); return; }
+    media = { tipo: 'youtube', id: m[1] };
+    pintaMedia();
+  });
+
+  /* ---------- ajustes ---------- */
+  $('#bAjustes').addEventListener('click', () => { $('#panel').hidden = !$('#panel').hidden; });
+  $('#resumen').addEventListener('input', () => {
+    const n = $('#resumen').value.length, c = $('#cuenta');
+    c.textContent = n + ' / 155';
+    c.classList.toggle('mal', n > 155);
+  });
+
+  /* ---------- recuento y ruta ---------- */
+  function recalcula() {
+    const n = texto.innerText.trim().split(/\s+/).filter(Boolean).length;
+    $('[data-campo="lectura"]').textContent = Math.max(1, Math.round(n / 200)) + ' min de lectura';
+    $('#ruta').textContent = 'blog/' + base() + '.html';
+    guarda();
+  }
+  document.addEventListener('input', recalcula);
+  recalcula();
+
+  /* ---------- exportar ----------
+     Se clona el documento vivo y se le quita lo del editor. Así el archivo
+     publicado es literalmente lo que hay en pantalla, sin una segunda
+     plantilla que se pueda desincronizar. */
+  function construye() {
+    const d = document.documentElement.cloneNode(true);
+    d.querySelectorAll('.adm,.panel,.flot,.aviso,.zona__botones,.zona__vacia,#fImagen,#fVideo,script,style')
+      .forEach(e => e.remove());
+    d.querySelectorAll('[contenteditable]').forEach(e => {
+      e.removeAttribute('contenteditable'); e.removeAttribute('data-vacio');
+    });
+    d.querySelectorAll('[data-campo]').forEach(e => e.removeAttribute('data-campo'));
+    d.querySelector('#zona')?.classList.remove('zona', 'tiene');
+    d.querySelector('#zona')?.removeAttribute('id');
+    d.querySelector('#texto')?.removeAttribute('id');
+    d.querySelector('meta[name="robots"]')?.remove();
+
+    const img = d.querySelector('.post__media img, .post__media video');
+    if (img && media && media.tipo !== 'youtube') img.src = 'images/' + base() + '.' + media.ext;
+    d.querySelectorAll('video').forEach(v => { v.removeAttribute('controls'); v.setAttribute('controls',''); });
+
+    d.querySelector('title').textContent = titulo() + ' - Blog - LVA Índices';
+    let desc = d.querySelector('meta[name="description"]');
+    if (!desc) { desc = d.ownerDocument.createElement('meta'); desc.name = 'description';
+                 d.querySelector('head').appendChild(desc); }
+    desc.setAttribute('content', $('#resumen').value.trim());
+    d.querySelector('link[href="editor.js"]')?.remove();
+    d.querySelector('body').style.paddingTop = '';
+    d.querySelector('body').removeAttribute('style');
+
+    const cuerpo = '<script src="../assets/brand/field.js"><\/script>';
+    return '<!DOCTYPE html>\n<html lang="es">\n' + d.innerHTML.replace('</body>', cuerpo + '\n</body>') + '\n</html>\n';
+  }
+
+  const baja = (contenido, nombre, tipo) => {
+    const a = document.createElement('a');
+    a.href = contenido instanceof Blob ? URL.createObjectURL(contenido)
+           : 'data:' + tipo + ';charset=utf-8,' + encodeURIComponent(contenido);
+    a.download = nombre; a.click();
+  };
+
+  $('#bDescargar').addEventListener('click', () => {
+    if (!titulo()) { avisa('Falta el título.'); return; }
+    if (!$('#resumen').value.trim()) { $('#panel').hidden = false; $('#resumen').focus();
+      avisa('Falta el resumen para Google.'); return; }
+    baja(construye(), base() + '.html', 'text/html');
+    if (media && media.tipo !== 'youtube')
+      setTimeout(() => baja(media.blob, base() + '.' + media.ext), 400);
+    avisa('Descargado. El HTML va en blog/ y la imagen o el video en blog/images/.');
+  });
+
+  $('#bTarjeta').addEventListener('click', async () => {
+    const ext = media && media.tipo !== 'youtube' ? media.ext : 'jpg';
+    const t =
+'            <a href="blog/' + base() + '.html" class="blog-card">\n' +
+'                <div class="blog-card-image">\n' +
+'                    <img src="blog/images/' + base() + '.' + ext + '" alt="' + esc(titulo()) + '">\n' +
+'                </div>\n' +
+'                <div class="blog-card-content">\n' +
+'                    <div class="blog-card-meta">\n' +
+'                        <span class="blog-card-date">' + esc($('[data-campo="fecha"]').textContent.trim()) + '</span>\n' +
+'                        <span class="blog-card-tag">' + esc($('#etiqueta').value) + '</span>\n' +
+'                    </div>\n' +
+'                    <h3>' + esc(titulo()) + '</h3>\n' +
+'                    <p>' + esc($('#resumen').value) + '</p>\n' +
+'                    <span class="blog-card-link">Leer más &rarr;</span>\n' +
+'                </div>\n' +
+'            </a>';
+    try { await navigator.clipboard.writeText(t); avisa('Tarjeta copiada. Pégala en blog.html.'); }
+    catch (e) { baja(t, base() + '-tarjeta.txt', 'text/plain'); avisa('Sin portapapeles: te la descargué como .txt.'); }
+  });
+
+  /* ---------- borrador ----------
+     Solo texto: la imagen ocuparía demasiado en el almacenamiento del navegador. */
+  const CLAVE = 'lva-post-borrador';
+  function guarda() {
+    try {
+      localStorage.setItem(CLAVE, JSON.stringify({
+        titulo: $('.post__titulo').innerHTML,
+        fecha: $('[data-campo="fecha"]').textContent,
+        autor: $('[data-campo="autor"]').textContent,
+        resumen: $('#resumen').value,
+        etiqueta: $('#etiqueta').value,
+        texto: texto.innerHTML
+      }));
+    } catch (e) {}
+  }
+  (function recupera() {
+    try {
+      const b = JSON.parse(localStorage.getItem(CLAVE) || 'null');
+      if (!b) return;
+      if (b.titulo) $('.post__titulo').innerHTML = b.titulo;
+      if (b.fecha) $('[data-campo="fecha"]').textContent = b.fecha;
+      if (b.autor) $('[data-campo="autor"]').textContent = b.autor;
+      if (b.resumen) { $('#resumen').value = b.resumen; $('#resumen').dispatchEvent(new Event('input')); }
+      if (b.etiqueta) $('#etiqueta').value = b.etiqueta;
+      if (b.texto) texto.innerHTML = b.texto;
+      recalcula();
+    } catch (e) {}
+  })();
+})();

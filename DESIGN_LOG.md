@@ -76,6 +76,40 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### El editor pasa a WYSIWYG y el post estrena diseño V5
+
+Dos correcciones de fondo sobre la primera versión.
+
+**1. El post salía con el diseño viejo.** Generaba contra
+`blog/ejemplo-articulo.html`, que sigue en `styles-legacy.css`. Ahora hay un
+layout de post en el rediseño, dentro de `styles.css`: cabecera navy con el
+mismo nav y pie del sitio, título grande, media a caballo entre el navy y el
+papel, y cuerpo sobre blanco.
+
+La medida del texto es de **680px, no la del sitio**: 18px con interlínea 1,75
+deja unos 68 caracteres por línea, que es el rango cómodo para leer seguido.
+Las secciones comerciales se leen a saltos y admiten columnas anchas; un
+artículo no.
+
+**2. El editor era un formulario con vista previa al lado.** Ahora la página
+**es** el post: se escribe encima, con la hoja de estilos real, y el formato se
+aplica con una barra flotante que aparece sobre lo que seleccionas —el patrón
+de Squarespace o Medium—. Desaparece el panel de previa: no hace falta previsar
+lo que ya estás viendo.
+
+Lo que no es contenido vive en una barra superior: ajustes (resumen para Google
+con contador de 155 caracteres, y etiqueta), copiar tarjeta y descargar.
+
+**Exportación por clonado.** En vez de rellenar una segunda plantilla —que se
+desincroniza a la primera de cambio—, se clona el documento vivo y se le quita
+lo del editor. El archivo publicado es literalmente lo que hay en pantalla.
+Verificado interceptando la descarga real: cero restos de la barra, el panel,
+la barra flotante, los botones de media, los `contenteditable`, el script del
+editor y el `noindex`.
+
+El JS va en `editor/editor.js` aparte, no embebido: la primera versión se rompía
+porque la plantilla dentro del script contenía un `</script>`.
+
 ### Blog en el menú y editor local de posts
 
 "Blog" entra como quinto enlace de la cabecera. Verificado a 1440 y 1100: el
