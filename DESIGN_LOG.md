@@ -82,6 +82,23 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### El copy de la demo deja de definirse por negación
+
+Reparo de Andrea: el tono sonaba peyorativo, describía **lo que la demo no es**
+en vez de lo que ofrece. Contadas, tres de las cuatro frases empezaban por una
+negación.
+
+| Antes | Ahora |
+|---|---|
+| **No** una presentación genérica: trabajamos sobre tus datos… | Trabajamos con tus datos y tus casos reales… |
+| Te responde alguien que conoce la industria, **no** un ejecutivo de cuenta | Conversas con quien conoce la industria por dentro |
+| **Sin** compromiso **ni** instalación previa | Lo vemos en vivo, sobre tus propios instrumentos |
+| Te contactamos dentro del día hábil siguiente | Te respondemos dentro del día hábil siguiente |
+
+El bloque queda con **cero negaciones**. La tercera era la más difícil: "sin
+instalación" tranquiliza, pero dicho en positivo —se ve en vivo, sobre lo que ya
+tienes— informa lo mismo y además cuenta algo.
+
 ### Cabeceras del blog y del post, más bajas
 
 A 1440×900 el contenido quedaba cortado. Medido antes de tocar:
