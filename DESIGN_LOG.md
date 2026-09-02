@@ -82,6 +82,25 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Cabeceras del blog y del post, más bajas
+
+A 1440×900 el contenido quedaba cortado. Medido antes de tocar:
+
+| | Antes | Ahora |
+|---|---|---|
+| Blog: bloque superior | 374px | **312px** |
+| Blog: ¿cabe la primera entrada? | no, 426 de 450px | **sí, entera** |
+| Post: imagen de cabecera | 585px | **338px** |
+| Post: el texto empieza en | 912px | **829px** |
+
+En el post el problema no era la cabecera sino **la imagen**: a 1040px de ancho,
+un 16:9 da 585px de alto y empujaba el artículo fuera de la pantalla. Se le pone
+un tope de alto además de la proporción, y el recorte lo absorbe `object-fit`.
+
+A 1440×900 asoman dos líneas de texto, que es lo que hace falta para que se vea
+que el artículo sigue. En pantallas de 800px de alto todavía no llega: bajar más
+obligaría a sacrificar la imagen, y ahí ya es preferible que se desplace.
+
 ### "Agenda tu demo" pasa de modal a página propia
 
 Criterio de Andrea: **el modal se siente efímero** para agendar una reunión

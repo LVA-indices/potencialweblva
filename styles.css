@@ -1384,13 +1384,15 @@ button:focus-visible,
    finas ordenan la cuadrícula, como en Soluciones. */
 .blog__hero {
   text-align: center;
-  padding: clamp(48px, 5.6vw, 76px) var(--v5-pad-content) clamp(56px, 6.4vw, 84px);
+  /* Más baja de lo que pedía el diseño: a 1440x900 la primera entrada quedaba
+     cortada por abajo. El listado es el contenido; la cabecera, el marco. */
+  padding: clamp(40px, 3.6vw, 52px) var(--v5-pad-content) clamp(40px, 4vw, 56px);
 }
 
 .blog__titulo {
   margin: clamp(16px, 1.8vw, 22px) auto 0;
   max-width: 18ch;
-  font-size: clamp(30px, 3.6vw, 50px);
+  font-size: clamp(28px, 3vw, 42px);
   font-weight: 600;
   line-height: 1.16;
   letter-spacing: -0.018em;
@@ -1484,7 +1486,9 @@ button:focus-visible,
    ancho no sigue al de las secciones comerciales. */
 .post__hero {
   text-align: center;
-  padding: clamp(56px, 6.4vw, 88px) var(--v5-pad-content) clamp(40px, 4.4vw, 60px);
+  /* Recortada: con la imagen debajo, el texto del artículo no empezaba hasta
+     los 912px y no se veía ni una línea sin desplazar. */
+  padding: clamp(36px, 3.4vw, 48px) var(--v5-pad-content) clamp(28px, 2.6vw, 36px);
 }
 
 .post__vuelta {
@@ -1534,7 +1538,11 @@ button:focus-visible,
 .post__media iframe {
   display: block;
   width: 100%;
+  /* Tope de alto además de la proporción: a 1040px de ancho, un 16:9 daba 585px
+     de imagen y empujaba el texto fuera de la pantalla. El recorte lo absorbe
+     object-fit. */
   aspect-ratio: 16 / 9;
+  max-height: clamp(200px, 23.5vw, 338px);
   object-fit: cover;
   border: 0;
   border-radius: 14px;
