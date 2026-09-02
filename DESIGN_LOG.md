@@ -76,6 +76,18 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### Ajustes en el menú de áreas
+
+- **Fuera las líneas sobre las tarjetas.** Cuatro reglas horizontales encima de
+  las tarjetas competían con la del menú, que es la que ordena la sección. Se
+  quitan el `border-top` y el relleno superior de `.product`.
+- **Aire simétrico.** El hueco sobre el título del panel se iguala al que hay
+  bajo la bajada: **50px arriba y 50 abajo**. Había 72. No bastó con tocar
+  `.panels`: la promesa arrastraba un `margin-top: 14px` que era la separación
+  con la etiqueta del panel, ya eliminada, y sumaba de más.
+- **Tarjetas más discretas:** título de 16 a 15px, etiqueta de 10,5 a 10px. La
+  etiqueta mantiene 5,5 de contraste.
+
 ### El editor pasa a WYSIWYG y el post estrena diseño V5
 
 Dos correcciones de fondo sobre la primera versión.

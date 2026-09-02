@@ -387,7 +387,9 @@ button:focus-visible,
    los saca igual del foco y del lector de pantalla.
    Solo de 901px hacia arriba: en móvil el panel es largo y se recorre
    scrolleando, así que reservar la altura mayor solo dejaría un hueco. */
-.panels { margin-top: clamp(36px, 4.2vw, 58px); }
+/* Mismo valor que el margen de .panel__grid: el aire sobre el título y el
+   que hay bajo la bajada quedan iguales. */
+.panels { margin-top: clamp(32px, 3.6vw, 50px); }
 
 .panel[hidden] { display: none; }
 
@@ -398,7 +400,9 @@ button:focus-visible,
 }
 
 .panel__promise {
-  margin-top: 14px;
+  /* Sin margen propio: era la separación con la etiqueta del panel, que ya no
+     existe. Sumaba 14px al aire de .panels y descuadraba la simetría. */
+  margin-top: 0;
   font-size: clamp(21px, 2vw, 27px);
   font-weight: 600;
   line-height: 1.28;
@@ -431,10 +435,11 @@ button:focus-visible,
 }
 
 
-.product { padding-top: 14px; border-top: 1px solid var(--v5-rule-light); }
+/* Las tarjetas no llevan línea ni relleno superior: la única regla horizontal
+   de la sección es la del menú de áreas. Cuatro más encima competían con ella. */
 /* #5C6B75 y no #6E7C85: a este tamaño el segundo da 4,30:1 */
-.product__tag { font-size: 10.5px; font-weight: 500; letter-spacing: 0.15em; color: var(--v5-on-light-body); }
-.product__title { margin-top: 8px; font-size: 16px; font-weight: 700; line-height: 1.36; color: var(--v5-on-light); }
+.product__tag { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; color: var(--v5-on-light-body); }
+.product__title { margin-top: 7px; font-size: 15px; font-weight: 700; line-height: 1.36; color: var(--v5-on-light); }
 .product__body { margin-top: 6px; font-size: 15px; line-height: 1.65; color: var(--v5-on-light-body); }
 
 .reports { padding-top: 14px; border-top: 1px solid var(--v5-rule-light); }
