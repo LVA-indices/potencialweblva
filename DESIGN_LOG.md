@@ -82,6 +82,26 @@ en "Datos" (`20 años → De series comparables`).
 Se revisaron las ocho cifras del sitio comparando cada número con su bajada:
 era la única que repetía.
 
+### El listado del blog pasa al diseño V5
+
+`blog.html` era lo último que quedaba con `styles-legacy.css`. Se reescribe con
+el mismo bloque superior del sitio, una cabecera propia sobre navy y las
+entradas sobre papel, sin caja: la foto y el aire ordenan la cuadrícula, como en
+Soluciones.
+
+La cuadrícula es `auto-fill` con mínimo de 300px, así que se adapta sola cuando
+haya más de una entrada, sin tocar nada.
+
+**Botón de demo huérfano.** Al revisar apareció que el post llevaba el botón
+"Agenda tu demo" pero no el modal, así que **no hacía nada**. En vez de duplicar
+el formulario en cada página, las que no lo llevan enlazan a la portada con
+`?demo`, y `startModal()` lo abre al cargar si encuentra ese parámetro. Se
+corrigió el post publicado y la plantilla del editor.
+
+Queda `blog/ejemplo-articulo.html`, la versión antigua del mismo artículo: ya no
+se enlaza desde ninguna parte, pero sigue en el repo y es lo único que usa
+`styles-legacy.css`. Pendiente decidir si se borra.
+
 ### Primer post publicado, y una lección del editor en Netlify
 
 Se publica "Tenemos más tiempo, y ese tiempo es más valioso", generado con el

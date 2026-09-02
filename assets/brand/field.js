@@ -306,6 +306,14 @@
             if (quienAbrio) quienAbrio.focus();
         };
 
+        /* Las paginas que no llevan el modal -blog, posts- enlazan a la portada
+           con ?demo. Asi el boton funciona en todo el sitio sin duplicar el
+           formulario en cada archivo. */
+        if (new URLSearchParams(location.search).has('demo')) {
+            abrir(null);
+            history.replaceState(null, '', location.pathname + location.hash);
+        }
+
         document.querySelectorAll('[data-abre="modal-demo"]').forEach(b => {
             b.addEventListener('click', () => abrir(b));
         });
