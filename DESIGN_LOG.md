@@ -1824,3 +1824,39 @@ UI, y afecta a todo el sitio. Requiere tu decisión antes de ejecutarlo.
 (`.problem`, `.testimonials`, `.social-proof`, `.client-tabs`, `.product-grid`
 antiguo). Se remaparon a tokens de marca por consistencia, pero conviene
 decidir si se eliminan.
+
+
+---
+
+## Documento de traspaso (`traspaso.html`)
+
+Documento único que reúne el **sistema de diseño** y el **traspaso técnico** del
+rediseño. Vive en el repo, junto al sitio, por tres razones: no depende de
+ningún servicio externo, viaja con el sitio a donde IT decida alojarlo, y
+estando aquí se nota cuando envejece.
+
+**Es un solo archivo, sin build.** 380 KB, autocontenido. Lo único que pide
+fuera es Google Fonts. Se sirve copiándolo a cualquier parte; en la vista previa
+queda como `/traspaso.html`, con el mismo candado que el resto.
+
+**Lleva el sitio incrustado.** El probador de viewport no enlaza a la vista
+previa: trae dentro una copia de `index`, `demo`, `acceso` y `blog`, más
+`styles.css`, `tokens.css`, `field.js` y los logos como data-URI. Por eso el
+sitio se puede redimensionar y navegar dentro del marco sin servidor ni
+contraseña.
+
+> **Esa copia está congelada al día en que se generó.** Si se toca el sitio, el
+> documento sigue mostrando el sitio viejo y nada lo avisa. Hay que regenerar el
+> paquete incrustado cada vez que cambie el HTML, el CSS o `field.js`.
+
+La única imagen del blog (`blog/images/…jpg`) no se incrusta: en su lugar va un
+marcador SVG, para no dejar un enlace roto dentro del marco.
+
+**Datos de las piezas animadas.** Series públicas reales, no simuladas:
+`mindicador.cl` (dólar observado, UF, libra de cobre — Banco Central e INE) y el
+Banco Central Europeo (peso mexicano y real brasileño). Ninguna es de LVA: los
+datos que el sitio nombra —instrumentos, benchmarks, carteras— no son públicos.
+
+**Sección oculta.** «El arte de los datos» queda completa en el HTML pero con el
+atributo `hidden`, por decisión de esta versión del traspaso. Para recuperarla
+basta quitar ese atributo; el índice lateral la vuelve a listar solo.
