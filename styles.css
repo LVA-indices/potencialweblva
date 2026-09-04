@@ -342,6 +342,14 @@ button:focus-visible,
 .solutions {
   background: linear-gradient(#FFFFFF 0%, #FFFFFF 62%, var(--v5-paper-edge) 100%);
   padding: clamp(64px, 7.2vw, 100px) var(--v5-pad-content) clamp(96px, 10.4vw, 144px);
+  /* Ocupa el alto útil bajo la barra fija y centra su contenido: el aire que
+     sobra se reparte igual arriba y abajo en vez de acumularse arriba. Si el
+     contenido es más alto que ese mínimo, la sección crece y el centrado no
+     recorta nada. */
+  min-height: calc(100dvh - var(--v5-nav-h));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .eyebrow {
@@ -671,6 +679,10 @@ button:focus-visible,
 .awards {
   background: var(--v5-navy-mid);
   padding: clamp(56px, 6.4vw, 88px) var(--v5-pad-content) clamp(60px, 6.8vw, 96px);
+  min-height: calc(100dvh - var(--v5-nav-h));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .awards .eyebrow { color: var(--v5-teal-navy); }
@@ -1725,3 +1737,23 @@ button:focus-visible,
 /* Las cifras del hero miden 30px en escritorio pero bajan de 24 en móvil, y con
    ello el mínimo exigido sube de 3 a 4,5. En #2FC3E3 se quedaban en 4,45. */
 .kpi__n { color: #66D4EC; }
+
+/* ---------------------------------------------------------------------------
+   Pantallas bajas: el bloque, centrado
+   Con la barra fija comiendo 79px, en un MacBook Air (1470×800) «Soluciones»
+   se pasaba 129px del alto útil y las fichas quedaban cortadas. Además el aire
+   era asimétrico —100px arriba y 144 abajo—, así que el bloque nunca se veía
+   centrado aunque la sección lo centrara.
+   Aquí el aire se mide en vh y es igual arriba y abajo: el bloque queda al
+   medio del alto disponible. Va al final del archivo a propósito, porque las
+   reglas base de .solutions y .awards vienen después y lo pisaban.
+   --------------------------------------------------------------------------- */
+@media (max-height: 900px) {
+  .solutions,
+  .awards {
+    padding-block: clamp(20px, 4vh, 72px);
+  }
+  /* En Premios el hueco sobre la parrilla era de 103px, el más gordo del
+     bloque. También pasa a medirse en vh. */
+  .awards__grid { margin-top: clamp(36px, 5vh, 103px); }
+}
