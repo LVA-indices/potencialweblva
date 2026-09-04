@@ -1148,6 +1148,12 @@ button:focus-visible,
    anterior y el formulario se leía como un solo bloque. */
 .field + .field { margin-top: 22px; }
 
+/* Mismo ritmo entre TODOS los bloques del formulario, sea campo suelto o
+   fila de dos columnas. Antes solo existía la regla de arriba, así que
+   entre un .field y una .demo__fila no había separación alguna y la
+   etiqueta siguiente quedaba pegada al input anterior. */
+.demo__form > * + * { margin-top: 22px; }
+
 .field__label {
   display: block;
   /* 10px: a 6 la etiqueta se pegaba a su campo y casi tocaba el de arriba. */
@@ -1349,7 +1355,10 @@ button:focus-visible,
 .demo__form textarea.field__input { resize: vertical; min-height: 96px; }
 
 .demo__enviar {
-  margin-top: 24px;
+  /* Gana a .demo__form > * + * por ir después con la misma especificidad,
+     así que lleva el valor completo: 22 del ritmo + 10 de aire para separar
+     la acción de los campos. */
+  margin-top: 32px;
   width: 100%;
   padding: 14px;
   font-family: inherit;
@@ -1381,7 +1390,7 @@ button:focus-visible,
 .demo__msg--mal { color: #FFB4A8; }
 
 .demo__msg {
-  margin: 14px 0 0;
+  margin: 14px 0 0;   /* también gana al ritmo: valor propio y explícito */
   min-height: 1.2em;
   font-size: 13px;
   line-height: 1.5;

@@ -58,7 +58,7 @@
     b.addEventListener('click', () => { document.execCommand(b.dataset.cmd, false, null); recalcula(); }));
   flot.querySelectorAll('[data-bloque]').forEach(b =>
     b.addEventListener('click', () => { document.execCommand('formatBlock', false, b.dataset.bloque); recalcula(); }));
-  $('#bEnlace').addEventListener('click', () => {
+  $('#bEnlace')?.addEventListener('click', () => {
     const url = prompt('¿A qué dirección lleva el enlace?', 'https://');
     if (url) document.execCommand('createLink', false, url);
   });
@@ -103,12 +103,12 @@
     pintaMedia();
   };
 
-  $('#bImagen').addEventListener('click', () => $('#fImagen').click());
-  $('#bVideo').addEventListener('click', () => $('#fVideo').click());
-  $('#fImagen').addEventListener('change', e => leeArchivo(e.target, 'imagen'));
-  $('#fVideo').addEventListener('change', e => leeArchivo(e.target, 'video'));
-  $('#bQuitar').addEventListener('click', () => { media = null; pintaMedia(); });
-  $('#bYT').addEventListener('click', () => {
+  $('#bImagen')?.addEventListener('click', () => $('#fImagen').click());
+  $('#bVideo')?.addEventListener('click', () => $('#fVideo').click());
+  $('#fImagen')?.addEventListener('change', e => leeArchivo(e.target, 'imagen'));
+  $('#fVideo')?.addEventListener('change', e => leeArchivo(e.target, 'video'));
+  $('#bQuitar')?.addEventListener('click', () => { media = null; pintaMedia(); });
+  $('#bYT')?.addEventListener('click', () => {
     const u = prompt('Pega el enlace del video de YouTube', 'https://www.youtube.com/watch?v=');
     if (!u) return;
     const m = String(u).match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{6,})/);
@@ -118,8 +118,8 @@
   });
 
   /* ---------- ajustes ---------- */
-  $('#bAjustes').addEventListener('click', () => { $('#panel').hidden = !$('#panel').hidden; });
-  $('#resumen').addEventListener('input', () => {
+  $('#bAjustes')?.addEventListener('click', () => { $('#panel').hidden = !$('#panel').hidden; });
+  $('#resumen')?.addEventListener('input', () => {
     const n = $('#resumen').value.length, c = $('#cuenta');
     c.textContent = n + ' / 155';
     c.classList.toggle('mal', n > 155);
@@ -204,7 +204,7 @@
     a.download = nombre; a.click();
   };
 
-  $('#bDescargar').addEventListener('click', async () => {
+  $('#bDescargar')?.addEventListener('click', async () => {
     if (!titulo()) { avisa('Falta el título.'); return; }
     if (!$('#resumen').value.trim()) { $('#panel').hidden = false; $('#resumen').focus();
       avisa('Falta el resumen para Google.'); return; }
