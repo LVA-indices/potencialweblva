@@ -25,6 +25,11 @@ body { padding-top: 54px; }
   border-radius:8px;cursor:pointer;background:rgba(255,255,255,.10);color:#fff;white-space:nowrap}
 .adm button:hover{background:rgba(255,255,255,.18)}
 .adm button.pri{background:#FFD816;color:#0B1E2F}
+/* Falta un metadato obligatorio: el botón avisa sin abrir el panel. */
+.adm button.falta{box-shadow:inset 0 0 0 1.5px #FF8B7A;color:#FFC4BA}
+.adm button.falta:hover{background:rgba(255,139,122,.16)}
+.adm__falta{font-size:12.5px;color:#FFC4BA;white-space:nowrap}
+.adm__falta[hidden]{display:none}
 .adm button.pri:hover{background:#F0C400}
 
 .panel{position:fixed;top:54px;right:16px;z-index:200;width:min(340px,calc(100vw - 32px));
@@ -71,6 +76,7 @@ body { padding-top: 54px; }
 
 <div class="adm">
   <span class="adm__marca">Editor de posts<em id="ruta"></em></span>
+  <span class="adm__falta" id="falta" hidden></span>
   <button type="button" id="bAjustes">Metadatos</button>
   <button type="button" class="pri" id="bDescargar">Descargar post</button>
 </div>
@@ -198,6 +204,6 @@ body { padding-top: 54px; }
 <input type="file" id="fVideo" accept="video/*" aria-label="Elegir video de cabecera" hidden>
 
 <script src="../assets/brand/field.js"></script>
-<script src="editor.js?v=4"></script>
+<script src="editor.js?v=5"></script>
 </body>
 </html>

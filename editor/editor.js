@@ -122,6 +122,21 @@
      fuera o con Escape, no solo volviendo a pulsar el botón. */
   const panel = $('#panel'), bPanel = $('#bAjustes');
   const cierraPanel = () => { if (panel) panel.hidden = true; };
+
+  /* Aviso de metadato obligatorio: se marca el botón y se pone el motivo a su
+     lado, sin abrir el panel. Lo abre quien escribe, cuando quiera. */
+  const rotuloFalta = $('#falta');
+  const marcaFalta = txt => {
+    if (!bPanel || !rotuloFalta) return;
+    bPanel.classList.add('falta');
+    rotuloFalta.textContent = txt;
+    rotuloFalta.hidden = false;
+  };
+  const limpiaFalta = () => {
+    bPanel?.classList.remove('falta');
+    if (rotuloFalta) { rotuloFalta.hidden = true; rotuloFalta.textContent = ''; }
+  };
+  $('#resumen')?.addEventListener('input', () => { if ($('#resumen').value.trim()) limpiaFalta(); });
   bPanel?.addEventListener('click', e => { e.stopPropagation(); panel.hidden = !panel.hidden; });
   panel?.addEventListener('click', e => e.stopPropagation());
   document.addEventListener('click', () => { if (panel && !panel.hidden) cierraPanel(); });
@@ -215,8 +230,10 @@
 
   $('#bDescargar')?.addEventListener('click', async () => {
     if (!titulo()) { avisa('Falta el título.'); return; }
-    if (!$('#resumen').value.trim()) { $('#panel').hidden = false; $('#resumen').focus();
-      avisa('Falta el resumen para Google.'); return; }
+    if (!$('#resumen').value.trim()) {
+      marcaFalta('Falta el resumen para Google');
+      avisa('Falta el resumen para Google: está en Metadatos.'); return; }
+    limpiaFalta();
     baja(construye(), base() + '.html', 'text/html');
     if (media && media.tipo !== 'youtube')
       setTimeout(() => baja(media.blob, base() + '.' + media.ext), 400);
