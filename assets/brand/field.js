@@ -397,6 +397,15 @@
     // Solo actúa bajo 1024px; de ahí para arriba el CSS deja el menú completo
     // y este código no estorba porque el panel es display:contents.
     function startNav() {
+        // La barra es fija: se le pone fondo en cuanto se deja el borde superior,
+        // para que los enlaces no se pierdan sobre las secciones claras.
+        const barra = document.querySelector('.nav');
+        if (barra) {
+            const apoya = () => barra.classList.toggle('is-fija', window.scrollY > 8);
+            apoya();
+            addEventListener('scroll', apoya, { passive: true });
+        }
+
         const toggle = document.getElementById('nav-toggle');
         const panel = document.getElementById('nav-collapse');
         if (!toggle || !panel) return;
