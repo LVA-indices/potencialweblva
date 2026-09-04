@@ -118,7 +118,16 @@
   });
 
   /* ---------- ajustes ---------- */
-  $('#bAjustes')?.addEventListener('click', () => { $('#panel').hidden = !$('#panel').hidden; });
+  /* El panel de metadatos se comporta como un desplegable: se cierra al pulsar
+     fuera o con Escape, no solo volviendo a pulsar el botón. */
+  const panel = $('#panel'), bPanel = $('#bAjustes');
+  const cierraPanel = () => { if (panel) panel.hidden = true; };
+  bPanel?.addEventListener('click', e => { e.stopPropagation(); panel.hidden = !panel.hidden; });
+  panel?.addEventListener('click', e => e.stopPropagation());
+  document.addEventListener('click', () => { if (panel && !panel.hidden) cierraPanel(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && panel && !panel.hidden) { cierraPanel(); bPanel?.focus(); }
+  });
   $('#resumen')?.addEventListener('input', () => {
     const n = $('#resumen').value.length, c = $('#cuenta');
     c.textContent = n + ' / 155';
