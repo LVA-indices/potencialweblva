@@ -14,6 +14,10 @@
 <style>
 /* Todo lo de este bloque es del editor y desaparece al exportar. */
 body { padding-top: 54px; }
+/* La barra del sitio también es fija desde que el header quedó sticky: si no
+   se baja, se monta encima de la del editor. Estos 54px son el alto de .adm.
+   Esta regla no viaja al post: el exportador borra todos los <style>. */
+.nav { top: 54px; }
 
 .adm{position:fixed;top:0;left:0;right:0;z-index:200;height:54px;display:flex;
      align-items:center;gap:10px;padding:0 16px;background:#08131F;
