@@ -8,6 +8,23 @@
   const texto = $('#texto'), zona = $('#zona');
   let media = null;              // { tipo, ext, blob, url } o { tipo:'youtube', id }
 
+  /* ---------- el placeholder vuelve al vaciar ----------
+     El CSS lo muestra con :empty, pero al borrar el último carácter el
+     navegador deja un <br> dentro y el elemento deja de estar vacío: el
+     placeholder no volvía a aparecer nunca. Se limpia ese resto.
+     El cuerpo puede llevar imagen o video sin texto, así que ahí se comprueba
+     además que no quede ningún medio dentro. */
+  const normalizaVacio = el => {
+    if (!el) return;
+    const sinTexto = el.textContent.replace(/\u200B/g, '').trim() === '';
+    const sinMedios = !el.querySelector('img, video, iframe, figure');
+    if (sinTexto && sinMedios && el.innerHTML !== '') el.innerHTML = '';
+  };
+  document.querySelectorAll('[contenteditable][data-vacio]').forEach(el => {
+    ['input', 'blur'].forEach(ev => el.addEventListener(ev, () => normalizaVacio(el)));
+    normalizaVacio(el);
+  });
+
   /* ---------- utilidades ---------- */
   const aRuta = t => String(t).toLowerCase().normalize('NFD')
     .replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-')
