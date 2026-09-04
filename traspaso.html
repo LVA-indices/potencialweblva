@@ -905,13 +905,13 @@
 
         <h3>Cómo funciona hoy</h3>
         <p>Para editar cada post se diseñó una interfaz sencilla, pensando en que pueda usarla cualquiera: <a href="/editor/" target="_blank" rel="noopener">abrir el editor</a>.</p>
-        <p>Es una página que se edita encima: se escribe sobre el artículo real, con la hoja de estilos del sitio, y el formato se aplica con una barra flotante. Al terminar descarga el <code>.html</code> del post y la imagen ya renombrada.</p>
+        <p>Es una página que se edita encima: se escribe sobre el artículo real, con la hoja de estilos del sitio, y el formato se aplica con una barra flotante. Al terminar descarga el <code>.html</code> del post, la imagen ya renombrada y el <code>blog.html</code> con la entrada añadida al listado, para no editar nada a mano.</p>
 
         <ol class="pasos">
           <li>Se redacta la entrada en el editor.</li>
-          <li>Se descargan los dos archivos que genera.</li>
-          <li>Se colocan en <code>blog/</code> y <code>blog/images/</code>.</li>
-          <li>Se pega la tarjeta que el editor copia al portapapeles dentro de <code>&lt;div class="blog__grid"&gt;</code>, en <code>blog.html</code>. Es lo que hace que el post aparezca en el listado.</li>
+          <li>Se descargan los tres archivos que genera.</li>
+          <li>El post va en <code>blog/</code> y la imagen o el video en <code>blog/images/</code>.</li>
+          <li>El <code>blog.html</code> descargado reemplaza al de la raíz: ya trae la entrada añadida al listado.</li>
         </ol>
 
         <h3>Los caminos posibles, cuando se decida</h3>

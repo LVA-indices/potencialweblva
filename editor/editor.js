@@ -204,20 +204,28 @@
     a.download = nombre; a.click();
   };
 
-  $('#bDescargar').addEventListener('click', () => {
+  $('#bDescargar').addEventListener('click', async () => {
     if (!titulo()) { avisa('Falta el título.'); return; }
     if (!$('#resumen').value.trim()) { $('#panel').hidden = false; $('#resumen').focus();
       avisa('Falta el resumen para Google.'); return; }
     baja(construye(), base() + '.html', 'text/html');
     if (media && media.tipo !== 'youtube')
       setTimeout(() => baja(media.blob, base() + '.' + media.ext), 400);
-    avisa('Descargado. El HTML va en blog/ y la imagen o el video en blog/images/.');
+    /* Tercer archivo: el listado ya actualizado, para no pegar nada a mano. */
+    try {
+      const listado = await listadoActualizado();
+      setTimeout(() => baja(listado, 'blog.html', 'text/html'), 800);
+      avisa('Tres archivos: el post va en blog/, la imagen en blog/images/ y blog.html reemplaza al de la raíz.');
+    } catch (e) {
+      baja(tarjeta(), base() + '-tarjeta.txt', 'text/plain');
+      avisa('No pude actualizar el listado (' + e.message + '). Te dejo la tarjeta en .txt para pegarla en blog.html.');
+    }
   });
 
-  $('#bTarjeta').addEventListener('click', async () => {
+  /* La tarjeta del listado, con el mismo marcado que usa blog.html */
+  const tarjeta = () => {
     const ext = media && media.tipo !== 'youtube' ? media.ext : 'jpg';
-    const t =
-'            <a class="entrada" href="blog/' + base() + '.html">\n' +
+    return '            <a class="entrada" href="blog/' + base() + '.html">\n' +
 '                <div class="entrada__foto">\n' +
 '                    <img src="blog/images/' + base() + '.' + ext + '"\n' +
 '                         alt="' + esc(titulo()) + '" loading="lazy">\n' +
@@ -231,9 +239,26 @@
 '                <p class="entrada__bajada">' + esc($('#resumen').value) + '</p>\n' +
 '                <span class="entrada__enlace">Leer el artículo &rarr;</span>\n' +
 '            </a>';
-    try { await navigator.clipboard.writeText(t); avisa('Tarjeta copiada. Pégala dentro de <div class=\"blog__grid\"> en blog.html.'); }
-    catch (e) { baja(t, base() + '-tarjeta.txt', 'text/plain'); avisa('Sin portapapeles: te la descargué como .txt.'); }
-  });
+  };
+
+  /* Devuelve el blog.html actual con la tarjeta ya insertada arriba del listado.
+     Se lee el archivo real del sitio, así que respeta lo que ya haya publicado. */
+  const listadoActualizado = async () => {
+    const r = await fetch('../blog.html', { cache: 'no-store' });
+    if (!r.ok) throw new Error('no se pudo leer blog.html');
+    const html = await r.text();
+    const marca = '<div class="blog__grid">';
+    const i = html.indexOf(marca);
+    if (i < 0) throw new Error('no se encontró el listado en blog.html');
+    if (html.includes('blog/' + base() + '.html'))
+      throw new Error('ese post ya está en el listado');
+    const corte = i + marca.length;
+    /* blog.html usa CRLF: la tarjeta se inserta con el mismo fin de línea del
+       archivo, para no dejarlo con finales mezclados. */
+    const eol = html.includes('\r\n') ? '\r\n' : '\n';
+    const bloque = tarjeta().split('\n').join(eol);
+    return html.slice(0, corte) + eol + eol + bloque + html.slice(corte);
+  };
 
   /* ---------- borrador ----------
      Solo texto: la imagen ocuparía demasiado en el almacenamiento del navegador. */
