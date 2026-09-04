@@ -217,21 +217,21 @@
   $('#bTarjeta').addEventListener('click', async () => {
     const ext = media && media.tipo !== 'youtube' ? media.ext : 'jpg';
     const t =
-'            <a href="blog/' + base() + '.html" class="blog-card">\n' +
-'                <div class="blog-card-image">\n' +
-'                    <img src="blog/images/' + base() + '.' + ext + '" alt="' + esc(titulo()) + '">\n' +
+'            <a class="entrada" href="blog/' + base() + '.html">\n' +
+'                <div class="entrada__foto">\n' +
+'                    <img src="blog/images/' + base() + '.' + ext + '"\n' +
+'                         alt="' + esc(titulo()) + '" loading="lazy">\n' +
 '                </div>\n' +
-'                <div class="blog-card-content">\n' +
-'                    <div class="blog-card-meta">\n' +
-'                        <span class="blog-card-date">' + esc($('[data-campo="fecha"]').textContent.trim()) + '</span>\n' +
-'                        <span class="blog-card-tag">' + esc($('#etiqueta').value) + '</span>\n' +
-'                    </div>\n' +
-'                    <h3>' + esc(titulo()) + '</h3>\n' +
-'                    <p>' + esc($('#resumen').value) + '</p>\n' +
-'                    <span class="blog-card-link">Leer más &rarr;</span>\n' +
+'                <div class="entrada__meta">\n' +
+'                    <span>' + esc($('[data-campo="fecha"]').textContent.trim()) + '</span>\n' +
+'                    <i></i>\n' +
+'                    <span>' + esc($('#etiqueta').value) + '</span>\n' +
 '                </div>\n' +
+'                <h2 class="entrada__titulo">' + esc(titulo()) + '</h2>\n' +
+'                <p class="entrada__bajada">' + esc($('#resumen').value) + '</p>\n' +
+'                <span class="entrada__enlace">Leer el artículo &rarr;</span>\n' +
 '            </a>';
-    try { await navigator.clipboard.writeText(t); avisa('Tarjeta copiada. Pégala en blog.html.'); }
+    try { await navigator.clipboard.writeText(t); avisa('Tarjeta copiada. Pégala dentro de <div class=\"blog__grid\"> en blog.html.'); }
     catch (e) { baja(t, base() + '-tarjeta.txt', 'text/plain'); avisa('Sin portapapeles: te la descargué como .txt.'); }
   });
 
