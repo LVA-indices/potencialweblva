@@ -215,10 +215,11 @@ button:focus-visible,
   .nav.is-fija { background-color: rgba(11, 30, 47, 0.80); backdrop-filter: blur(10px); }
 }
 
-/* Los destinos del menú no pueden quedar debajo de la barra al saltar. */
+/* Los destinos del menú se apoyan justo bajo la barra. Sin aire extra: ese
+   hueco dejaba ver una franja de la sección anterior asomando bajo la barra. */
 :target,
 #soluciones, #datos, #premios, #nosotros, #recuperar {
-  scroll-margin-top: calc(var(--v5-nav-h) + 14px);
+  scroll-margin-top: var(--v5-nav-h);
 }
 
 .nav__toggle {
