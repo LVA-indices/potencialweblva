@@ -50,11 +50,21 @@
     const iClave = Math.max(0, cab.indexOf('clave'));
     let iTexto = cab.indexOf('texto');
     if (iTexto < 0) iTexto = filas[0].length - 1;
+    const iBorrador = cab.indexOf('borrador');
+
+    /* La vista previa muestra el borrador; el sitio público, solo lo publicado.
+       Así se revisa un cambio antes de que lo vea nadie: se escribe en
+       «borrador», se comprueba en la vista previa, y publicar es copiar esa
+       celda a «texto». La lista de hosts de prueba es lo único que hay que
+       tocar si cambia la URL de la vista previa. */
+    const enPruebas = /(^|\.)netlify\.app$|^localhost$|^127\.0\.0\.1$/.test(location.hostname);
 
     let puestos = 0;
     for (let i = 1; i < filas.length; i++) {
       const clave = (filas[i][iClave] || '').trim();
-      const texto = (filas[i][iTexto] || '').trim();
+      const publicado = (filas[i][iTexto] || '').trim();
+      const borrador = iBorrador >= 0 ? (filas[i][iBorrador] || '').trim() : '';
+      const texto = (enPruebas && borrador) ? borrador : publicado;
       if (!clave || !texto) continue;
       const el = document.querySelector('[data-txt="' + CSS.escape(clave) + '"]');
       if (!el) continue;

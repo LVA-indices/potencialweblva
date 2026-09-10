@@ -1931,3 +1931,21 @@ solo cambia lo que ya está marcado.
 
 **Cambiar de origen** es cambiar la constante `HOJA` por la ruta a un archivo
 local. El resto no se toca.
+
+
+### Borrador y publicado
+
+La hoja lleva dos columnas de texto: **`texto`** es lo que ve el sitio público y
+**`borrador`** lo que se está probando.
+
+La vista previa (`*.netlify.app` y `localhost`) muestra el borrador cuando la
+celda tiene algo; el sitio público lee siempre `texto`. Así se revisa un cambio
+antes de que lo vea nadie, sin infraestructura: **publicar es copiar la celda de
+`borrador` a `texto`** y vaciar la primera.
+
+`/textos/` avisa de cuántos borradores hay sin publicar y de cuáles. Si la
+columna `borrador` no existe, lo dice: sin ella no hay paso de revisión y todo
+lo que se escriba sale publicado.
+
+Si cambia la URL de la vista previa, lo único que hay que tocar es la expresión
+`enPruebas` en `assets/brand/textos.js`.

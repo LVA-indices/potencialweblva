@@ -191,7 +191,15 @@
         if (celda || fila.length) { fila.push(celda); f.push(fila); }
         return f;
       };
-      const filas = leeCSV(txt).slice(1).map(f => (f[0] || '').trim()).filter(Boolean);
+      const tabla = leeCSV(txt);
+      const cab = (tabla[0] || []).map(c => c.trim().toLowerCase());
+      const iTexto = cab.indexOf('texto') >= 0 ? cab.indexOf('texto') : 2;
+      const iBorr = cab.indexOf('borrador');
+      const cuerpo = tabla.slice(1).filter(f => (f[0] || '').trim());
+      const filas = cuerpo.map(f => f[0].trim());
+      /* pendientes: hay borrador y difiere de lo publicado */
+      const pendientes = iBorr < 0 ? [] : cuerpo.filter(f =>
+        (f[iBorr] || '').trim() && (f[iBorr] || '').trim() !== (f[iTexto] || '').trim());
       const marcas = new Set();
       await Promise.all(PAGINAS.map(async p => {
         try {
@@ -203,6 +211,9 @@
       const sinFila = [...marcas].filter(k => !filas.includes(k));
 
       let extra = '';
+      if (iBorr < 0) extra += ' <b>Falta la columna «borrador»</b>: sin ella no hay paso de revisión y lo que se escriba sale publicado.';
+      else if (pendientes.length) extra += ' <b>' + pendientes.length + ' con borrador sin publicar</b> — se ven en la vista previa, no en el sitio público: ' +
+        pendientes.slice(0, 4).map(f => f[0].trim()).join(', ') + (pendientes.length > 4 ? '…' : '') + '.';
       if (huerfanas.length) extra += ' <b>' + huerfanas.length + '</b> fila(s) con una clave que ya no existe en el sitio: no se aplican.';
       if (sinFila.length) extra += ' <b>' + sinFila.length + '</b> texto(s) del sitio sin fila en la hoja: solo se pueden cambiar desde aquí.';
       pon('bien', '<b>La hoja se lee bien.</b> ' + filas.length + ' filas, ' +
