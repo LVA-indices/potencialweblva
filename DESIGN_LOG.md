@@ -1966,3 +1966,32 @@ páginas, elegido sabiendo el servidor.
 **Las 105 marcas `data-txt` se conservan.** Son inertes y son el mapa que ese
 CMS necesitará. Si hace falta recuperar el cargador o la pantalla, están en el
 historial (commits `00fef91` y `4f22142`).
+
+
+## Maqueta del CMS (`admin/`)
+
+Layout completo del espacio de administración, **sin conexiones**: nada se
+guarda. Se hizo antes de tener servidor a propósito — así, cuando se sepa dónde
+vive el sitio, solo hay que enchufar el guardado.
+
+**Tres áreas** en una sola pantalla, con navegación lateral:
+
+- **Textos del sitio** — por página y por sección, con el nombre en castellano
+  de dónde aparece cada uno. Los textos con formato dentro se avisan.
+- **Blog** — listado de entradas con fecha, etiqueta y estado, más un apartado
+  de borradores. «Escribir entrada» abre el editor que ya existe.
+- **Configuración** — identidad (título, descripción, favicon), medición
+  (Analytics, LinkedIn), contacto (correo de la demo y de soporte), redes y pie.
+
+**Datos reales, no relleno.** El copy es el del sitio y los valores de
+configuración son los que hay hoy, para poder juzgar el diseño con contenido
+verdadero.
+
+**El candado es de mentira.** Comprueba la contraseña en el navegador: sirve
+para que la pantalla no quede a la vista, no para proteger nada. El acceso de
+verdad va del lado del servidor, y es de las primeras cosas a resolver al
+conectarlo.
+
+**Lo que falta enchufar:** cargar y guardar en las tres áreas, la subida del
+favicon, y el acceso real. Las 105 marcas `data-txt` del sitio son el mapa que
+usará el área de textos.
