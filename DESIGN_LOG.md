@@ -1860,3 +1860,39 @@ datos que el sitio nombra —instrumentos, benchmarks, carteras— no son públi
 **Sección oculta.** «El arte de los datos» queda completa en el HTML pero con el
 atributo `hidden`, por decisión de esta versión del traspaso. Para recuperarla
 basta quitar ese atributo; el índice lateral la vuelve a listar solo.
+
+
+---
+
+## Editor de textos (`textos/`)
+
+Pantalla interna para cambiar el copy del sitio **sin tocar código y sin pedirlo
+por chat**. Misma idea que el editor de posts: carga las páginas reales, muestra
+sus textos como formulario y devuelve el archivo modificado para colocarlo.
+
+**El sitio no gana ni una línea.** No hay `textos.json`, ni carga en tiempo de
+ejecución, ni servicio externo. Se descartó la hoja de Google publicada por eso
+mismo: ataba el sitio a la cuenta de una persona y a un servicio de terceros.
+Aquí el HTML sigue siendo la única fuente, y el editor solo lo reescribe.
+
+**Cómo sustituye.** Sobre el HTML **como texto**, nunca reserializando el DOM:
+así el resto del archivo —código, formato, finales de línea— sale byte por byte
+igual. Comprobado: al cambiar un titular, el archivo descargado difiere del
+original en **una sola línea**.
+
+Para localizar cada texto usa un ancla de dos niveles: primero el texto solo
+(`>…<`); si aparece repetido en la página —pasa con rótulos como «SOLUCIONES»—
+prueba con la etiqueta completa, que lleva sus clases. Si ninguna es única, el
+campo se muestra **bloqueado** en vez de arriesgar un cambio en el sitio
+equivocado. Hoy hay 4 campos así de 44.
+
+**Qué entra.** Solo secciones de contenido: hero, soluciones, datos, premios,
+nosotros, el camino, la demo, el acceso y el blog. Fuera la navegación, el pie y
+las etiquetas de formulario: ahí un cambio no es texto, es estructura.
+
+**La frontera.** Editar un texto que existe es autónomo. Añadir una sección,
+crear un texto nuevo o mover algo sigue siendo trabajo de código.
+
+**Lo que hereda del editor de posts:** también hay que colocar el archivo
+descargado en su sitio. Ese paso sigue necesitando acceso al repo o a quien
+publique.
