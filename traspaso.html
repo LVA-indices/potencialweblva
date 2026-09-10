@@ -901,37 +901,14 @@
 
       <section id="s-textos">
         <h2>Cómo se cambian los textos</h2>
-        <p>El copy del sitio se edita en <strong>una hoja de cálculo de LVA</strong>, sin tocar código y sin desplegar. Ese es el camino oficial; lo que sigue describe cómo funciona y qué queda fuera.</p>
+        <p>Hoy los cambios de copy los hace <strong>quien lleva el front-end</strong>. No hay pantalla de edición para el resto del equipo, y es una decisión, no un olvido.</p>
+        <p>Se probó una: los textos se editaban en una hoja de cálculo que el sitio leía al cargar. Funcionaba, pero traía un servicio externo a la vida del sitio —una llamada a Google en cada visita, un permiso que se cae solo, y un fallo que no se ve porque el sitio simplemente muestra el texto anterior—. Para un sitio corporativo de finanzas eso pesa más que la comodidad que daba. <strong>Se retiró.</strong></p>
 
-        <h3>El flujo</h3>
-        <ol class="pasos">
-          <li>En la hoja, se busca la fila por la columna <em>dónde va</em>, que dice en castellano dónde aparece ese texto.</li>
-          <li>Se escribe el cambio en la columna <strong>borrador</strong>. La columna <code>texto</code> no se toca.</li>
-          <li>Se abre la vista previa: ahí se ve el borrador aplicado, en su sitio y con el diseño real. El sitio público no ha cambiado.</li>
-          <li>Si está bien, <strong>publicar es copiar la celda de <code>borrador</code> a <code>texto</code></strong> y vaciar la primera.</li>
-        </ol>
-        <p>La página <code>/textos/</code> es la <strong>pantalla de comprobación</strong>: al abrirse dice si la hoja se lee, cuántas filas trae, cuántas se están aplicando y cuántos borradores quedan sin publicar. Es el sitio donde mirar cuando un cambio no aparece.</p>
+        <h3>Lo que quedó puesto</h3>
+        <p>Cada texto editable conserva su marca en el HTML: <code>data-txt="clave"</code>, <strong>105 en las cuatro páginas</strong>, con nombres legibles como <code>portada.hero.titular1</code>. No hacen nada en tiempo de ejecución —son atributos inertes— y no cuestan un byte de rendimiento.</p>
+        <p>Están ahí porque son <strong>el mapa que necesitará el CMS</strong>: la correspondencia entre cada texto del sitio y un identificador estable. Es el trabajo aburrido de un CMS y ya está hecho.</p>
 
-        <h3>Cómo está amarrado</h3>
-        <p>Cada texto editable lleva <code>data-txt="clave"</code> en el HTML —105 marcas en las cuatro páginas— y un cargador de unas cuarenta líneas reemplaza los que la hoja traiga distintos.</p>
-        <ul>
-          <li><strong>El HTML manda como respaldo.</strong> Si la hoja no responde, tarda, viene vacía o pierde el permiso, el sitio se queda con su texto y no se rompe nada.</li>
-          <li><strong>Se limpia lo que llega:</strong> se descartan <code>script</code>, <code>iframe</code> y los manejadores de eventos. Verificado con un script puesto a propósito en una celda.</li>
-          <li><strong>El amarre no es con Netlify, es con Google.</strong> El navegador del visitante lee la hoja, así que funciona igual servido desde cualquier alojamiento: los archivos se mueven y sigue andando sin tocar una línea.</li>
-        </ul>
-
-        <h3>Lo que la hoja no puede hacer</h3>
-        <ul>
-          <li>Crear un texto nuevo, una sección o mover un bloque. Solo cambia lo que ya está marcado.</li>
-          <li>Tocar la navegación, el pie o las etiquetas del formulario: ahí un cambio no es texto, es estructura.</li>
-          <li>Cuatro textos llevan etiquetas dentro —los tres pasos de «Tu camino con LVA» y el pie de Acceso—. Se pueden editar, pero hay que <strong>conservar las etiquetas</strong> o el bloque pierde su formato.</li>
-        </ul>
-
-        <div class="nota">
-          <p><strong>Dos cosas que conviene vigilar.</strong> El permiso de la hoja debe estar en «Cualquier persona con el enlace · Lector»: ya se cayó una vez, y si vuelve a caerse sola es una política de Workspace y esta vía deja de ser viable. Y <strong>lo que esa hoja contenga es público</strong>, porque se lee sin autenticación: solo copy del sitio, nada más.</p>
-        </div>
-
-        <div class="aviso"><strong>Esto es provisional a propósito.</strong> Es lo más liviano que resuelve el problema hoy —una persona cambia un texto sin depender de nadie— y no ata el alojamiento. La herramienta definitiva se elige cuando se sepa dónde vive el sitio: un CMS se escoge sabiendo el servidor, no antes.</div>
+        <div class="aviso"><strong>Lo siguiente, cuando se sepa dónde vive el sitio:</strong> un CMS ligero para el blog y las páginas. Se elige sabiendo el servidor, no antes — la mitad de las opciones razonables dependen de dónde esté alojado y de qué permite IT. Hasta entonces, los textos se piden y el blog se publica con el editor de <code>/editor/</code>.</div>
       </section>
 
       <section id="s-blog">

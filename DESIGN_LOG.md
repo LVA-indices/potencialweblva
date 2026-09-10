@@ -1949,3 +1949,20 @@ lo que se escriba sale publicado.
 
 Si cambia la URL de la vista previa, lo único que hay que tocar es la expresión
 `enPruebas` en `assets/brand/textos.js`.
+
+
+### Retirado: los textos desde la hoja
+
+El mecanismo de hoja de cálculo (cargador `assets/brand/textos.js` + pantalla
+`textos/`) **se retiró**. Funcionaba y estaba verificado, pero metía un servicio
+externo en la vida del sitio: una llamada a Google en cada visita, un permiso
+que se cayó solo una vez, y un modo de fallo invisible —el sitio muestra el
+texto anterior y nadie se entera—.
+
+Decisión: hasta que se sepa dónde se aloja el sitio, los cambios de copy los
+hace quien lleva el front-end, y después se construye un CMS ligero para blog y
+páginas, elegido sabiendo el servidor.
+
+**Las 105 marcas `data-txt` se conservan.** Son inertes y son el mapa que ese
+CMS necesitará. Si hace falta recuperar el cargador o la pantalla, están en el
+historial (commits `00fef91` y `4f22142`).
