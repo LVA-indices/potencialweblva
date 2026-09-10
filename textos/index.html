@@ -63,6 +63,13 @@
   .cargando{padding:40px 18px;color:var(--tenue)}
   .intro{max-width:860px;margin:0 auto;padding:18px 18px 0;color:var(--tenue);font-size:13.5px}
   .intro b{color:var(--claro)}
+  .salud{max-width:860px;margin:16px auto 0;padding:12px 14px;border-radius:10px;border:1px solid var(--linea);background:rgba(255,255,255,.03);font-size:13.5px;line-height:1.55}
+  .salud b{color:var(--claro)}
+  .salud.bien{border-color:rgba(47,195,227,.45)}
+  .salud.bien::before{content:"● ";color:var(--turquesa)}
+  .salud.mal{border-color:rgba(255,139,122,.5);background:rgba(255,139,122,.07);color:#FFC4BA}
+  .salud.mal::before{content:"● ";color:var(--alerta)}
+  .salud a{color:var(--turquesa)}
 </style>
 </head>
 <body>
@@ -74,6 +81,7 @@
   <button type="button" class="pri" id="bDescargar" disabled>Descargar página</button>
 </div>
 
+<div class="salud" id="salud">Comprobando la hoja…</div>
 <p class="intro">Edita el texto y descarga la página. El archivo descargado <b>reemplaza al del mismo nombre</b> en el sitio.
 Solo cambia el texto: el diseño y el código quedan intactos.</p>
 
@@ -81,6 +89,6 @@ Solo cambia el texto: el diseño y el código quedan intactos.</p>
 <main id="lista"><p class="cargando">Cargando…</p></main>
 <div class="aviso" id="aviso" role="status" aria-live="polite"></div>
 
-<script src="textos.js?v=3"></script>
+<script src="textos.js?v=5"></script>
 </body>
 </html>
