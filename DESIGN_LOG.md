@@ -1896,3 +1896,38 @@ crear un texto nuevo o mover algo sigue siendo trabajo de código.
 **Lo que hereda del editor de posts:** también hay que colocar el archivo
 descargado en su sitio. Ese paso sigue necesitando acceso al repo o a quien
 publique.
+
+
+---
+
+## Textos desde la hoja (`assets/brand/textos.js`)
+
+El copy del sitio se puede cambiar desde una hoja de cálculo de LVA, sin tocar
+código ni desplegar. Cada texto editable lleva `data-txt="clave"` en el HTML
+—105 marcas repartidas en las cuatro páginas— y el cargador reemplaza los que
+hayan cambiado en la hoja.
+
+**La hoja:** `1cksJRVqbF3Xmz151_-L1d7ZBjAgPqxxIgwwwGVyWtDs`, leída por
+`export?format=csv`. No hace falta «Publicar en la web». Debe estar como
+**lector para cualquiera con el enlace** (es lo que permite leerla sin sesión) y
+los editores se añaden aparte, por persona o por grupo. Conviene que viva en una
+**unidad compartida**: así el propietario es LVA y no una persona.
+
+**El HTML manda como respaldo.** Si la hoja no responde, tarda, viene vacía o
+alguien la despublica, el sitio se queda con su texto y no se rompe nada. Una
+clave que no existe se ignora; una celda vacía se ignora.
+
+**Se limpia lo que llega.** Se descartan `script`, `iframe`, `object` y los
+manejadores de eventos. Verificado: un `<script>` puesto a propósito en una
+celda no llega al DOM.
+
+> **Lo que esa hoja contenga es público**, porque se lee sin autenticación. Solo
+> copy del sitio: nada de contactos, notas internas ni otras pestañas.
+
+**Dos límites.** El buscador indexa el HTML, así que si el texto vivo se aleja
+mucho del que está en el archivo conviene bajarlo con el editor de `textos/`.
+Y añadir un texto nuevo o una sección sigue siendo trabajo de código: la hoja
+solo cambia lo que ya está marcado.
+
+**Cambiar de origen** es cambiar la constante `HOJA` por la ruta a un archivo
+local. El resto no se toca.
