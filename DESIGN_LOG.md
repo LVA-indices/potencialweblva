@@ -1995,3 +1995,14 @@ conectarlo.
 **Lo que falta enchufar:** cargar y guardar en las tres áreas, la subida del
 favicon, y el acceso real. Las 105 marcas `data-txt` del sitio son el mapa que
 usará el área de textos.
+
+### Soluciones dentro del área de textos
+
+Faltaban los textos de los servicios. Son 61 —cuatro dominios, cada uno con su
+párrafo de entrada, y 19 fichas de etiqueta, título y texto— y puestos en una
+sola lista se volvían un scroll interminable.
+
+Van en una tarjeta propia con **subpestañas por dominio** (Distribución, Riesgo
+financiero, Inversión y mercado, Compliance): se ve la introducción del dominio
+y sus fichas, cada una en su bloque con «Ficha 1 de 5». Así se edita un dominio
+a la vez, que es como se piensa el contenido.

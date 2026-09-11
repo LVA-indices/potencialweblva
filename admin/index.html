@@ -112,6 +112,17 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--turquesa
 .acciones button{padding:6px 11px;font-size:13px;border-radius:7px;border:1px solid var(--linea);background:var(--papel);color:var(--cuerpo)}
 .acciones button:hover{border-color:var(--turquesa);color:var(--turquesa)}
 .vacio{padding:34px;text-align:center;color:var(--tenue);font-size:14px}
+/* Soluciones: cuatro dominios dentro de la misma tarjeta */
+.subpestanas{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 4px}
+.subpestanas button{padding:6px 13px;border-radius:8px;border:1px solid var(--linea);
+  background:var(--papel);color:var(--cuerpo);font-size:13px}
+.subpestanas button[aria-selected="true"]{background:rgba(2,169,195,.10);border-color:var(--turquesa);
+  color:#04758A;font-weight:600}
+.fichas{margin-top:18px;display:flex;flex-direction:column;gap:14px}
+.ficha{border:1px solid var(--linea);border-radius:10px;padding:4px 14px 10px;background:#FCFDFE}
+.ficha__n{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--tenue);
+  padding-top:12px}
+.ficha .campo:last-child{border-bottom:0}
 .nota{font-size:12.5px;color:var(--tenue);margin-top:10px}
 [hidden]{display:none !important}
 </style>
@@ -163,6 +174,6 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--turquesa
   </main>
 </div>
 
-<script src="admin.js?v=1"></script>
+<script src="admin.js?v=2"></script>
 </body>
 </html>

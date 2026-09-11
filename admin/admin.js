@@ -44,12 +44,9 @@
       ]],
       ['Soluciones', [
         ['Rótulo', 'SOLUCIONES', 'Sobre el título', 1],
-        ['Título', 'Cuatro dominios, un solo estándar de información.', '', 2],
-        ['Intro · Distribución', 'Somos los proveedores de servicios financieros más grandes de LATAM.', 'Bajo las pestañas', 2],
-        ['Ficha · etiqueta', 'UN SOLO CLICK', 'Primera ficha de Distribución', 1],
-        ['Ficha · título', 'Consolidación de carteras automática', '', 2],
-        ['Ficha · texto', 'Qué hay realmente en cada cartera, consolidado en minutos.', '', 3]
+        ['Título', 'Cuatro dominios, un solo estándar de información.', '', 2]
       ]],
+      ['__soluciones__', []],
       ['Premios', [
         ['Rótulo', 'PREMIOS', '', 1],
         ['Título', 'El estándar que la industria reconoce.', '', 2],
@@ -83,6 +80,135 @@
         ['Bajada', 'Noticias y novedades desde LVA Índices', '', 1]
       ]]
     ]
+  };
+
+  /* Soluciones va aparte: cuatro dominios con su introducción y 19 fichas.
+     En una lista plana serían 61 campos seguidos, así que lleva su propia
+     navegación por dominio dentro de la tarjeta. */
+  const SOLUCIONES = {
+    "tabs": [
+      "Distribución",
+      "Riesgo financiero",
+      "Inversión y mercado",
+      "Compliance"
+    ],
+    "paneles": {
+      "distribucion": {
+        "intro": "Somos los proveedores de servicios financieros más grandes de LATAM. Más de 500 asesores nos usan a diario.",
+        "fichas": [
+          [
+            "UN SOLO CLICK",
+            "Consolidación de carteras automática",
+            "Qué hay realmente en cada cartera, consolidado en minutos."
+          ],
+          [
+            "PLATAFORMA INTEGRAL",
+            "Tu equipo comercial con toda la información",
+            "Datos de mercado, análisis y contenido comercial centralizados. Deja de saltar entre sistemas."
+          ],
+          [
+            "PROPUESTAS",
+            "+1.000 propuestas al día",
+            "Ajustadas al perfil de riesgo del cliente y generadas automáticamente. Tu fuerza de venta está para cerrar negocios, no armar documentos."
+          ],
+          [
+            "INTELLIGENCE",
+            "Conoce al comprador antes de la reunión",
+            "Comportamientos y preferencias de los compradores institucionales del país. Llega a cada reunión entendiendo qué busca el comprador."
+          ],
+          [
+            "MARKETING DE FONDOS",
+            "Fichas y reportes con tu marca",
+            "Formato consistente, información al día, sin producción manual. Cada pieza comunica exactamente lo que tú quieres decir."
+          ]
+        ]
+      },
+      "riesgo": {
+        "intro": "Una nueva forma de entender tu riesgo. +3.000&nbsp;reportes, +70&nbsp;fondos y +6.000&nbsp;millones gestionados.",
+        "fichas": [
+          [
+            "PRE-TRADE",
+            "Métricas antes de tomar la decisión",
+            "Análisis en tiempo real, conectado a tu proceso de inversión."
+          ],
+          [
+            "CARTERAS COMPLEJAS",
+            "Renta fija, derivados y alternativos",
+            "Modelamiento apoyado en veinte años de experiencia local."
+          ],
+          [
+            "NCG 507",
+            "Cumple la norma a cabalidad",
+            "Todas tus políticas y reportes, sin importar la cantidad de fondos."
+          ],
+          [
+            "AUTOMATIZACIÓN",
+            "Dedícate al análisis, no a los cálculos",
+            "Todo automatizado y sin fricción con tus procesos. Usamos la mejor información del mercado y la combinamos con tu visión."
+          ],
+          [
+            "PLATAFORMA",
+            "Tecnología, no solo datos",
+            "MCPs para alimentar tus agentes y control operativo del servicio."
+          ]
+        ]
+      },
+      "inversion": {
+        "intro": "Más de 11.000 instrumentos de deuda valorizados cada día, con metodología auditada y reconocida por reguladores.",
+        "fichas": [
+          [
+            "PRICING OFICIAL",
+            "+11.000 precios certificados cada día",
+            "Metodología transparente, auditada y reconocida por reguladores. Valoriza tus carteras con confianza absoluta."
+          ],
+          [
+            "ANALYTICS DE DEUDA",
+            "Curvas, spreads y comparables",
+            "El mercado de renta fija local, completo y en tiempo real."
+          ],
+          [
+            "BENCHMARKING",
+            "+1.400 benchmarks",
+            "Segmentados por plazo, emisor, rating y clase de activo. Mide tus fondos con los estándares que el mercado entiende."
+          ],
+          [
+            "VALUATION",
+            "Activos complejos",
+            "Bonos, derivados, alternativos y deuda privada con modelos reconocidos."
+          ],
+          [
+            "INFORMACIÓN DIARIA",
+            "Información pre-trade para tu equipo",
+            "Maneja toda la información de riesgo de tus fondos antes de tomar la decisión de inversión."
+          ]
+        ]
+      },
+      "compliance": {
+        "intro": "Más de 90% de adopción del mercado en fichas regulatorias, con un solo sistema para cuatro marcos regulatorios.",
+        "fichas": [
+          [
+            "90% DEL MERCADO",
+            "Folletos informativos automáticos",
+            "En el formato exacto que exigen la CMF y la SFC. +400 fichas al mes."
+          ],
+          [
+            "4 PAÍSES",
+            "Un solo proveedor regional",
+            "Chile, Colombia, México y Perú desde un mismo sistema."
+          ],
+          [
+            "TRANSPARENCIA",
+            "Apertura completa de carteras",
+            "Límites de inversión y reportería lista para el regulador."
+          ],
+          [
+            "COLOMBIA",
+            "Proveedor oficial de la industria de fondos",
+            "Data certificada y al día para operar y cumplir."
+          ]
+        ]
+      }
+    }
   };
 
   const POSTS = [
@@ -130,13 +256,41 @@
       ${control}</div>`;
   }
 
+  const IDS = ['distribucion', 'riesgo', 'inversion', 'compliance'];
+  let dominio = 0;
+
+  function tarjetaSoluciones() {
+    const total = Object.values(SOLUCIONES.paneles).reduce((a, p) => a + 1 + p.fichas.length * 3, 0);
+    const pes = SOLUCIONES.tabs.map((t, i) =>
+      `<button type="button" data-dom="${i}" aria-selected="${i === dominio}">${esc(t)}</button>`).join('');
+    const p = SOLUCIONES.paneles[IDS[dominio]];
+    const fichas = p.fichas.map((f, i) => `
+      <div class="ficha">
+        <div class="ficha__n">Ficha ${i + 1} de ${p.fichas.length}</div>
+        ${campo('Etiqueta', f[0], 'En mayúsculas, sobre el título', 1)}
+        ${campo('Título', f[1], '', 2)}
+        ${campo('Texto', f[2], '', 3)}
+      </div>`).join('');
+    return `<section class="tarjeta" id="tarjetaSoluciones">
+      <div class="tarjeta__cab"><h2>Soluciones · los cuatro dominios</h2>
+        <span class="cuenta">${total} textos</span></div>
+      <div class="tarjeta__cuerpo">
+        <div class="subpestanas">${pes}</div>
+        ${campo('Introducción del dominio', p.intro, 'Bajo las pestañas, antes de las fichas', 3)}
+        <div class="fichas">${fichas}</div>
+      </div>
+    </section>`;
+  }
+
   function pintaTextos(pagina) {
     const secciones = TEXTOS[pagina] || [];
     const n = secciones.reduce((a, s) => a + s[1].length, 0);
     $('#subArea').textContent = pagina + ' · ' + n + ' textos';
     const pestanas = Object.keys(TEXTOS).map(p =>
       `<button type="button" data-pag="${esc(p)}" aria-selected="${p === pagina}">${esc(p)}</button>`).join('');
-    const cuerpo = secciones.map(([titulo, campos]) => `
+    const cuerpo = secciones.map(([titulo, campos]) => titulo === '__soluciones__'
+      ? tarjetaSoluciones()
+      : `
       <section class="tarjeta">
         <div class="tarjeta__cab"><h2>${esc(titulo)}</h2>
           <span class="cuenta">${campos.length} textos</span></div>
@@ -145,7 +299,9 @@
     $('#area').innerHTML = `<div class="pestanas">${pestanas}</div>${cuerpo}
       <p class="nota">Los textos que llevan formato dentro (negritas, saltos de línea, enlaces) se editan conservando sus etiquetas.</p>`;
     $('#area').querySelectorAll('[data-pag]').forEach(b =>
-      b.addEventListener('click', () => pintaTextos(b.dataset.pag)));
+      b.addEventListener('click', () => { dominio = 0; pintaTextos(b.dataset.pag); }));
+    $('#area').querySelectorAll('[data-dom]').forEach(b =>
+      b.addEventListener('click', () => { dominio = +b.dataset.dom; pintaTextos(pagina); }));
   }
 
   function pintaBlog() {
